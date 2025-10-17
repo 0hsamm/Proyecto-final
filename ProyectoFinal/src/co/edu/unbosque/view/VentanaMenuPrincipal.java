@@ -15,6 +15,7 @@ public class VentanaMenuPrincipal extends JFrame{
 	
 	private JButton btnSalir;
 	private JButton btnConfirmar;
+	private JButton btnRegistro;
 	
 	private JLabel fondoMenu;
 	private ImageIcon fondo;
@@ -23,8 +24,9 @@ public class VentanaMenuPrincipal extends JFrame{
 	private JLabel titulo;
 	private JLabel titulo2;
 	
-	private JLabel alias;
-	private JLabel contraseña;
+	private JLabel lblalias;
+	private JLabel lblcontraseña;
+	private JLabel lblRegistro;
 	
 	private JTextField textAlias;
 	private JTextField textContraseña;
@@ -34,19 +36,20 @@ public class VentanaMenuPrincipal extends JFrame{
 	}
 	
 	public void inicializarComponentes() {
-		this.setBounds(10, 10, 1280, 720);
 		this.setTitle("Menu Principal");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setLayout(null);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
-		
-		fondo = new ImageIcon("src/co/edu/unbosque/view/VentanaMenu.JPEG");
-		escalar = fondo.getImage().getScaledInstance(1280, 720, Image.SCALE_SMOOTH);
+
+		fondo = new ImageIcon("src/co/edu/unbosque/view/VentanaMenu.PNG");
+		escalar = fondo.getImage().getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
 		fondoMenu = new JLabel(new ImageIcon(escalar));
-		fondoMenu.setBounds(0, 0, 1280, 720);
-		this.setContentPane(fondoMenu);
 		fondoMenu.setLayout(null);
+		fondoMenu.setPreferredSize(new java.awt.Dimension(1200, 675));
+
+		this.setContentPane(fondoMenu);
+		this.pack();
+		this.setLocationRelativeTo(null);
 		
 		titulo = new JLabel("Bienvenid@ a");
 		titulo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 60));
@@ -60,54 +63,60 @@ public class VentanaMenuPrincipal extends JFrame{
 		titulo2.setForeground(Color.WHITE); 
 		fondoMenu.add(titulo2);
 		
-		alias = new JLabel("Alias");
-		alias.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		alias.setBounds(820, 243, 1200, 70);
-		fondoMenu.add(alias);
+		lblalias = new JLabel("Alias");
+		lblalias.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+		lblalias.setBounds(810, 243, 1200, 70);
+		fondoMenu.add(lblalias);
 		
 		textAlias = new JTextField();
 		textAlias.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		textAlias.setBounds(860, 296, 231, 40);
+		textAlias.setBounds(813, 293, 214, 40);
 		textAlias.setBorder(null);
 		this.add(textAlias);
 		
-		contraseña = new JLabel("Contraseña");
-		contraseña.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		contraseña.setBounds(820, 327, 1200, 70);
-		fondoMenu.add(contraseña);
+		lblcontraseña = new JLabel("Contraseña");
+		lblcontraseña.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+		lblcontraseña.setBounds(810, 320, 1200, 70);
+		fondoMenu.add(lblcontraseña);
 		
 		textContraseña = new JTextField();
 		textContraseña.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		textContraseña.setBounds(860, 380, 231, 40);
+		textContraseña.setBounds(813, 374, 214, 40);
 		textContraseña.setBorder(null);
-		this.add(textContraseña);
+		fondoMenu.add(textContraseña);
 		
 		btnConfirmar = new JButton("Inicar Sesión");
 		btnConfirmar.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		btnConfirmar.setBounds(818, 493, 280, 30);
+		btnConfirmar.setBounds(778, 480, 250, 30);
 		btnConfirmar.setBackground(new Color(198, 48, 44));
 		btnConfirmar.setForeground(Color.WHITE);
 		btnConfirmar.setFocusPainted(false);
 		btnConfirmar.setBorder(null);
-		this.add(btnConfirmar);
+		fondoMenu.add(btnConfirmar);
 		
 		btnSalir = new JButton("Salir");
 		btnSalir.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		btnSalir.setBounds(100, 700, 280, 30);
-		btnSalir.setBackground(new Color(198, 48, 44));
-		btnSalir.setForeground(Color.RED);
+		btnSalir.setBounds(21, 620, 177, 30);
+		btnSalir.setBackground(new Color(255, 255, 255));
+		btnSalir.setForeground(Color.BLACK);
 		btnSalir.setFocusPainted(false);
 		btnSalir.setBorder(null);
-		this.add(btnSalir);
+		fondoMenu.add(btnSalir);
 		
-	}
-
-	public JLabel getFondoMenu() {
-		return fondoMenu;
-	}
-
-	public void setFondoMenu(JLabel fondoMenu) {
-		this.fondoMenu = fondoMenu;
+		lblRegistro = new JLabel("No tienes cuenta?");
+		lblRegistro.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 15));
+		lblRegistro.setBounds(845, 570, 250, 30);
+		fondoMenu.add(lblRegistro);
+		
+		btnRegistro = new JButton("Registrate aquí");
+		btnRegistro.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 13));
+		btnRegistro.setBounds(846, 616, 110, 25);
+		btnRegistro.setBackground(new Color(255, 184, 184));
+		btnRegistro.setForeground(Color.WHITE);
+		btnRegistro.setFocusPainted(false);
+		btnRegistro.setBorder(null);
+		fondoMenu.add(btnRegistro);
+		
 	}
 
 	public JButton getBtnSalir() {
@@ -124,6 +133,22 @@ public class VentanaMenuPrincipal extends JFrame{
 
 	public void setBtnConfirmar(JButton btnConfirmar) {
 		this.btnConfirmar = btnConfirmar;
+	}
+
+	public JButton getBtnRegistro() {
+		return btnRegistro;
+	}
+
+	public void setBtnRegistro(JButton btnRegistro) {
+		this.btnRegistro = btnRegistro;
+	}
+
+	public JLabel getFondoMenu() {
+		return fondoMenu;
+	}
+
+	public void setFondoMenu(JLabel fondoMenu) {
+		this.fondoMenu = fondoMenu;
 	}
 
 	public ImageIcon getFondo() {
@@ -158,20 +183,28 @@ public class VentanaMenuPrincipal extends JFrame{
 		this.titulo2 = titulo2;
 	}
 
-	public JLabel getAlias() {
-		return alias;
+	public JLabel getLblalias() {
+		return lblalias;
 	}
 
-	public void setAlias(JLabel alias) {
-		this.alias = alias;
+	public void setLblalias(JLabel lblalias) {
+		this.lblalias = lblalias;
 	}
 
-	public JLabel getContraseña() {
-		return contraseña;
+	public JLabel getLblcontraseña() {
+		return lblcontraseña;
 	}
 
-	public void setContraseña(JLabel contraseña) {
-		this.contraseña = contraseña;
+	public void setLblcontraseña(JLabel lblcontraseña) {
+		this.lblcontraseña = lblcontraseña;
+	}
+
+	public JLabel getLblRegistro() {
+		return lblRegistro;
+	}
+
+	public void setLblRegistro(JLabel lblRegistro) {
+		this.lblRegistro = lblRegistro;
 	}
 
 	public JTextField getTextAlias() {
@@ -189,5 +222,5 @@ public class VentanaMenuPrincipal extends JFrame{
 	public void setTextContraseña(JTextField textContraseña) {
 		this.textContraseña = textContraseña;
 	}
-	
-}
+
+}	
