@@ -32,7 +32,11 @@ public class Controller implements ActionListener {
 		vf.getVenMenu().getBtnSalir().addActionListener(this);
 		vf.getVenMenu().getBtnSalir().setActionCommand("SALIR_MENU");
 		
+		vf.getVenRegistro().getBtnCrearCuenta().addActionListener(this);
+		vf.getVenRegistro().getBtnCrearCuenta().setActionCommand("CREAR_CUENTA");;
 		
+		vf.getVenRegistro().getBtnVolver().addActionListener(this);
+		vf.getVenRegistro().getBtnVolver().setActionCommand("VOLVER_DESDE_REGISTRO");
 	}
 	
 	public void actionPerformed(ActionEvent e) throws NumberFormatException {
@@ -50,6 +54,10 @@ public class Controller implements ActionListener {
 		case "SALIR_MENU": {
 			vf.getVenMenu().dispose();
 			break;
+		}
+		case "VOLVER_DESDE_REGISTRO":{
+			vf.getVenRegistro().setVisible(false);
+			vf.getVenMenu().setVisible(true);
 		}
 		}
 	}
