@@ -85,7 +85,7 @@ public class MujerDAO implements DAO<Mujer>{
 				}
 				Mujer temp = new Mujer();
 				temp.setNombre(columna[0]);
-				temp.setUsuario(columna[1]);
+				temp.setAlias(columna[1]);
 				temp.setEmail(columna[2]);
 				temp.setAnio(LocalDate.parse(columna[3]));
 				temp.setGenero(columna[4]);
@@ -102,7 +102,7 @@ public class MujerDAO implements DAO<Mujer>{
 		StringBuilder sb = new StringBuilder();
 		for (Mujer mujer : listaMujeres) {
 			sb.append(mujer.getNombre() + ";");
-			sb.append(mujer.getUsuario() + ";");
+			sb.append(mujer.getAlias() + ";");
 			sb.append(mujer.getEmail() + ";");
 			sb.append(mujer.getAnio() + ";");
 			sb.append(mujer.getGenero() + ";");

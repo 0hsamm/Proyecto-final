@@ -85,7 +85,7 @@ public class HombreDAO implements DAO<Hombre>{
 				}
 				Hombre temp = new Hombre();
 				temp.setNombre(columna[0]);
-				temp.setUsuario(columna[1]);
+				temp.setAlias(columna[1]);
 				temp.setEmail(columna[2]);
 				temp.setAnio(LocalDate.parse(columna[3]));
 				temp.setGenero(columna[4]);
@@ -104,7 +104,7 @@ public class HombreDAO implements DAO<Hombre>{
 		StringBuilder sb = new StringBuilder();
 		for (Hombre hombre : listaHombres) {
 			sb.append(hombre.getNombre() + ";");
-			sb.append(hombre.getUsuario() + ";");
+			sb.append(hombre.getAlias() + ";");
 			sb.append(hombre.getEmail() + ";");
 			sb.append(hombre.getAnio() + ";");
 			sb.append(hombre.getGenero() + ";");

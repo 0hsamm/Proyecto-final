@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public abstract class Persona {
 
 	private String nombre;
-	private String usuario;
+	private String alias;
 	private String email;
 	private LocalDate anio;
 	private String genero;
@@ -17,15 +17,16 @@ public abstract class Persona {
 	}
 
 
-	public Persona(String nombre, String usuario, String email, LocalDate anio, String genero) {
+	public Persona(String nombre, String alias, String email, LocalDate anio, String genero) {
 		super();
 		this.nombre = nombre;
-		this.usuario = usuario;
+		this.alias = alias;
 		this.email = email;
 		this.anio = anio;
 		this.genero = genero;
 	
 	}
+	
 
 
 	public String getNombre() {
@@ -38,13 +39,13 @@ public abstract class Persona {
 	}
 
 
-	public String getUsuario() {
-		return usuario;
+	public String getAlias() {
+		return alias;
 	}
 
 
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 
 
@@ -83,7 +84,7 @@ public abstract class Persona {
 
 	@Override
 	public String toString() {
-		return "Nombre: " + nombre + "\nUsuario: " + usuario + "\nEmail: " + email + "\nAño: " + anio
+		return "Nombre: " + nombre + "\nAlias: " + alias + "\nEmail: " + email + "\nAño: " + anio
 				+ "\nGenero: " + genero;
 	}
 

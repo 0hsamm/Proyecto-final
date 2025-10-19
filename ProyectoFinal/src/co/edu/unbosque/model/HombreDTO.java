@@ -20,16 +20,16 @@ public class HombreDTO extends Persona{
 	}
 
 
-	public HombreDTO(String nombre, String usuario, String email, LocalDate anio, String genero, int promedioIngMensual,
+	public HombreDTO(String nombre, String alias, String email, LocalDate anio, String genero, int promedioIngMensual,
 			double estatura) {
-		super(nombre, usuario, email, anio, genero);
+		super(nombre, alias, email, anio, genero);
 		this.promedioIngMensual = promedioIngMensual;
 		this.estatura = estatura;
 	}
 
 
-	public HombreDTO(String nombre, String usuario, String email, LocalDate anio, String genero) {
-		super(nombre, usuario, email, anio, genero);
+	public HombreDTO(String nombre, String alias, String email, LocalDate anio, String genero) {
+		super(nombre, alias, email, anio, genero);
 		// TODO Auto-generated constructor stub
 	}
 
