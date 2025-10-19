@@ -91,6 +91,7 @@ public class HombreDAO implements DAO<Hombre>{
 				temp.setGenero(columna[4]);
 				temp.setPromedioIngMensual(Integer.parseInt(columna[5]));
 				temp.setEstatura(Double.parseDouble(columna[6]));
+				temp.setEsDivorciado(Boolean.parseBoolean(columna[7]));
 		
 				
 				listaHombres.add(temp);
@@ -109,7 +110,8 @@ public class HombreDAO implements DAO<Hombre>{
 			sb.append(hombre.getAnio() + ";");
 			sb.append(hombre.getGenero() + ";");
 			sb.append(hombre.getPromedioIngMensual() + ";");
-			sb.append(hombre.getEstatura() + "\n");
+			sb.append(hombre.getEstatura() + ";");
+			sb.append(hombre.isEsDivorciado() + "\n");
 			
 		}
 		FileHandler.escribirEnArchivoDeTexto(FILE_NAME, sb.toString());

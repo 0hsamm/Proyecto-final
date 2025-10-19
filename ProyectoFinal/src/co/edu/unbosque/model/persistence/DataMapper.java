@@ -18,6 +18,7 @@ public class DataMapper {
 		dto.setGenero(entity.getGenero());
 		dto.setPromedioIngMensual(entity.getPromedioIngMensual());
 		dto.setEstatura(entity.getEstatura());
+		dto.setEsDivorciado(entity.isEsDivorciado());
 		return dto;
 		
 	}
@@ -31,6 +32,7 @@ public class DataMapper {
 		entity.setGenero(dto.getGenero());
 		entity.setPromedioIngMensual(dto.getPromedioIngMensual());
 		entity.setEstatura(dto.getEstatura());
+		entity.setEsDivorciado(dto.isEsDivorciado());
 		return entity;
 	}
 	
@@ -41,6 +43,8 @@ public class DataMapper {
 		dto.setEmail(entity.getEmail());
 		dto.setAnio(entity.getAnio());
 		dto.setGenero(entity.getGenero());
+		dto.setPromedioIngMensual(entity.getPromedioIngMensual());
+		dto.setEstatura(entity.getEstatura());
 		dto.setEsDivorciada(entity.isEsDivorciada());
 		return dto;
 	}
@@ -53,6 +57,8 @@ public class DataMapper {
 		entity.setEmail(dto.getEmail());
 		entity.setAnio(dto.getAnio());
 		entity.setGenero(dto.getGenero());
+		entity.setPromedioIngMensual(dto.getPromedioIngMensual());
+		entity.setEstatura(dto.getEstatura());
 		entity.setEsDivorciada(dto.isEsDivorciada());
 		return entity;
 	}

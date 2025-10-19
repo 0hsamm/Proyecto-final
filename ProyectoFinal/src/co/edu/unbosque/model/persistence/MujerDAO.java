@@ -89,7 +89,9 @@ public class MujerDAO implements DAO<Mujer>{
 				temp.setEmail(columna[2]);
 				temp.setAnio(LocalDate.parse(columna[3]));
 				temp.setGenero(columna[4]);
-				temp.setEsDivorciada(Boolean.parseBoolean(columna[5]));;
+				temp.setPromedioIngMensual(Integer.parseInt(columna[5]));
+				temp.setEstatura(Double.parseDouble(columna[6]));
+				temp.setEsDivorciada(Boolean.parseBoolean(columna[7]));;
 				
 				listaMujeres.add(temp);
 			}
@@ -106,6 +108,8 @@ public class MujerDAO implements DAO<Mujer>{
 			sb.append(mujer.getEmail() + ";");
 			sb.append(mujer.getAnio() + ";");
 			sb.append(mujer.getGenero() + ";");
+			sb.append(mujer.getPromedioIngMensual() + ";");
+			sb.append(mujer.getEstatura() + ";");
 			sb.append(mujer.isEsDivorciada() + "\n");
 			
 			

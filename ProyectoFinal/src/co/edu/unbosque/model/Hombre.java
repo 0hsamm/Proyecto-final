@@ -6,26 +6,34 @@ public class Hombre extends Persona{
 
 	private int promedioIngMensual;
 	private double estatura;
-	
+	private boolean esDivorciado;
 	
 	public Hombre() {
 		
 	}
 
 
-	public Hombre(int promedioIngMensual, double estatura) {
+	
+
+	public Hombre(int promedioIngMensual, double estatura, boolean esDivorciado) {
 		super();
 		this.promedioIngMensual = promedioIngMensual;
 		this.estatura = estatura;
+		this.esDivorciado = esDivorciado;
 	}
+
+
 
 
 	public Hombre(String nombre, String alias, String email, LocalDate anio, String genero, int promedioIngMensual,
-			double estatura) {
+			double estatura, boolean esDivorciado) {
 		super(nombre, alias, email, anio, genero);
 		this.promedioIngMensual = promedioIngMensual;
 		this.estatura = estatura;
+		this.esDivorciado = esDivorciado;
 	}
+
+
 
 
 	public Hombre(String nombre, String alias, String email, LocalDate anio, String genero) {
@@ -34,9 +42,13 @@ public class Hombre extends Persona{
 	}
 
 
+
+
 	public int getPromedioIngMensual() {
 		return promedioIngMensual;
 	}
+
+
 
 
 	public void setPromedioIngMensual(int promedioIngMensual) {
@@ -44,9 +56,13 @@ public class Hombre extends Persona{
 	}
 
 
+
+
 	public double getEstatura() {
 		return estatura;
 	}
+
+
 
 
 	public void setEstatura(double estatura) {
@@ -54,9 +70,25 @@ public class Hombre extends Persona{
 	}
 
 
+
+
+	public boolean isEsDivorciado() {
+		return esDivorciado;
+	}
+
+
+
+
+	public void setEsDivorciado(boolean esDivorciado) {
+		this.esDivorciado = esDivorciado;
+	}
+
+
+
+
 	@Override
 	public String toString() {
-		return "\nPromedio de ingreso mensual: " + promedioIngMensual + "\nEstatura: " + estatura;
+		return super.toString() + "\nPromedio de ingreso mensual: " + promedioIngMensual + "\nEstatura: " + estatura + "\nHa tenido algún divorcio?: " + esDivorciado;
 	}
 	
 
