@@ -15,14 +15,14 @@ public class Mujer extends Persona{
 		this.esDivorciada = esDivorciada;
 	}
 
-	public Mujer(String nombre, String usuario, String email, LocalDate anio, String genero, double estatura,
+	public Mujer(String nombre, String usuario, String email, LocalDate anio, String genero, 
 			boolean esDivorciada) {
-		super(nombre, usuario, email, anio, genero, estatura);
+		super(nombre, usuario, email, anio, genero);
 		this.esDivorciada = esDivorciada;
 	}
 
-	public Mujer(String nombre, String usuario, String email, LocalDate anio, String genero, double estatura) {
-		super(nombre, usuario, email, anio, genero, estatura);
+	public Mujer(String nombre, String usuario, String email, LocalDate anio, String genero) {
+		super(nombre, usuario, email, anio, genero);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -9,7 +9,7 @@ public abstract class Persona {
 	private String email;
 	private LocalDate anio;
 	private String genero;
-	private double estatura;
+
 	
 	
 	public Persona() {
@@ -17,14 +17,14 @@ public abstract class Persona {
 	}
 
 
-	public Persona(String nombre, String usuario, String email, LocalDate anio, String genero, double estatura) {
+	public Persona(String nombre, String usuario, String email, LocalDate anio, String genero) {
 		super();
 		this.nombre = nombre;
 		this.usuario = usuario;
 		this.email = email;
 		this.anio = anio;
 		this.genero = genero;
-		this.estatura = estatura;
+	
 	}
 
 
@@ -78,20 +78,13 @@ public abstract class Persona {
 	}
 
 
-	public double getEstatura() {
-		return estatura;
-	}
-
-
-	public void setEstatura(double estatura) {
-		this.estatura = estatura;
-	}
+	
 
 
 	@Override
 	public String toString() {
 		return "Nombre: " + nombre + "\nUsuario: " + usuario + "\nEmail: " + email + "\nAño: " + anio
-				+ "\nGenero: " + genero + "\nEstatura: " + estatura;
+				+ "\nGenero: " + genero;
 	}
 
 	

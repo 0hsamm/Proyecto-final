@@ -89,8 +89,9 @@ public class HombreDAO implements DAO<Hombre>{
 				temp.setEmail(columna[2]);
 				temp.setAnio(LocalDate.parse(columna[3]));
 				temp.setGenero(columna[4]);
-				temp.setEstatura(Double.parseDouble(columna[5]));
-				temp.setPromedioIngMensual(Integer.parseInt(columna[6]));
+				temp.setPromedioIngMensual(Integer.parseInt(columna[5]));
+				temp.setEstatura(Double.parseDouble(columna[6]));
+		
 				
 				listaHombres.add(temp);
 			}
@@ -107,8 +108,8 @@ public class HombreDAO implements DAO<Hombre>{
 			sb.append(hombre.getEmail() + ";");
 			sb.append(hombre.getAnio() + ";");
 			sb.append(hombre.getGenero() + ";");
-			sb.append(hombre.getEstatura() + ";");
-			sb.append(hombre.getPromedioIngMensual() + "\n");
+			sb.append(hombre.getPromedioIngMensual() + ";");
+			sb.append(hombre.getEstatura() + "\n");
 			
 		}
 		FileHandler.escribirEnArchivoDeTexto(FILE_NAME, sb.toString());
