@@ -41,6 +41,8 @@ public class VentanaPrincipal extends JFrame {
 	private JComboBox<String> cbNombre;
 	private JComboBox<String> cbIngresos;
 	private JComboBox<String> cbDivorcio;
+	
+	
 
 	private Properties prop;
 
@@ -66,8 +68,8 @@ public class VentanaPrincipal extends JFrame {
 
 		lblTitulo = new JLabel(prop.getProperty("bostinder.ventanaprinicipal.lbltitulo"));
 		lblTitulo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 40));
-		lblTitulo.setBounds(200, 20, 1200, 70);
-		lblTitulo.setForeground(Color.BLACK);
+		lblTitulo.setBounds(220, 20, 1200, 70);
+		lblTitulo.setForeground(Color.WHITE);
 		this.add(lblTitulo);
 
 		lblFiltros = new JLabel(prop.getProperty("bostinder.ventanaprinicipal.lblFiltros"));

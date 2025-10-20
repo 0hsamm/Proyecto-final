@@ -62,6 +62,10 @@ public class VentanaRegistro extends JFrame {
 
 	private JComboBox<String> cbSeHaDivorciado;
 	
+	//Otros
+	private JLabel lblcodigoDeVerificacion;
+	private JButton btnEnviarCodigoDeVerificacion;
+	
 	private Properties prop;
 
 	public VentanaRegistro() {
@@ -269,6 +273,15 @@ public class VentanaRegistro extends JFrame {
 
 		
 		//Botones
+		
+		btnEnviarCodigoDeVerificacion = new JButton(prop.getProperty("bostinder.ventanaregistro.btnEnviarCodigoDeVerificacion11"));
+		btnEnviarCodigoDeVerificacion.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+		btnEnviarCodigoDeVerificacion.setBounds(855, 500, 250, 30);
+		btnEnviarCodigoDeVerificacion.setBackground(new Color(198, 48, 44));
+		btnEnviarCodigoDeVerificacion.setForeground(Color.WHITE);
+		btnEnviarCodigoDeVerificacion.setFocusPainted(false);
+		btnEnviarCodigoDeVerificacion.setBorder(null);
+		this.add(btnEnviarCodigoDeVerificacion);
 		
 		btnCrearCuenta = new JButton(prop.getProperty("bostinder.ventanaregistro.btnCrearCuenta"));
 		btnCrearCuenta.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
