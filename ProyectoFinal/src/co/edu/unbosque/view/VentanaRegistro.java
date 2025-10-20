@@ -15,6 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 
+import com.toedter.calendar.JCalendar;
+
 public class VentanaRegistro extends JFrame {
 
 	private JButton btnVolver;
@@ -67,8 +69,7 @@ public class VentanaRegistro extends JFrame {
 	private JLabel lblcodigoDeVerificacion;
 	private JButton btnEnviarCodigoDeVerificacion;
 	private JButton btnSubirImagen;
-	JFileChooser archivos;
-	
+	private JCalendar calendario;
 	
 	private Properties prop;
 
@@ -197,7 +198,7 @@ public class VentanaRegistro extends JFrame {
 		textcontrasenia.setBorder(null);
 		this.add(textcontrasenia);
 		
-		lblSexo = new JLabel(prop.getProperty("bostinder.ventanaregistro.lbSexo "));
+		lblSexo = new JLabel(prop.getProperty("bostinder.ventanaregistro.lbSexo"));
 		lblSexo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
 		lblSexo.setBounds(90, 528, 1200, 70);
 		lblSexo.setForeground(Color.WHITE);
@@ -306,6 +307,7 @@ public class VentanaRegistro extends JFrame {
 		btnVolver.setOpaque(false);
 		this.add(btnVolver);
 	
+		/*
 		btnSubirImagen = new JButton(prop.getProperty("bostinder.ventanaregistro.btnSubirImagen"));
 		btnSubirImagen.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
 		btnSubirImagen.setBounds(855, 500, 250, 30);
@@ -314,10 +316,22 @@ public class VentanaRegistro extends JFrame {
 		btnSubirImagen.setFocusPainted(false);
 		btnSubirImagen.setBorder(null);
 		this.add(btnSubirImagen);
-		
+		*/
+		calendario = new JCalendar();
+		calendario.setBounds(855, 500, 250, 250);
+		this.add(calendario);
 		
 	}
-
+	
+	public void subirFotoPerfil() {
+		JFileChooser fileChooser = new JFileChooser();
+		int resultado = fileChooser.showOpenDialog(this);
+		if (resultado == fileChooser.APPROVE_OPTION) {
+			System.out.println("Abrir este archivo: " +
+					fileChooser.getSelectedFile().getName());
+		}
+	}
+	
 	public JButton getBtnVolver() {
 		return btnVolver;
 	}
@@ -584,13 +598,7 @@ public class VentanaRegistro extends JFrame {
 		this.btnSubirImagen = btnSubirImagen;
 	}
 
-	public JFileChooser getArchivos() {
-		return archivos;
-	}
 
-	public void setArchivos(JFileChooser archivos) {
-		this.archivos = archivos;
-	}
 	
 	
 	
