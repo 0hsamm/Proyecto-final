@@ -12,17 +12,17 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class VentanaPrincipal extends JFrame{
-	
+public class VentanaPrincipal extends JFrame {
+
 	private JLabel fondoRegistro;
 	private ImageIcon fondo;
 	private Image escalar;
-	
-	//JLabels
-	
+
+	// JLabels
+
 	private JLabel lblTitulo;
 	private JLabel lblFiltros;
-	
+
 	private JLabel lblGenero;
 	private JLabel lblEdad;
 	private JLabel lblEstatura;
@@ -30,10 +30,10 @@ public class VentanaPrincipal extends JFrame{
 	private JLabel lblNombre;
 	private JLabel lblIngresos;
 	private JLabel lblDivorcio;
-	
-	//Botones y cb
+
+	// Botones y cb
 	private JButton btnVolver;
-	
+
 	private JComboBox<String> cbGenero;
 	private JComboBox<String> cbEdad;
 	private JComboBox<String> cbEstatura;
@@ -41,15 +41,15 @@ public class VentanaPrincipal extends JFrame{
 	private JComboBox<String> cbNombre;
 	private JComboBox<String> cbIngresos;
 	private JComboBox<String> cbDivorcio;
-	
+
 	private Properties prop;
-	
+
 	public VentanaPrincipal() {
 
 	}
-	
+
 	public void inicializarComponentes() {
-		
+
 		this.setTitle("Crear cuenta");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
@@ -63,26 +63,26 @@ public class VentanaPrincipal extends JFrame{
 		this.setContentPane(fondoRegistro);
 		this.pack();
 		this.setLocationRelativeTo(null);
-		
-		lblTitulo = new JLabel("Encuentra el amor");
+
+		lblTitulo = new JLabel(prop.getProperty("bostinder.ventanaprinicipal.lbltitulo"));
 		lblTitulo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 40));
 		lblTitulo.setBounds(200, 20, 1200, 70);
 		lblTitulo.setForeground(Color.BLACK);
 		this.add(lblTitulo);
-		
-		lblFiltros = new JLabel("Filtros:");
+
+		lblFiltros = new JLabel(prop.getProperty("bostinder.ventanaprinicipal.lblFiltros"));
 		lblFiltros.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 30));
 		lblFiltros.setBounds(70, 147, 1200, 70);
 		lblFiltros.setForeground(Color.WHITE);
 		this.add(lblFiltros);
-		
-		lblGenero = new JLabel("Genero:");
+
+		lblGenero = new JLabel(prop.getProperty("bostinder.ventanaprinicipal.lblGenero"));
 		lblGenero.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 15));
 		lblGenero.setBounds(110, 200, 1200, 70);
 		lblGenero.setForeground(Color.BLACK);
 		this.add(lblGenero);
-		
-		cbGenero = new JComboBox<>(new String[] { "...", "Mujeres", "Hombres" });
+
+		cbGenero = new JComboBox<>(prop.getProperty("bostinder.ventanaprinicipal.cbGenero").split(","));
 		cbGenero.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 15));
 		cbGenero.setBounds(181, 221, 177, 30);
 		cbGenero.setBackground(new Color(251, 255, 255));
@@ -90,13 +90,13 @@ public class VentanaPrincipal extends JFrame{
 		cbGenero.setBorder(BorderFactory.createEmptyBorder());
 		cbGenero.setUI(new javax.swing.plaf.basic.BasicComboBoxUI());
 		this.add(cbGenero);
-		
-		lblEdad = new JLabel("Rango de edad:");
+
+		lblEdad = new JLabel(prop.getProperty("bostinder.ventanaprinicipal.lblEdad"));
 		lblEdad.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 15));
 		lblEdad.setBounds(110, 257, 1200, 70);
 		lblEdad.setForeground(Color.BLACK);
 		this.add(lblEdad);
-		
+
 		cbEdad = new JComboBox<>(new String[] { "...", "18 - 25", "26 - 35", "36 - 45", "46 - 55", "56 - 65", "66+" });
 		cbEdad.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 15));
 		cbEdad.setBounds(225, 278, 133, 30);
@@ -105,14 +105,15 @@ public class VentanaPrincipal extends JFrame{
 		cbEdad.setBorder(BorderFactory.createEmptyBorder());
 		cbEdad.setUI(new javax.swing.plaf.basic.BasicComboBoxUI());
 		this.add(cbEdad);
-		
-		lblEstatura = new JLabel("Rango de estatura:");
+
+		lblEstatura = new JLabel(prop.getProperty("bostinder.ventanaprinicipal.lblEstatura"));
 		lblEstatura.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 15));
 		lblEstatura.setBounds(110, 314, 1200, 70);
 		lblEstatura.setForeground(Color.BLACK);
 		this.add(lblEstatura);
-		
-		cbEstatura = new JComboBox<>(new String[] { "...", "- 150cm", "150cm - 159cm", "160cm - 169cm", "170cm - 179cm", "180cm - 189cm", "190cm - 199cm", "+ 200cm" });
+
+		cbEstatura = new JComboBox<>(new String[] { "...", "- 150cm", "150cm - 159cm", "160cm - 169cm", "170cm - 179cm",
+				"180cm - 189cm", "190cm - 199cm", "+ 200cm" });
 		cbEstatura.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 15));
 		cbEstatura.setBounds(247, 335, 111, 30);
 		cbEstatura.setBackground(new Color(251, 255, 255));
@@ -120,14 +121,14 @@ public class VentanaPrincipal extends JFrame{
 		cbEstatura.setBorder(BorderFactory.createEmptyBorder());
 		cbEstatura.setUI(new javax.swing.plaf.basic.BasicComboBoxUI());
 		this.add(cbEstatura);
-		
-		lblLikes = new JLabel("Likes:");
+
+		lblLikes = new JLabel(prop.getProperty("bostinder.ventanaprinicipal.lblLikes"));
 		lblLikes.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 15));
 		lblLikes.setBounds(110, 374, 1200, 70);
 		lblLikes.setForeground(Color.BLACK);
 		this.add(lblLikes);
-		
-		cbLikes = new JComboBox<>(new String[] { "...", "0 - 10", "11 - 50", "51 - 100", "+ 100"});
+
+		cbLikes = new JComboBox<>(new String[] { "...", "0 - 10", "11 - 50", "51 - 100", "+ 100" });
 		cbLikes.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 15));
 		cbLikes.setBounds(180, 394, 178, 30);
 		cbLikes.setBackground(new Color(251, 255, 255));
@@ -135,13 +136,13 @@ public class VentanaPrincipal extends JFrame{
 		cbLikes.setBorder(BorderFactory.createEmptyBorder());
 		cbLikes.setUI(new javax.swing.plaf.basic.BasicComboBoxUI());
 		this.add(cbLikes);
-		
-		lblNombre = new JLabel("Nombre:");
+
+		lblNombre = new JLabel(prop.getProperty("bostinder.ventanaprinicipal.lblNombre"));
 		lblNombre.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 15));
 		lblNombre.setBounds(110, 432, 1200, 70);
 		lblNombre.setForeground(Color.BLACK);
 		this.add(lblNombre);
-		
+
 		cbNombre = new JComboBox<>(new String[] { "...", "A-Z", "Z-A" });
 		cbNombre.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 15));
 		cbNombre.setBounds(181, 451, 178, 30);
@@ -150,14 +151,14 @@ public class VentanaPrincipal extends JFrame{
 		cbNombre.setBorder(BorderFactory.createEmptyBorder());
 		cbNombre.setUI(new javax.swing.plaf.basic.BasicComboBoxUI());
 		this.add(cbNombre);
-		
-		lblIngresos = new JLabel("Ingresos:");
+
+		lblIngresos = new JLabel(prop.getProperty("bostinder.ventanaprinicipal.lblIngresos"));
 		lblIngresos.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 15));
 		lblIngresos.setBounds(110, 491, 1200, 70);
 		lblIngresos.setForeground(Color.BLACK);
 		this.add(lblIngresos);
-		
-		cbIngresos = new JComboBox<>(new String[] { "...", "= 244.85 USD", "+ 244.85 USD" });
+
+		cbIngresos = new JComboBox<>(prop.getProperty("bostinder.ventanaprinicipal.cbIngresos").split(","));
 		cbIngresos.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 15));
 		cbIngresos.setBounds(181, 508, 177, 30);
 		cbIngresos.setBackground(new Color(251, 255, 255));
@@ -165,14 +166,14 @@ public class VentanaPrincipal extends JFrame{
 		cbIngresos.setBorder(BorderFactory.createEmptyBorder());
 		cbIngresos.setUI(new javax.swing.plaf.basic.BasicComboBoxUI());
 		this.add(cbIngresos);
-		
-		lblDivorcio = new JLabel("Divorciad@:");
+
+		lblDivorcio = new JLabel(prop.getProperty("bostinder.ventanaprinicipal.lblDivorcio"));
 		lblDivorcio.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 15));
 		lblDivorcio.setBounds(110, 547, 1200, 70);
 		lblDivorcio.setForeground(Color.BLACK);
 		this.add(lblDivorcio);
-		
-		cbDivorcio = new JComboBox<>(new String[] { "...", "✓", "X" });
+
+		cbDivorcio = new JComboBox<>(prop.getProperty("bostinder.ventanaprinicipal.cbDivorcio").split(","));
 		cbDivorcio.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 15));
 		cbDivorcio.setBounds(208, 566, 150, 30);
 		cbDivorcio.setBackground(new Color(251, 255, 255));
@@ -180,8 +181,17 @@ public class VentanaPrincipal extends JFrame{
 		cbDivorcio.setBorder(BorderFactory.createEmptyBorder());
 		cbDivorcio.setUI(new javax.swing.plaf.basic.BasicComboBoxUI());
 		this.add(cbDivorcio);
-	
 		
+		btnVolver = new JButton("");
+		btnVolver.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+		btnVolver.setBounds(26, 50, 135, 40);
+		btnVolver.setForeground(Color.BLACK);
+		btnVolver.setFocusPainted(true);
+		btnVolver.setContentAreaFilled(false);
+		btnVolver.setBorderPainted(false);
+		btnVolver.setOpaque(false);
+		this.add(btnVolver);
+
 	}
 
 	public JLabel getFondoRegistro() {
@@ -349,9 +359,10 @@ public class VentanaPrincipal extends JFrame{
 	}
 
 	public void setProp(Properties prop) {
-	    this.prop = prop;
-	    inicializarComponentes();
+		this.prop = prop;
+		inicializarComponentes();
 	}
+
 	
-	
+
 }

@@ -221,7 +221,7 @@ public class VentanaRegistro extends JFrame {
 		this.add(textalias);
 		
 		//HOMBRE
-		lblingresos = new JLabel("Ingresos:");
+		lblingresos = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblingresos"));
 		lblingresos.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
 		lblingresos.setBounds(480, 260, 1200, 70);
 		lblingresos.setForeground(Color.WHITE);
@@ -236,7 +236,7 @@ public class VentanaRegistro extends JFrame {
 		textingresos.setBorder(null);
 		this.add(textingresos);
 		
-		lblestatura = new JLabel("Estatura:");
+		lblestatura = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblestatura"));
 		lblestatura.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
 		lblestatura.setBounds(480, 350, 1200, 70);
 		lblestatura.setForeground(Color.WHITE);
@@ -252,7 +252,7 @@ public class VentanaRegistro extends JFrame {
 		this.add(textestatura);
 		
 		//MUJER
-		lbldivorcio = new JLabel("Se ha divorciado?:");
+		lbldivorcio = new JLabel(prop.getProperty("bostinder.ventanaregistro.lbldivorcio"));
 		lbldivorcio.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
 		lbldivorcio.setBounds(480, 438, 1200, 70);
 		lbldivorcio.setForeground(Color.WHITE);
@@ -270,7 +270,7 @@ public class VentanaRegistro extends JFrame {
 		
 		//Botones
 		
-		btnCrearCuenta = new JButton("Crear cuenta");
+		btnCrearCuenta = new JButton(prop.getProperty("bostinder.ventanaregistro.btnCrearCuenta"));
 		btnCrearCuenta.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
 		btnCrearCuenta.setBounds(855, 593, 250, 30);
 		btnCrearCuenta.setBackground(new Color(198, 48, 44));
