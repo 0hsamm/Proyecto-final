@@ -25,7 +25,7 @@ public class Controller implements ActionListener {
 	public void runGUI() {
 		mainloop: while (true) {
 			String opcion = JOptionPane.showInputDialog(null,
-					"Select the language to run:\n1. Spanish COP\n2. Portuguese BRL\n3. Russian RUB\n4. Chinese CNY\n5. Hebrew ILS",
+					"Select the language to run:\n1. Spanih COP\n2. Portuguese BRL\n3. Russian RUB\n4. Chinese CNY\n5. Hebrew ILS",
 					"Select language", JOptionPane.QUESTION_MESSAGE);
 
 			if (opcion == null) {
