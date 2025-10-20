@@ -10,13 +10,13 @@ import co.edu.unbosque.model.ModelFacade;
 import co.edu.unbosque.model.persistence.FileHandler;
 import co.edu.unbosque.view.ViewFacade;
 
-public class Controller implements ActionListener {
+public class Control implements ActionListener {
 
 	private ViewFacade vf;
 	private ModelFacade mf;
 	private Properties prop;
 
-	public Controller() {
+	public Control() {
 		vf = new ViewFacade();
 		mf = new ModelFacade();
 		prop = new Properties();
