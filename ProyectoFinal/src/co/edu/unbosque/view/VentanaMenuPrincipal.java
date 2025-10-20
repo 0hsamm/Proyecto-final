@@ -25,15 +25,19 @@ public class VentanaMenuPrincipal extends JFrame{
 	private JLabel titulo2;
 	
 	private JLabel lblalias;
-	private JLabel lblcontraseña;
+	private JLabel lblcontrasenia;
 	private JLabel lblRegistro;
 	
 	private JTextField textAlias;
-	private JTextField textContraseña;
+	private JTextField textContrasenia;
+	
+	private Properties prop;
 	
 	public VentanaMenuPrincipal() {
-		inicializarComponentes();
+
 	}
+	
+	
 	
 	public void inicializarComponentes() {
 		this.setTitle("Menu Principal");
@@ -51,19 +55,19 @@ public class VentanaMenuPrincipal extends JFrame{
 		this.pack();
 		this.setLocationRelativeTo(null);
 		
-		titulo = new JLabel("Bienvenid@ a");
-		titulo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 60));
-		titulo.setBounds(100, 80, 1200, 70);
-		titulo.setForeground(Color.WHITE); 
+		titulo = new JLabel(prop.getProperty("bostinder.ventanamenu.lbltitulo"));
+        titulo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 60));
+        titulo.setBounds(100, 80, 1200, 70);
+        titulo.setForeground(Color.WHITE);
 		fondoMenu.add(titulo);
 		
-		titulo2 = new JLabel("BosTinder");
+		titulo2 = new JLabel(prop.getProperty("bostinder.ventanamenu.lbltitulo2"));
 		titulo2.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 60));
 		titulo2.setBounds(100, 300, 1200, 70);
 		titulo2.setForeground(Color.WHITE); 
 		fondoMenu.add(titulo2);
 		
-		lblalias = new JLabel("Alias");
+		lblalias = new JLabel(prop.getProperty("bostinder.ventanamenu.lblalias"));
 		lblalias.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
 		lblalias.setBounds(810, 243, 1200, 70);
 		fondoMenu.add(lblalias);
@@ -74,18 +78,18 @@ public class VentanaMenuPrincipal extends JFrame{
 		textAlias.setBorder(null);
 		this.add(textAlias);
 		
-		lblcontraseña = new JLabel("Contraseña");
-		lblcontraseña.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		lblcontraseña.setBounds(810, 320, 1200, 70);
-		fondoMenu.add(lblcontraseña);
+		lblcontrasenia = new JLabel(prop.getProperty("bostinder.ventanamenu.lblcontrasenia"));
+		lblcontrasenia.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+		lblcontrasenia.setBounds(810, 320, 1200, 70);
+		fondoMenu.add(lblcontrasenia);
 		
-		textContraseña = new JTextField();
-		textContraseña.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		textContraseña.setBounds(813, 374, 214, 40);
-		textContraseña.setBorder(null);
-		fondoMenu.add(textContraseña);
+		textContrasenia = new JTextField();
+		textContrasenia.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+		textContrasenia.setBounds(813, 374, 214, 40);
+		textContrasenia.setBorder(null);
+		fondoMenu.add(textContrasenia);
 		
-		btnConfirmar = new JButton("Inicar Sesión");
+		btnConfirmar = new JButton(prop.getProperty("bostinder.ventanamenu.btnConfirmar"));
 		btnConfirmar.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
 		btnConfirmar.setBounds(778, 480, 250, 30);
 		btnConfirmar.setBackground(new Color(198, 48, 44));
@@ -94,7 +98,7 @@ public class VentanaMenuPrincipal extends JFrame{
 		btnConfirmar.setBorder(null);
 		fondoMenu.add(btnConfirmar);
 		
-		btnSalir = new JButton("Salir");
+		btnSalir = new JButton(prop.getProperty("bostinder.ventanamenu.btnSalir"));
 		btnSalir.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
 		btnSalir.setBounds(21, 620, 177, 30);
 		btnSalir.setBackground(new Color(255, 255, 255));
@@ -103,12 +107,12 @@ public class VentanaMenuPrincipal extends JFrame{
 		btnSalir.setBorder(null);
 		fondoMenu.add(btnSalir);
 		
-		lblRegistro = new JLabel("No tienes cuenta?");
+		lblRegistro = new JLabel(prop.getProperty("bostinder.ventanamenu.lblRegistro"));
 		lblRegistro.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 15));
 		lblRegistro.setBounds(845, 570, 250, 30);
 		fondoMenu.add(lblRegistro);
 		
-		btnRegistro = new JButton("Registrate aquí");
+		btnRegistro = new JButton(prop.getProperty("bostinder.ventanamenu.btnRegistro"));
 		btnRegistro.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 13));
 		btnRegistro.setBounds(846, 616, 110, 25);
 		btnRegistro.setBackground(new Color(255, 184, 184));
@@ -191,12 +195,12 @@ public class VentanaMenuPrincipal extends JFrame{
 		this.lblalias = lblalias;
 	}
 
-	public JLabel getLblcontraseña() {
-		return lblcontraseña;
+	public JLabel getLblcontrasenia() {
+		return lblcontrasenia;
 	}
 
-	public void setLblcontraseña(JLabel lblcontraseña) {
-		this.lblcontraseña = lblcontraseña;
+	public void setLblcontrasenia(JLabel lblcontrasenia) {
+		this.lblcontrasenia = lblcontrasenia;
 	}
 
 	public JLabel getLblRegistro() {
@@ -215,12 +219,22 @@ public class VentanaMenuPrincipal extends JFrame{
 		this.textAlias = textAlias;
 	}
 
-	public JTextField getTextContraseña() {
-		return textContraseña;
+	public JTextField getTextContrasenia() {
+		return textContrasenia;
 	}
 
-	public void setTextContraseña(JTextField textContraseña) {
-		this.textContraseña = textContraseña;
+	public void setTextContrasenia(JTextField textContrasenia) {
+		this.textContrasenia = textContrasenia;
 	}
+
+	public Properties getProp() {
+		return prop;
+	}
+
+	public void setProp(Properties prop) {
+	    this.prop = prop;
+	    inicializarComponentes();
+	}
+
 
 }	

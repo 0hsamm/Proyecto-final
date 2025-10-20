@@ -4,11 +4,13 @@ public class ViewFacade {
 	
 	private VentanaMenuPrincipal venMenu;
 	private VentanaRegistro venRegistro;
+	private VentanaPrincipal venPrincipal;
 	
 	public ViewFacade() {
 		
 		venMenu = new VentanaMenuPrincipal();
 		venRegistro = new VentanaRegistro();
+		venPrincipal = new VentanaPrincipal();
 		
 	}
 
@@ -28,6 +30,12 @@ public class ViewFacade {
 		this.venRegistro = venRegistro;
 	}
 
-	
+	public VentanaPrincipal getVenPrincipal() {
+		return venPrincipal;
+	}
+
+	public void setVenPrincipal(VentanaPrincipal venPrincipal) {
+		this.venPrincipal = venPrincipal;
+	}
 
 }

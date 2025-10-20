@@ -2,24 +2,59 @@ package co.edu.unbosque.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Properties;
+
+import javax.swing.JOptionPane;
 
 import co.edu.unbosque.model.ModelFacade;
+import co.edu.unbosque.model.persistence.FileHandler;
 import co.edu.unbosque.view.ViewFacade;
 
 public class Controller implements ActionListener {
 	
 	private ViewFacade vf;
 	private ModelFacade mf;
+	private Properties prop;
 	
 	public Controller() {
 		vf = new ViewFacade();
 		mf= new ModelFacade();
+		prop = new Properties();
 	}
 
 	public void runGUI() {
-		vf.getVenMenu().setVisible(true);
-		asignarListeners();
-	}
+        mainloop:
+        while (true) {
+            String opcion = JOptionPane.showInputDialog(
+                    null,
+                    "Seleccione el idioma a ejecutar:\n1. Español\n2. English\n3. Português\n4. Latinus",
+                    "Seleccionar idioma",
+                    JOptionPane.QUESTION_MESSAGE
+            );
+
+            if (opcion == null) {
+                break mainloop;
+            }
+
+            switch (opcion) {
+                case "1": // Español
+                    prop = FileHandler.cargarArchivoDePropiedades("espa.properties");
+                    break;
+                
+                default:
+                    JOptionPane.showMessageDialog(null, "Opción inválida. Intente de nuevo.");
+                    continue mainloop;
+            }
+
+            vf.getVenMenu().setProp(prop);
+            vf.getVenRegistro().setProp(prop);
+            vf.getVenPrincipal().setProp(prop);
+            vf.getVenMenu().setVisible(true);
+            asignarListeners();
+            break mainloop;
+        }
+    }
+
 	
 	public void asignarListeners() {
 		
@@ -42,10 +77,11 @@ public class Controller implements ActionListener {
 	public void actionPerformed(ActionEvent e) throws NumberFormatException {
 		switch (e.getActionCommand()) {
 		
-		/*case "INICIAR_SESION": {
+		case "INICIAR_SESION": {
 			vf.getVenMenu().setVisible(false);
+			vf.getVenPrincipal().setVisible(true);
 			break;
-		*/
+		}
 		case "REGISTRATE_AQUI": { 
 			vf.getVenMenu().setVisible(false);
 			vf.getVenRegistro().setVisible(true);

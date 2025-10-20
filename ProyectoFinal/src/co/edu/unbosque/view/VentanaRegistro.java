@@ -3,6 +3,7 @@ package co.edu.unbosque.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.util.Properties;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -45,7 +46,7 @@ public class VentanaRegistro extends JFrame {
 	
 	private JTextField textcontrasenia;
 
-	private JComboBox<String> cbGenero;
+	private JComboBox<String> cbSexo;
 	
 	private JTextField textalias;
 	
@@ -60,9 +61,11 @@ public class VentanaRegistro extends JFrame {
 	private JLabel lbldivorcio;
 
 	private JComboBox<String> cbSeHaDivorciado;
+	
+	private Properties prop;
 
 	public VentanaRegistro() {
-		inicializarComponentes();
+
 	}
 
 	public void inicializarComponentes() {
@@ -80,13 +83,13 @@ public class VentanaRegistro extends JFrame {
 		this.pack();
 		this.setLocationRelativeTo(null);
 
-		titulo = new JLabel("Crear Cuenta");
+		titulo = new JLabel(prop.getProperty("bostinder.ventanaregistro.lbltitulo"));
 		titulo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 45));
 		titulo.setBounds(200, 20, 1200, 70);
 		titulo.setForeground(Color.WHITE);
 		this.add(titulo);
 
-		lblnombre = new JLabel("Nombre:");
+		lblnombre = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblnombre"));
 		lblnombre.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
 		lblnombre.setBounds(90, 130, 1200, 70);
 		lblnombre.setForeground(Color.WHITE);
@@ -101,7 +104,7 @@ public class VentanaRegistro extends JFrame {
 		textnombre.setBorder(null);
 		this.add(textnombre);
 
-		lblconrreo = new JLabel("Correo:");
+		lblconrreo = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblcorreo"));
 		lblconrreo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
 		lblconrreo.setBounds(90, 230, 1200, 70);
 		lblconrreo.setForeground(Color.WHITE);
@@ -118,13 +121,13 @@ public class VentanaRegistro extends JFrame {
 		
 		//Fecha nacimiento
 		
-		lblnacimiento = new JLabel("Fecha de nacimiento:");
+		lblnacimiento = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblnacimiento"));
 		lblnacimiento.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
 		lblnacimiento.setBounds(90, 325, 1200, 70);
 		lblnacimiento.setForeground(Color.WHITE);
 		this.add(lblnacimiento);
 
-		lbldia = new JLabel("Día"); //DIA
+		lbldia = new JLabel(prop.getProperty("bostinder.ventanaregistro.lbldia")); //DIA
 		lbldia.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 13));
 		lbldia.setBounds(100, 410, 1200, 70);
 		lbldia.setForeground(Color.WHITE);
@@ -139,7 +142,7 @@ public class VentanaRegistro extends JFrame {
 		textdia.setBorder(null);
 		this.add(textdia);
 		
-		lblmes = new JLabel("Mes"); //MES
+		lblmes = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblmes")); //MES
 		lblmes.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 13));
 		lblmes.setBounds(190, 410, 1200, 70);
 		lblmes.setForeground(Color.WHITE);
@@ -154,7 +157,7 @@ public class VentanaRegistro extends JFrame {
 		textmes.setBorder(null);
 		this.add(textmes);
 		
-		lblanio = new JLabel("Año"); //A
+		lblanio = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblanio")); //AÑO
 		lblanio.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 13));
 		lblanio.setBounds(285, 410, 1200, 70);
 		lblanio.setForeground(Color.WHITE);
@@ -171,7 +174,7 @@ public class VentanaRegistro extends JFrame {
 
 		//
 		
-		lblcontrasenia = new JLabel("Contraseña:");
+		lblcontrasenia = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblcontrasenia"));
 		lblcontrasenia.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
 		lblcontrasenia.setBounds(90, 435, 1200, 70);
 		lblcontrasenia.setForeground(Color.WHITE);
@@ -186,23 +189,23 @@ public class VentanaRegistro extends JFrame {
 		textcontrasenia.setBorder(null);
 		this.add(textcontrasenia);
 		
-		lblSexo = new JLabel("Sexo:");
+		lblSexo = new JLabel(prop.getProperty("bostinder.ventanaregistro.lbSexo "));
 		lblSexo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
 		lblSexo.setBounds(90, 528, 1200, 70);
 		lblSexo.setForeground(Color.WHITE);
 		this.add(lblSexo);
 		
-		cbGenero = new JComboBox<>(new String[] { "Seleccione...", "Mujer", "Hombre" });
-		cbGenero.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		cbGenero.setBounds(76, 585, 260, 40);
-		cbGenero.setBackground(new Color(0,0,0));
-		cbGenero.setForeground(Color.WHITE);
-		cbGenero.setBorder(BorderFactory.createEmptyBorder());
-		cbGenero.setUI(new javax.swing.plaf.basic.BasicComboBoxUI());
-		this.add(cbGenero);
+		cbSexo = new JComboBox<>(new String[] { "Seleccione...", "Mujer", "Hombre" });
+		cbSexo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+		cbSexo.setBounds(76, 585, 260, 40);
+		cbSexo.setBackground(new Color(0,0,0));
+		cbSexo.setForeground(Color.WHITE);
+		cbSexo.setBorder(BorderFactory.createEmptyBorder());
+		cbSexo.setUI(new javax.swing.plaf.basic.BasicComboBoxUI());
+		this.add(cbSexo);
 		//DERECHA
 		
-		lblalias = new JLabel("Alias:");
+		lblalias = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblalias"));
 		lblalias.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
 		lblalias.setBounds(480, 130, 1200, 70);
 		lblalias.setForeground(Color.WHITE);
@@ -456,12 +459,12 @@ public class VentanaRegistro extends JFrame {
 		this.textcontrasenia = textcontrasenia;
 	}
 
-	public JComboBox<String> getCbGenero() {
-		return cbGenero;
+	public JComboBox<String> getCbSexo() {
+		return cbSexo;
 	}
 
-	public void setCbGenero(JComboBox<String> cbGenero) {
-		this.cbGenero = cbGenero;
+	public void setCbSexo(JComboBox<String> cbSexo) {
+		this.cbSexo = cbSexo;
 	}
 
 	public JTextField getTextalias() {
@@ -518,6 +521,15 @@ public class VentanaRegistro extends JFrame {
 
 	public void setCbSeHaDivorciado(JComboBox<String> cbSeHaDivorciado) {
 		this.cbSeHaDivorciado = cbSeHaDivorciado;
+	}
+
+	public Properties getProp() {
+		return prop;
+	}
+
+	public void setProp(Properties prop) {
+	    this.prop = prop;
+	    inicializarComponentes();
 	}
 	
 }
