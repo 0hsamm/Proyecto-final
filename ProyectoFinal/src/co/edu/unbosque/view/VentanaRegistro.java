@@ -9,6 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
@@ -65,6 +66,9 @@ public class VentanaRegistro extends JFrame {
 	//Otros
 	private JLabel lblcodigoDeVerificacion;
 	private JButton btnEnviarCodigoDeVerificacion;
+	private JButton btnSubirImagen;
+	JFileChooser archivos;
+	
 	
 	private Properties prop;
 
@@ -274,9 +278,9 @@ public class VentanaRegistro extends JFrame {
 		
 		//Botones
 		
-		btnEnviarCodigoDeVerificacion = new JButton(prop.getProperty("bostinder.ventanaregistro.btnEnviarCodigoDeVerificacion11"));
+		btnEnviarCodigoDeVerificacion = new JButton(prop.getProperty("bostinder.ventanaregistro.btnEnviarCodigoDeVerificacion"));
 		btnEnviarCodigoDeVerificacion.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		btnEnviarCodigoDeVerificacion.setBounds(855, 500, 250, 30);
+		btnEnviarCodigoDeVerificacion.setBounds(470, 600, 250, 30);
 		btnEnviarCodigoDeVerificacion.setBackground(new Color(198, 48, 44));
 		btnEnviarCodigoDeVerificacion.setForeground(Color.WHITE);
 		btnEnviarCodigoDeVerificacion.setFocusPainted(false);
@@ -302,6 +306,16 @@ public class VentanaRegistro extends JFrame {
 		btnVolver.setOpaque(false);
 		this.add(btnVolver);
 	
+		btnSubirImagen = new JButton(prop.getProperty("bostinder.ventanaregistro.btnSubirImagen"));
+		btnSubirImagen.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+		btnSubirImagen.setBounds(855, 500, 250, 30);
+		btnSubirImagen.setBackground(new Color(198, 48, 44));
+		btnSubirImagen.setForeground(Color.WHITE);
+		btnSubirImagen.setFocusPainted(false);
+		btnSubirImagen.setBorder(null);
+		this.add(btnSubirImagen);
+		
+		
 	}
 
 	public JButton getBtnVolver() {
@@ -539,10 +553,45 @@ public class VentanaRegistro extends JFrame {
 	public Properties getProp() {
 		return prop;
 	}
-
+	
+	
 	public void setProp(Properties prop) {
 	    this.prop = prop;
 	    inicializarComponentes();
 	}
+
+	public JLabel getLblcodigoDeVerificacion() {
+		return lblcodigoDeVerificacion;
+	}
+
+	public void setLblcodigoDeVerificacion(JLabel lblcodigoDeVerificacion) {
+		this.lblcodigoDeVerificacion = lblcodigoDeVerificacion;
+	}
+
+	public JButton getBtnEnviarCodigoDeVerificacion() {
+		return btnEnviarCodigoDeVerificacion;
+	}
+
+	public void setBtnEnviarCodigoDeVerificacion(JButton btnEnviarCodigoDeVerificacion) {
+		this.btnEnviarCodigoDeVerificacion = btnEnviarCodigoDeVerificacion;
+	}
+
+	public JButton getBtnSubirImagen() {
+		return btnSubirImagen;
+	}
+
+	public void setBtnSubirImagen(JButton btnSubirImagen) {
+		this.btnSubirImagen = btnSubirImagen;
+	}
+
+	public JFileChooser getArchivos() {
+		return archivos;
+	}
+
+	public void setArchivos(JFileChooser archivos) {
+		this.archivos = archivos;
+	}
+	
+	
 	
 }

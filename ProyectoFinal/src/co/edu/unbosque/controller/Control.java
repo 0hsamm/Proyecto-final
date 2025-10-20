@@ -86,6 +86,9 @@ public class Control implements ActionListener {
 		vf.getVenRegistro().getBtnVolver().addActionListener(this);
 		vf.getVenRegistro().getBtnVolver().setActionCommand("VOLVER_DESDE_REGISTRO");
 		
+		vf.getVenRegistro().getBtnSubirImagen().addActionListener(this);
+		vf.getVenRegistro().getBtnSubirImagen().setActionCommand("SUBIR_FOTO");
+		
 		//VENTANA PRINCIPAL
 		vf.getVenPrincipal().getBtnVolver().addActionListener(this);
 		vf.getVenPrincipal().getBtnVolver().setActionCommand("VOLVER_DESDE_VENTANA_PRINCIPAL");
@@ -117,6 +120,13 @@ public class Control implements ActionListener {
 		case "VOLVER_DESDE_VENTANA_PRINCIPAL" :{
 			vf.getVenPrincipal().setVisible(false);
 			vf.getVenMenu().setVisible(true);
+		}
+		case "SUBIR_FOTO" :{
+			int resultado = vf.getVenRegistro().getArchivos().showOpenDialog(vf.getVenRegistro());
+			if (resultado == vf.getVenRegistro().getArchivos().APPROVE_OPTION) {
+				System.out.println("You chose to open this file: " +
+						vf.getVenRegistro().getArchivos().getSelectedFile().getName());
+			}
 		}
 		}
 	}
