@@ -100,13 +100,13 @@ public class VentanaRegistro extends JFrame {
 
 		lblnombre = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblnombre"));
 		lblnombre.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
-		lblnombre.setBounds(90, 130, 1200, 70);
+		lblnombre.setBounds(90, 120, 1200, 70);
 		lblnombre.setForeground(Color.WHITE);
 		this.add(lblnombre);
 
 		textnombre = new JTextField();
 		textnombre.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		textnombre.setBounds(76, 190, 260, 40);
+		textnombre.setBounds(76, 180, 260, 40);
 		textnombre.setForeground(Color.WHITE);
 		textnombre.setBackground(new Color(0,0,0));
 		textnombre.setOpaque(true);
@@ -115,13 +115,13 @@ public class VentanaRegistro extends JFrame {
 
 		lblconrreo = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblcorreo"));
 		lblconrreo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
-		lblconrreo.setBounds(90, 230, 1200, 70);
+		lblconrreo.setBounds(90, 205, 1200, 70);
 		lblconrreo.setForeground(Color.WHITE);
 		this.add(lblconrreo);
 
 		textcorreo = new JTextField();
 		textcorreo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		textcorreo.setBounds(76, 290, 260, 40);
+		textcorreo.setBounds(76, 262, 260, 40);
 		textcorreo.setForeground(Color.WHITE);
 		textcorreo.setBackground(new Color(0,0,0));
 		textcorreo.setOpaque(true);
@@ -132,66 +132,23 @@ public class VentanaRegistro extends JFrame {
 		
 		lblnacimiento = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblnacimiento"));
 		lblnacimiento.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
-		lblnacimiento.setBounds(90, 325, 1200, 70);
+		lblnacimiento.setBounds(90, 443, 1200, 70);
 		lblnacimiento.setForeground(Color.WHITE);
 		this.add(lblnacimiento);
-
-		lbldia = new JLabel(prop.getProperty("bostinder.ventanaregistro.lbldia")); //DIA
-		lbldia.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 13));
-		lbldia.setBounds(100, 410, 1200, 70);
-		lbldia.setForeground(Color.WHITE);
-		this.add(lbldia);
-
-		textdia = new JTextField();
-		textdia.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		textdia.setBounds(76, 388, 70, 40);
-		textdia.setForeground(Color.WHITE);
-		textdia.setBackground(new Color(0,0,0));
-		textdia.setOpaque(true);
-		textdia.setBorder(null);
-		this.add(textdia);
 		
-		lblmes = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblmes")); //MES
-		lblmes.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 13));
-		lblmes.setBounds(190, 410, 1200, 70);
-		lblmes.setForeground(Color.WHITE);
-		this.add(lblmes);
-
-		textmes = new JTextField();
-		textmes.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		textmes.setBounds(170, 388, 70, 40);
-		textmes.setForeground(Color.WHITE);
-		textmes.setBackground(new Color(0,0,0));
-		textmes.setOpaque(true);
-		textmes.setBorder(null);
-		this.add(textmes);
-		
-		lblanio = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblanio")); //AÑO
-		lblanio.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 13));
-		lblanio.setBounds(285, 410, 1200, 70);
-		lblanio.setForeground(Color.WHITE);
-		this.add(lblanio);
-
-		textanio = new JTextField();
-		textanio.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		textanio.setBounds(265, 388, 70, 40);
-		textanio.setForeground(Color.WHITE);
-		textanio.setBackground(new Color(0,0,0));
-		textanio.setOpaque(true);
-		textanio.setBorder(null);
-		this.add(textanio);
-
-		//
+		calendario = new JCalendar();
+		calendario.setBounds(76, 490, 295, 170);
+		this.add(calendario);
 		
 		lblcontrasenia = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblcontrasenia"));
 		lblcontrasenia.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
-		lblcontrasenia.setBounds(90, 435, 1200, 70);
+		lblcontrasenia.setBounds(90, 283, 1200, 70);
 		lblcontrasenia.setForeground(Color.WHITE);
 		this.add(lblcontrasenia);
 
 		textcontrasenia = new JTextField();
 		textcontrasenia.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		textcontrasenia.setBounds(76, 495, 260, 40);
+		textcontrasenia.setBounds(76, 340, 260, 40);
 		textcontrasenia.setForeground(Color.WHITE);
 		textcontrasenia.setBackground(new Color(0,0,0));
 		textcontrasenia.setOpaque(true);
@@ -200,13 +157,13 @@ public class VentanaRegistro extends JFrame {
 		
 		lblSexo = new JLabel(prop.getProperty("bostinder.ventanaregistro.lbSexo"));
 		lblSexo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
-		lblSexo.setBounds(90, 528, 1200, 70);
+		lblSexo.setBounds(90, 364, 1200, 70);
 		lblSexo.setForeground(Color.WHITE);
 		this.add(lblSexo);
 		
 		cbSexo = new JComboBox<>(new String[] { "Seleccione...", "Mujer", "Hombre" });
 		cbSexo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		cbSexo.setBounds(76, 585, 260, 40);
+		cbSexo.setBounds(76, 420, 260, 40);
 		cbSexo.setBackground(new Color(0,0,0));
 		cbSexo.setForeground(Color.WHITE);
 		cbSexo.setBorder(BorderFactory.createEmptyBorder());
@@ -307,7 +264,7 @@ public class VentanaRegistro extends JFrame {
 		btnVolver.setOpaque(false);
 		this.add(btnVolver);
 	
-		/*
+		
 		btnSubirImagen = new JButton(prop.getProperty("bostinder.ventanaregistro.btnSubirImagen"));
 		btnSubirImagen.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
 		btnSubirImagen.setBounds(855, 500, 250, 30);
@@ -316,10 +273,7 @@ public class VentanaRegistro extends JFrame {
 		btnSubirImagen.setFocusPainted(false);
 		btnSubirImagen.setBorder(null);
 		this.add(btnSubirImagen);
-		*/
-		calendario = new JCalendar();
-		calendario.setBounds(855, 500, 250, 250);
-		this.add(calendario);
+		
 		
 	}
 	
