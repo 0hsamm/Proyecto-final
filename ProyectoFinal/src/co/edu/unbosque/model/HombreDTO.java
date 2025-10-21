@@ -1,46 +1,43 @@
 package co.edu.unbosque.model;
 
+import java.awt.Image;
 import java.time.LocalDate;
 
-public class HombreDTO extends Persona{
+public class HombreDTO extends Usuario{
 
 	private int promedioIngMensual;
 	private double estatura;
-	private boolean esDivorciado;
 	
-	public HombreDTO() {
+	public HombreDTO () {
 		
 	}
 
 
-	
-
-	public HombreDTO(int promedioIngMensual, double estatura, boolean esDivorciado) {
+	public HombreDTO (int promedioIngMensual, double estatura) {
 		super();
 		this.promedioIngMensual = promedioIngMensual;
 		this.estatura = estatura;
-		this.esDivorciado = esDivorciado;
 	}
 
 
 
-
-	public HombreDTO(String nombre, String alias, String email, LocalDate anio, String genero, int promedioIngMensual,
-			double estatura, boolean esDivorciado) {
-		super(nombre, alias, email, anio, genero);
+	public HombreDTO (String nombre, String apellido, String email, LocalDate fecha, String genero, Boolean esAdministrador,
+			Boolean estaDisponible, String alias, Image foto, Boolean esIncognito, int numLikes, int promedioIngMensual,
+			double estatura) {
+		super(nombre, apellido, email, fecha, genero, esAdministrador, estaDisponible, alias, foto, esIncognito,
+				numLikes);
 		this.promedioIngMensual = promedioIngMensual;
 		this.estatura = estatura;
-		this.esDivorciado = esDivorciado;
 	}
 
 
 
 
-	public HombreDTO(String nombre, String alias, String email, LocalDate anio, String genero) {
-		super(nombre, alias, email, anio, genero);
+	public HombreDTO (String nombre, String apellido, String email, LocalDate fecha, String genero, Boolean esAdministrador,
+			Boolean estaDisponible, String alias, Image foto, Boolean esIncognito, int numLikes) {
+		super(nombre, apellido, email, fecha, genero, esAdministrador, estaDisponible, alias, foto, esIncognito, numLikes);
 		// TODO Auto-generated constructor stub
 	}
-
 
 
 
@@ -49,20 +46,14 @@ public class HombreDTO extends Persona{
 	}
 
 
-
-
 	public void setPromedioIngMensual(int promedioIngMensual) {
 		this.promedioIngMensual = promedioIngMensual;
 	}
 
 
-
-
 	public double getEstatura() {
 		return estatura;
 	}
-
-
 
 
 	public void setEstatura(double estatura) {
@@ -72,27 +63,17 @@ public class HombreDTO extends Persona{
 
 
 
-	public boolean isEsDivorciado() {
-		return esDivorciado;
-	}
-
-
-
-
-	public void setEsDivorciado(boolean esDivorciado) {
-		this.esDivorciado = esDivorciado;
-	}
-
-
-
-
 	@Override
 	public String toString() {
-		return super.toString() + "\nPromedio de ingreso mensual: " + promedioIngMensual + "\nEstatura: " + estatura + "\nHa tenido algún divorcio?: " + esDivorciado;
+		return super.toString() + "\nPromedio de ingreso mensual: " + promedioIngMensual + "\nEstatura: " + estatura;
 	}
-	
+
+
+
 
 	
+
+
 	
 	
 }

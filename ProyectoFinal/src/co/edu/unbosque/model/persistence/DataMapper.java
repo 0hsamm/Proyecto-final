@@ -12,13 +12,19 @@ public class DataMapper {
 	public static HombreDTO convertirHombreAHombreDTO(Hombre entity) {
 		HombreDTO dto = new HombreDTO();
 		dto.setNombre(entity.getNombre());
-		dto.setAlias(entity.getAlias());
+		dto.setApellido(entity.getApellido());
 		dto.setEmail(entity.getEmail());
-		dto.setAnio(entity.getAnio());
+		dto.setFecha(entity.getFecha());
 		dto.setGenero(entity.getGenero());
+		dto.setEstaDisponible(entity.getEstaDisponible());
+		dto.setEsAdministrador(entity.getEsAdministrador());
+		dto.setAlias(entity.getAlias());
+		dto.setFoto(entity.getFoto());
+		dto.setEsIncognito(entity.getEsIncognito());
+		dto.setNumLikes(entity.getNumLikes());
+		dto.setEstatura(entity.getEstatura());
 		dto.setPromedioIngMensual(entity.getPromedioIngMensual());
 		dto.setEstatura(entity.getEstatura());
-		dto.setEsDivorciado(entity.isEsDivorciado());
 		return dto;
 		
 	}
@@ -26,24 +32,34 @@ public class DataMapper {
 	public static Hombre convertirHombreDTOAHombre(HombreDTO dto) {
 		Hombre entity = new Hombre();
 		entity.setNombre(dto.getNombre());
-		entity.setAlias(dto.getAlias());
+		entity.setApellido(dto.getApellido());
 		entity.setEmail(dto.getEmail());
-		entity.setAnio(dto.getAnio());
+		entity.setFecha(dto.getFecha());
 		entity.setGenero(dto.getGenero());
+		entity.setEstaDisponible(dto.getEstaDisponible());
+		entity.setEsAdministrador(dto.getEsAdministrador());
+		entity.setAlias(dto.getAlias());
+		entity.setFoto(dto.getFoto());
+		entity.setEsIncognito(dto.getEsIncognito());
+		entity.setNumLikes(entity.getNumLikes());
 		entity.setPromedioIngMensual(dto.getPromedioIngMensual());
 		entity.setEstatura(dto.getEstatura());
-		entity.setEsDivorciado(dto.isEsDivorciado());
 		return entity;
 	}
 	
 	public static MujerDTO convertirMujerAMujerDTO(Mujer entity) {
 		MujerDTO dto = new MujerDTO();
 		dto.setNombre(entity.getNombre());
-		dto.setAlias(entity.getAlias());
+		dto.setApellido(entity.getApellido());
 		dto.setEmail(entity.getEmail());
-		dto.setAnio(entity.getAnio());
+		dto.setFecha(entity.getFecha());
 		dto.setGenero(entity.getGenero());
-		dto.setPromedioIngMensual(entity.getPromedioIngMensual());
+		dto.setEstaDisponible(entity.getEstaDisponible());
+		dto.setEsAdministrador(entity.getEsAdministrador());
+		dto.setAlias(entity.getAlias());
+		dto.setFoto(entity.getFoto());
+		dto.setEsIncognito(entity.getEsIncognito());
+		dto.setNumLikes(entity.getNumLikes());
 		dto.setEstatura(entity.getEstatura());
 		dto.setEsDivorciada(entity.isEsDivorciada());
 		return dto;
@@ -53,11 +69,16 @@ public class DataMapper {
 	public static Mujer convertirMujerDTOAMujer(MujerDTO dto) {
 		Mujer entity = new Mujer();
 		entity.setNombre(dto.getNombre());
-		entity.setAlias(dto.getAlias());
+		entity.setApellido(dto.getApellido());
 		entity.setEmail(dto.getEmail());
-		entity.setAnio(dto.getAnio());
+		entity.setFecha(dto.getFecha());
 		entity.setGenero(dto.getGenero());
-		entity.setPromedioIngMensual(dto.getPromedioIngMensual());
+		entity.setEstaDisponible(dto.getEstaDisponible());
+		entity.setEsAdministrador(dto.getEsAdministrador());
+		entity.setAlias(dto.getAlias());
+		entity.setFoto(dto.getFoto());
+		entity.setEsIncognito(dto.getEsIncognito());
+		entity.setNumLikes(entity.getNumLikes());
 		entity.setEstatura(dto.getEstatura());
 		entity.setEsDivorciada(dto.isEsDivorciada());
 		return entity;

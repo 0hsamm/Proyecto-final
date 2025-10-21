@@ -85,14 +85,18 @@ public class HombreDAO implements DAO<Hombre>{
 				}
 				Hombre temp = new Hombre();
 				temp.setNombre(columna[0]);
-				temp.setAlias(columna[1]);
+				temp.setApellido(columna[1]);;
 				temp.setEmail(columna[2]);
-				temp.setAnio(LocalDate.parse(columna[3]));
+				temp.setFecha(LocalDate.parse(columna[3]));
 				temp.setGenero(columna[4]);
-				temp.setPromedioIngMensual(Integer.parseInt(columna[5]));
-				temp.setEstatura(Double.parseDouble(columna[6]));
-				temp.setEsDivorciado(Boolean.parseBoolean(columna[7]));
-		
+				temp.setEstaDisponible(Boolean.parseBoolean(columna[5]));
+				temp.setEsAdministrador(Boolean.parseBoolean(columna[6]));
+				temp.setAlias(columna[7]);
+				//temp.setFoto();
+				temp.setEsIncognito(Boolean.parseBoolean(columna[9]));
+				temp.setNumLikes(Integer.parseInt(columna[10]));
+				temp.setPromedioIngMensual(Integer.parseInt(columna[11]));
+				temp.setEstatura(Double.parseDouble(columna[12]));
 				
 				listaHombres.add(temp);
 			}
@@ -105,14 +109,18 @@ public class HombreDAO implements DAO<Hombre>{
 		StringBuilder sb = new StringBuilder();
 		for (Hombre hombre : listaHombres) {
 			sb.append(hombre.getNombre() + ";");
-			sb.append(hombre.getAlias() + ";");
+			sb.append(hombre.getApellido() + ";");
 			sb.append(hombre.getEmail() + ";");
-			sb.append(hombre.getAnio() + ";");
+			sb.append(hombre.getFecha() + ";");
 			sb.append(hombre.getGenero() + ";");
+			sb.append(hombre.getEsAdministrador() + ";");
+			sb.append(hombre.getEstaDisponible() + ";");
+			sb.append(hombre.getAlias() + ";");
+			sb.append(hombre.getFoto() + ";");
+			sb.append(hombre.getEsIncognito() + ";");
+			sb.append(hombre.getNumLikes() + ";");
 			sb.append(hombre.getPromedioIngMensual() + ";");
-			sb.append(hombre.getEstatura() + ";");
-			sb.append(hombre.isEsDivorciado() + "\n");
-			
+			sb.append(hombre.getEstatura() + "\n");
 		}
 		FileHandler.escribirEnArchivoDeTexto(FILE_NAME, sb.toString());
 		

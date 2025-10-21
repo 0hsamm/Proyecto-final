@@ -1,5 +1,6 @@
 package co.edu.unbosque.model.persistence;
 
+import java.awt.Image;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -85,13 +86,18 @@ public class MujerDAO implements DAO<Mujer>{
 				}
 				Mujer temp = new Mujer();
 				temp.setNombre(columna[0]);
-				temp.setAlias(columna[1]);
+				temp.setApellido(columna[1]);;
 				temp.setEmail(columna[2]);
-				temp.setAnio(LocalDate.parse(columna[3]));
+				temp.setFecha(LocalDate.parse(columna[3]));
 				temp.setGenero(columna[4]);
-				temp.setPromedioIngMensual(Integer.parseInt(columna[5]));
-				temp.setEstatura(Double.parseDouble(columna[6]));
-				temp.setEsDivorciada(Boolean.parseBoolean(columna[7]));;
+				temp.setEstaDisponible(Boolean.parseBoolean(columna[5]));
+				temp.setEsAdministrador(Boolean.parseBoolean(columna[6]));
+				temp.setAlias(columna[7]);
+			//	temp.setFoto(columna[8]);
+				temp.setEsIncognito(Boolean.parseBoolean(columna[9]));
+				temp.setNumLikes(Integer.parseInt(columna[10]));
+				temp.setEstatura(Double.parseDouble(columna[11]));
+				temp.setEsDivorciada(Boolean.parseBoolean(columna[12]));
 				
 				listaMujeres.add(temp);
 			}
@@ -104,11 +110,16 @@ public class MujerDAO implements DAO<Mujer>{
 		StringBuilder sb = new StringBuilder();
 		for (Mujer mujer : listaMujeres) {
 			sb.append(mujer.getNombre() + ";");
-			sb.append(mujer.getAlias() + ";");
+			sb.append(mujer.getApellido() + ";");
 			sb.append(mujer.getEmail() + ";");
-			sb.append(mujer.getAnio() + ";");
+			sb.append(mujer.getFecha() + ";");
 			sb.append(mujer.getGenero() + ";");
-			sb.append(mujer.getPromedioIngMensual() + ";");
+			sb.append(mujer.getEsAdministrador() + ";");
+			sb.append(mujer.getEstaDisponible() + ";");
+			sb.append(mujer.getAlias() + ";");
+			sb.append(mujer.getFoto() + ";");
+			sb.append(mujer.getEsIncognito() + ";");
+			sb.append(mujer.getNumLikes() + ";");
 			sb.append(mujer.getEstatura() + ";");
 			sb.append(mujer.isEsDivorciada() + "\n");
 			

@@ -5,11 +5,11 @@ import java.time.LocalDate;
 public abstract class Persona {
 
 	private String nombre;
-	private String alias;
+	private String apellido;
 	private String email;
-	private LocalDate anio;
+	private LocalDate fecha;
 	private String genero;
-
+	private Boolean esAdministrador;
 	
 	
 	public Persona() {
@@ -17,16 +17,24 @@ public abstract class Persona {
 	}
 
 
-	public Persona(String nombre, String alias, String email, LocalDate anio, String genero) {
+
+
+
+	
+	public Persona(String nombre, String apellido, String email, LocalDate fecha, String genero,
+			Boolean esAdministrador) {
 		super();
 		this.nombre = nombre;
-		this.alias = alias;
+		this.apellido = apellido;
 		this.email = email;
-		this.anio = anio;
+		this.fecha = fecha;
 		this.genero = genero;
-	
+		this.esAdministrador = esAdministrador;
 	}
-	
+
+
+
+
 
 
 	public String getNombre() {
@@ -34,19 +42,35 @@ public abstract class Persona {
 	}
 
 
+
+
+
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
 
-	public String getAlias() {
-		return alias;
+
+
+
+
+	public String getApellido() {
+		return apellido;
 	}
 
 
-	public void setAlias(String alias) {
-		this.alias = alias;
+
+
+
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
+
+
+
+
 
 
 	public String getEmail() {
@@ -54,19 +78,35 @@ public abstract class Persona {
 	}
 
 
+
+
+
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
 
-	public LocalDate getAnio() {
-		return anio;
+
+
+
+
+	public LocalDate getFecha() {
+		return fecha;
 	}
 
 
-	public void setAnio(LocalDate anio) {
-		this.anio = anio;
+
+
+
+
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
 	}
+
+
+
+
 
 
 	public String getGenero() {
@@ -74,19 +114,45 @@ public abstract class Persona {
 	}
 
 
+
+
+
+
 	public void setGenero(String genero) {
 		this.genero = genero;
 	}
 
 
-	
+
+
+
+
+	public Boolean getEsAdministrador() {
+		return esAdministrador;
+	}
+
+
+
+
+
+
+	public void setEsAdministrador(Boolean esAdministrador) {
+		this.esAdministrador = esAdministrador;
+	}
+
+
+
+
 
 
 	@Override
 	public String toString() {
-		return "Nombre: " + nombre + "\nAlias: " + alias + "\nEmail: " + email + "\nAño: " + anio
-				+ "\nGenero: " + genero;
+		return "Nombre: " + nombre + "\nApellido: " + apellido + "\nEmail: " + email + "\nFecha: " + fecha
+				+ "\nGenero: " + genero + "\nEs administrador?: " + esAdministrador;
 	}
+
+
+
 
 	
 	
