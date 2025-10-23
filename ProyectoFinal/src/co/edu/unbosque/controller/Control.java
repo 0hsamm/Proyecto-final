@@ -122,11 +122,7 @@ public class Control implements ActionListener {
 			vf.getVenMenu().setVisible(true);
 		}
 		case "SUBIR_FOTO" :{
-			int resultado = vf.getVenRegistro().getArchivos().showOpenDialog(vf.getVenRegistro());
-			if (resultado == vf.getVenRegistro().getArchivos().APPROVE_OPTION) {
-				System.out.println("You chose to open this file: " +
-						vf.getVenRegistro().getArchivos().getSelectedFile().getName());
-			}
+			vf.getVenRegistro().subirFotoPerfil();
 		}
 		}
 	}
