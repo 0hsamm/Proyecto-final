@@ -8,6 +8,8 @@ public class HombreDTO extends Usuario{
 	private int promedioIngMensual;
 	private double estatura;
 	
+	
+	//constructor vacio
 	public HombreDTO () {
 		
 	}
