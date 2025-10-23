@@ -15,9 +15,7 @@ public abstract class Usuario extends Persona {
 	public Usuario() {
 	}
 
-	
-	
-	
+
 	public Usuario(Boolean estaDisponible, String alias, Image foto, Boolean esIncognito, int numLikes) {
 		super();
 		this.estaDisponible = estaDisponible;
@@ -26,6 +24,10 @@ public abstract class Usuario extends Persona {
 		this.esIncognito = esIncognito;
 		this.numLikes = numLikes;
 	}
+
+
+
+
 
 
 
@@ -44,11 +46,19 @@ public abstract class Usuario extends Persona {
 
 
 
+
+
+
+
 	public Usuario(String nombre, String apellido, String email, LocalDate fecha, String genero,
 			Boolean esAdministrador) {
 		super(nombre, apellido, email, fecha, genero, esAdministrador);
 		// TODO Auto-generated constructor stub
 	}
+
+
+
+
 
 
 
