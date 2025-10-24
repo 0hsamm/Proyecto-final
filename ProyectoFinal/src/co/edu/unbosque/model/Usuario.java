@@ -7,7 +7,7 @@ public abstract class Usuario extends Persona {
 
 	private Boolean estaDisponible;
 	private String alias;
-	private Image foto;
+	private String foto;
 	private Boolean esIncognito;
 	private int numLikes;
 	//codigo de validación (preguntazrle a dieguito)
@@ -16,7 +16,7 @@ public abstract class Usuario extends Persona {
 	}
 
 
-	public Usuario(Boolean estaDisponible, String alias, Image foto, Boolean esIncognito, int numLikes) {
+	public Usuario(Boolean estaDisponible, String alias, String foto, Boolean esIncognito, int numLikes) {
 		super();
 		this.estaDisponible = estaDisponible;
 		this.alias = alias;
@@ -33,7 +33,7 @@ public abstract class Usuario extends Persona {
 
 
 	public Usuario(String nombre, String apellido, String email, LocalDate fecha, String genero,
-			Boolean esAdministrador, Boolean estaDisponible, String alias, Image foto, Boolean esIncognito,
+			Boolean esAdministrador, Boolean estaDisponible, String alias, String foto, Boolean esIncognito,
 			int numLikes) {
 		super(nombre, apellido, email, fecha, genero, esAdministrador);
 		this.estaDisponible = estaDisponible;
@@ -91,14 +91,14 @@ public abstract class Usuario extends Persona {
 
 
 
-	public Image getFoto() {
+	public String getFoto() {
 		return foto;
 	}
 
 
 
 
-	public void setFoto(Image foto) {
+	public void setFoto(String foto) {
 		this.foto = foto;
 	}
 

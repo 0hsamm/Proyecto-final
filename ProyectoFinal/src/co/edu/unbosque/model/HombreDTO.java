@@ -24,7 +24,7 @@ public class HombreDTO extends Usuario{
 
 
 	public HombreDTO (String nombre, String apellido, String email, LocalDate fecha, String genero, Boolean esAdministrador,
-			Boolean estaDisponible, String alias, Image foto, Boolean esIncognito, int numLikes, int promedioIngMensual,
+			Boolean estaDisponible, String alias, String foto, Boolean esIncognito, int numLikes, int promedioIngMensual,
 			double estatura) {
 		super(nombre, apellido, email, fecha, genero, esAdministrador, estaDisponible, alias, foto, esIncognito,
 				numLikes);
@@ -36,7 +36,7 @@ public class HombreDTO extends Usuario{
 
 
 	public HombreDTO (String nombre, String apellido, String email, LocalDate fecha, String genero, Boolean esAdministrador,
-			Boolean estaDisponible, String alias, Image foto, Boolean esIncognito, int numLikes) {
+			Boolean estaDisponible, String alias, String foto, Boolean esIncognito, int numLikes) {
 		super(nombre, apellido, email, fecha, genero, esAdministrador, estaDisponible, alias, foto, esIncognito, numLikes);
 		// TODO Auto-generated constructor stub
 	}

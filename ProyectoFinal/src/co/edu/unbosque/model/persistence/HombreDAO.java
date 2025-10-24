@@ -89,10 +89,10 @@ public class HombreDAO implements DAO<Hombre>{
 				temp.setEmail(columna[2]);
 				temp.setFecha(LocalDate.parse(columna[3]));
 				temp.setGenero(columna[4]);
-				temp.setEstaDisponible(Boolean.parseBoolean(columna[5]));
-				temp.setEsAdministrador(Boolean.parseBoolean(columna[6]));
+				temp.setEsAdministrador(Boolean.parseBoolean(columna[5]));
+				temp.setEstaDisponible(Boolean.parseBoolean(columna[6]));
 				temp.setAlias(columna[7]);
-				//temp.setFoto();
+				temp.setFoto(columna[8]);
 				temp.setEsIncognito(Boolean.parseBoolean(columna[9]));
 				temp.setNumLikes(Integer.parseInt(columna[10]));
 				temp.setPromedioIngMensual(Integer.parseInt(columna[11]));

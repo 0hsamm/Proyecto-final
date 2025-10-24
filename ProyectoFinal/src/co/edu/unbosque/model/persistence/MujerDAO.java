@@ -93,7 +93,7 @@ public class MujerDAO implements DAO<Mujer>{
 				temp.setEstaDisponible(Boolean.parseBoolean(columna[5]));
 				temp.setEsAdministrador(Boolean.parseBoolean(columna[6]));
 				temp.setAlias(columna[7]);
-			//	temp.setFoto(columna[8]);
+				temp.setFoto(columna[8]);
 				temp.setEsIncognito(Boolean.parseBoolean(columna[9]));
 				temp.setNumLikes(Integer.parseInt(columna[10]));
 				temp.setEstatura(Double.parseDouble(columna[11]));
