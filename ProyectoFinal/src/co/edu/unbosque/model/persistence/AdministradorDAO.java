@@ -111,7 +111,7 @@ StringBuilder sb = new StringBuilder();
 			sb.append(administrador.getContrasena() + ";");
 			sb.append(administrador.getFecha() + ";");
 			sb.append(administrador.getGenero() + ";");
-			sb.append(administrador.getEsAdministrador() + ";");
+			sb.append(administrador.isEsAdministrador() + ";");
 		
 		}
 		FileHandler.escribirEnArchivoDeTexto(FILE_NAME, sb.toString());

@@ -29,14 +29,14 @@ public class HombreDTO extends Usuario implements Serializable{
 	
 
 	public HombreDTO(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
-			Boolean esAdministrador, int promedioIngMensual, double estatura) {
+			boolean esAdministrador, int promedioIngMensual, double estatura) {
 		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador);
 		this.promedioIngMensual = promedioIngMensual;
 		this.estatura = estatura;
 	}
 
 
-	public HombreDTO(Boolean estaDisponible, String alias, String URLfoto, Boolean esIncognito, int numLikes,
+	public HombreDTO(boolean estaDisponible, String alias, String URLfoto, boolean esIncognito, int numLikes,
 			int promedioIngMensual, double estatura) {
 		super(estaDisponible, alias, URLfoto, esIncognito, numLikes);
 		this.promedioIngMensual = promedioIngMensual;
@@ -45,7 +45,7 @@ public class HombreDTO extends Usuario implements Serializable{
 
 
 	public HombreDTO(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
-			Boolean esAdministrador, Boolean estaDisponible, String alias, String uRLfoto, Boolean esIncognito,
+			boolean esAdministrador, boolean estaDisponible, String alias, String uRLfoto, boolean esIncognito,
 			int numLikes, int promedioIngMensual, double estatura) {
 		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador, estaDisponible, alias, uRLfoto,
 				esIncognito, numLikes);
@@ -54,14 +54,14 @@ public class HombreDTO extends Usuario implements Serializable{
 	}
 
 
-	public HombreDTO(Boolean estaDisponible, String alias, String URLfoto, Boolean esIncognito, int numLikes) {
+	public HombreDTO(boolean estaDisponible, String alias, String URLfoto, boolean esIncognito, int numLikes) {
 		super(estaDisponible, alias, URLfoto, esIncognito, numLikes);
 		// TODO Auto-generated constructor stub
 	}
 
 
 	public HombreDTO(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
-			Boolean esAdministrador, Boolean estaDisponible, String alias, String uRLfoto, Boolean esIncognito,
+			boolean esAdministrador, boolean estaDisponible, String alias, String uRLfoto, boolean esIncognito,
 			int numLikes) {
 		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador, estaDisponible, alias, uRLfoto, esIncognito,
 				numLikes);
@@ -70,7 +70,7 @@ public class HombreDTO extends Usuario implements Serializable{
 
 
 	public HombreDTO(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
-			Boolean esAdministrador) {
+			boolean esAdministrador) {
 		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador);
 		// TODO Auto-generated constructor stub
 	}

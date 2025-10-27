@@ -18,7 +18,7 @@ public class Administrador extends Persona implements Serializable{
 	}
 
 	public Administrador(String nombre, String apellido, String email, String contrasena, LocalDate fecha,
-			String genero, Boolean esAdministrador) {
+			String genero, boolean esAdministrador) {
 		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador);
 	}
 

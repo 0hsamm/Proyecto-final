@@ -25,7 +25,7 @@ public class MujerDTO extends Usuario implements Serializable{
 	}
 
 
-	public MujerDTO(Boolean estaDisponible, String alias, String URLfoto, Boolean esIncognito, int numLikes,
+	public MujerDTO(boolean estaDisponible, String alias, String URLfoto, boolean esIncognito, int numLikes,
 			double estatura, boolean esDivorciada) {
 		super(estaDisponible, alias, URLfoto, esIncognito, numLikes);
 		this.estatura = estatura;
@@ -34,7 +34,7 @@ public class MujerDTO extends Usuario implements Serializable{
 
 
 	public MujerDTO(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
-			Boolean esAdministrador, Boolean estaDisponible, String alias, String uRLfoto, Boolean esIncognito,
+			boolean esAdministrador, boolean estaDisponible, String alias, String uRLfoto, boolean esIncognito,
 			int numLikes, double estatura, boolean esDivorciada) {
 		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador, estaDisponible, alias, uRLfoto,
 				esIncognito, numLikes);
@@ -44,21 +44,21 @@ public class MujerDTO extends Usuario implements Serializable{
 
 
 	public MujerDTO(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
-			Boolean esAdministrador, double estatura, boolean esDivorciada) {
+			boolean esAdministrador, double estatura, boolean esDivorciada) {
 		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador);
 		this.estatura = estatura;
 		this.esDivorciada = esDivorciada;
 	}
 
 
-	public MujerDTO(Boolean estaDisponible, String alias, String URLfoto, Boolean esIncognito, int numLikes) {
+	public MujerDTO(boolean estaDisponible, String alias, String URLfoto, boolean esIncognito, int numLikes) {
 		super(estaDisponible, alias, URLfoto, esIncognito, numLikes);
 		// TODO Auto-generated constructor stub
 	}
 
 
 	public MujerDTO(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
-			Boolean esAdministrador, Boolean estaDisponible, String alias, String uRLfoto, Boolean esIncognito,
+			boolean esAdministrador, boolean estaDisponible, String alias, String uRLfoto, boolean esIncognito,
 			int numLikes) {
 		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador, estaDisponible, alias, uRLfoto, esIncognito,
 				numLikes);
@@ -67,7 +67,7 @@ public class MujerDTO extends Usuario implements Serializable{
 
 
 	public MujerDTO(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
-			Boolean esAdministrador) {
+			boolean esAdministrador) {
 		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador);
 		// TODO Auto-generated constructor stub
 	}

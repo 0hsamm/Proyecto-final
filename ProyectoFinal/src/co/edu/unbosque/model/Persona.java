@@ -18,16 +18,6 @@ public abstract class Persona {
 	}
 
 
-
-
-
-
-	
-
-
-
-
-
 	public Persona(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
 			boolean esAdministrador) {
 		super();
@@ -42,21 +32,9 @@ public abstract class Persona {
 
 
 
-
-
-
-
-
-
-
-
-
 	public String getNombre() {
 		return nombre;
 	}
-
-
-
 
 
 
@@ -150,18 +128,6 @@ public abstract class Persona {
 	public void setGenero(String genero) {
 		this.genero = genero;
 	}
-
-
-
-	
-
-
-
-	public boolean getEsAdministrador() {
-		return esAdministrador;
-	}
-
-
 
 
 
