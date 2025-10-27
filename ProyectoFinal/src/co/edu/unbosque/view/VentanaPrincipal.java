@@ -48,7 +48,7 @@ public class VentanaPrincipal extends JFrame {
 
 	public VentanaPrincipal() {
 		prop = new Properties();
-	
+
 	}
 
 	public void inicializarComponentes() {

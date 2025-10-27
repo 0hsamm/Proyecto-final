@@ -10,7 +10,7 @@ public abstract class Persona {
 	private String contrasena;
 	private LocalDate fecha;
 	private String genero;
-	private Boolean esAdministrador;
+	private boolean esAdministrador;
 	
 	
 	public Persona() {
@@ -22,8 +22,14 @@ public abstract class Persona {
 
 
 
+	
+
+
+
+
+
 	public Persona(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
-			Boolean esAdministrador) {
+			boolean esAdministrador) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -33,6 +39,13 @@ public abstract class Persona {
 		this.genero = genero;
 		this.esAdministrador = esAdministrador;
 	}
+
+
+
+
+
+
+
 
 
 
@@ -140,9 +153,21 @@ public abstract class Persona {
 
 
 
+	
+
 
 
 	public boolean getEsAdministrador() {
+		return esAdministrador;
+	}
+
+
+
+
+
+
+
+	public boolean isEsAdministrador() {
 		return esAdministrador;
 	}
 

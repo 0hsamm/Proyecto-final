@@ -115,7 +115,7 @@ public class HombreDAO implements DAO<Hombre>{
 			sb.append(hombre.getContrasena() + ";");
 			sb.append(hombre.getFecha() + ";");
 			sb.append(hombre.getGenero() + ";");
-			sb.append(hombre.getEsAdministrador() + ";");
+			sb.append(hombre.isEsAdministrador() + ";");
 			sb.append(hombre.getEstaDisponible() + ";");
 			sb.append(hombre.getAlias() + ";");
 			sb.append(hombre.getURLfoto() + ";");
