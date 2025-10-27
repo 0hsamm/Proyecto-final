@@ -1,21 +1,24 @@
 package co.edu.unbosque.model;
 
 import java.awt.Image;
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class HombreDTO extends Usuario{
+public class HombreDTO extends Usuario implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1834043748497202826L;
 	private int promedioIngMensual;
 	private double estatura;
 	
-	
-	//constructor vacio
-	public HombreDTO () {
+	public HombreDTO() {
 		
 	}
 
 
-	public HombreDTO (int promedioIngMensual, double estatura) {
+	public HombreDTO(int promedioIngMensual, double estatura) {
 		super();
 		this.promedioIngMensual = promedioIngMensual;
 		this.estatura = estatura;
@@ -23,10 +26,10 @@ public class HombreDTO extends Usuario{
 
 
 
-	public HombreDTO (String nombre, String apellido, String email, LocalDate fecha, String genero, Boolean esAdministrador,
-			Boolean estaDisponible, String alias, String foto, Boolean esIncognito, int numLikes, int promedioIngMensual,
+	public HombreDTO(String nombre, String apellido, String email, LocalDate fecha, String genero, Boolean esAdministrador,
+			Boolean estaDisponible, String alias, String URLfoto, Boolean esIncognito, int numLikes, int promedioIngMensual,
 			double estatura) {
-		super(nombre, apellido, email, fecha, genero, esAdministrador, estaDisponible, alias, foto, esIncognito,
+		super(nombre, apellido, email, fecha, genero, esAdministrador, estaDisponible, alias, URLfoto, esIncognito,
 				numLikes);
 		this.promedioIngMensual = promedioIngMensual;
 		this.estatura = estatura;
@@ -35,9 +38,9 @@ public class HombreDTO extends Usuario{
 
 
 
-	public HombreDTO (String nombre, String apellido, String email, LocalDate fecha, String genero, Boolean esAdministrador,
-			Boolean estaDisponible, String alias, String foto, Boolean esIncognito, int numLikes) {
-		super(nombre, apellido, email, fecha, genero, esAdministrador, estaDisponible, alias, foto, esIncognito, numLikes);
+	public HombreDTO(String nombre, String apellido, String email, LocalDate fecha, String genero, Boolean esAdministrador,
+			Boolean estaDisponible, String alias, String URLfoto, Boolean esIncognito, int numLikes) {
+		super(nombre, apellido, email, fecha, genero, esAdministrador, estaDisponible, alias, URLfoto, esIncognito, numLikes);
 		// TODO Auto-generated constructor stub
 	}
 

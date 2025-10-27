@@ -7,7 +7,7 @@ public abstract class Usuario extends Persona {
 
 	private Boolean estaDisponible;
 	private String alias;
-	private String foto;
+	private String URLfoto;
 	private Boolean esIncognito;
 	private int numLikes;
 	//codigo de validación (preguntazrle a dieguito)
@@ -16,11 +16,11 @@ public abstract class Usuario extends Persona {
 	}
 
 
-	public Usuario(Boolean estaDisponible, String alias, String foto, Boolean esIncognito, int numLikes) {
+	public Usuario(Boolean estaDisponible, String alias, String URLfoto, Boolean esIncognito, int numLikes) {
 		super();
 		this.estaDisponible = estaDisponible;
 		this.alias = alias;
-		this.foto = foto;
+		this.URLfoto = URLfoto;
 		this.esIncognito = esIncognito;
 		this.numLikes = numLikes;
 	}
@@ -33,12 +33,12 @@ public abstract class Usuario extends Persona {
 
 
 	public Usuario(String nombre, String apellido, String email, LocalDate fecha, String genero,
-			Boolean esAdministrador, Boolean estaDisponible, String alias, String foto, Boolean esIncognito,
+			Boolean esAdministrador, Boolean estaDisponible, String alias, String URLfoto, Boolean esIncognito,
 			int numLikes) {
 		super(nombre, apellido, email, fecha, genero, esAdministrador);
 		this.estaDisponible = estaDisponible;
 		this.alias = alias;
-		this.foto = foto;
+		this.URLfoto = URLfoto;
 		this.esIncognito = esIncognito;
 		this.numLikes = numLikes;
 	}
@@ -91,15 +91,15 @@ public abstract class Usuario extends Persona {
 
 
 
-	public String getFoto() {
-		return foto;
+	public String getURLfoto() {
+		return URLfoto;
 	}
 
 
 
 
-	public void setFoto(String foto) {
-		this.foto = foto;
+	public void setURLfoto(String foto) {
+		this.URLfoto = foto;
 	}
 
 
@@ -135,7 +135,7 @@ public abstract class Usuario extends Persona {
 
 	@Override
 	public String toString() {
-		return super.toString() + "\nEstá disponible?: " + estaDisponible +  "\nAlias: " + alias + "\nFoto: " + foto + "\nModo incognito?: " + esIncognito + "\nNúmero de likes: " + numLikes;
+		return super.toString() + "\nEstá disponible?: " + estaDisponible +  "\nAlias: " + alias + "\nFoto: " + URLfoto + "\nModo incognito?: " + esIncognito + "\nNúmero de likes: " + numLikes;
 	}
 	
 	

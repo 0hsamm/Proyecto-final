@@ -19,7 +19,7 @@ public class DataMapper {
 		dto.setEstaDisponible(entity.getEstaDisponible());
 		dto.setEsAdministrador(entity.getEsAdministrador());
 		dto.setAlias(entity.getAlias());
-		dto.setFoto(entity.getFoto());
+		dto.setURLfoto(entity.getURLfoto());
 		dto.setEsIncognito(entity.getEsIncognito());
 		dto.setNumLikes(entity.getNumLikes());
 		dto.setEstatura(entity.getEstatura());
@@ -39,7 +39,7 @@ public class DataMapper {
 		entity.setEstaDisponible(dto.getEstaDisponible());
 		entity.setEsAdministrador(dto.getEsAdministrador());
 		entity.setAlias(dto.getAlias());
-		entity.setFoto(dto.getFoto());
+		entity.setURLfoto(dto.getURLfoto());
 		entity.setEsIncognito(dto.getEsIncognito());
 		entity.setNumLikes(entity.getNumLikes());
 		entity.setPromedioIngMensual(dto.getPromedioIngMensual());
@@ -57,7 +57,7 @@ public class DataMapper {
 		dto.setEstaDisponible(entity.getEstaDisponible());
 		dto.setEsAdministrador(entity.getEsAdministrador());
 		dto.setAlias(entity.getAlias());
-		dto.setFoto(entity.getFoto());
+		dto.setURLfoto(entity.getURLfoto());
 		dto.setEsIncognito(entity.getEsIncognito());
 		dto.setNumLikes(entity.getNumLikes());
 		dto.setEstatura(entity.getEstatura());
@@ -76,7 +76,7 @@ public class DataMapper {
 		entity.setEstaDisponible(dto.getEstaDisponible());
 		entity.setEsAdministrador(dto.getEsAdministrador());
 		entity.setAlias(dto.getAlias());
-		entity.setFoto(dto.getFoto());
+		entity.setURLfoto(dto.getURLfoto());
 		entity.setEsIncognito(dto.getEsIncognito());
 		entity.setNumLikes(entity.getNumLikes());
 		entity.setEstatura(dto.getEstatura());

@@ -28,9 +28,9 @@ public class Mujer extends Usuario implements Serializable{
 
 
 	public Mujer(String nombre, String apellido, String email, LocalDate fecha, String genero, Boolean esAdministrador,
-			Boolean estaDisponible, String alias, String foto, Boolean esIncognito, int numLikes, double estatura,
+			Boolean estaDisponible, String alias, String URLfoto, Boolean esIncognito, int numLikes, double estatura,
 			boolean esDivorciada) {
-		super(nombre, apellido, email, fecha, genero, esAdministrador, estaDisponible, alias, foto, esIncognito,
+		super(nombre, apellido, email, fecha, genero, esAdministrador, estaDisponible, alias, URLfoto, esIncognito,
 				numLikes);
 		this.estatura = estatura;
 		this.esDivorciada = esDivorciada;
@@ -38,8 +38,8 @@ public class Mujer extends Usuario implements Serializable{
 
 
 	public Mujer(String nombre, String apellido, String email, LocalDate fecha, String genero, Boolean esAdministrador,
-			Boolean estaDisponible, String alias, String foto, Boolean esIncognito, int numLikes) {
-		super(nombre, apellido, email, fecha, genero, esAdministrador, estaDisponible, alias, foto, esIncognito, numLikes);
+			Boolean estaDisponible, String alias, String URLfoto, Boolean esIncognito, int numLikes) {
+		super(nombre, apellido, email, fecha, genero, esAdministrador, estaDisponible, alias, URLfoto, esIncognito, numLikes);
 		// TODO Auto-generated constructor stub
 	}
 

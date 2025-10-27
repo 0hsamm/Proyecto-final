@@ -92,7 +92,7 @@ public class HombreDAO implements DAO<Hombre>{
 				temp.setEsAdministrador(Boolean.parseBoolean(columna[5]));
 				temp.setEstaDisponible(Boolean.parseBoolean(columna[6]));
 				temp.setAlias(columna[7]);
-				temp.setFoto(columna[8]);
+				temp.setURLfoto(columna[8]);
 				temp.setEsIncognito(Boolean.parseBoolean(columna[9]));
 				temp.setNumLikes(Integer.parseInt(columna[10]));
 				temp.setPromedioIngMensual(Integer.parseInt(columna[11]));
@@ -116,7 +116,7 @@ public class HombreDAO implements DAO<Hombre>{
 			sb.append(hombre.getEsAdministrador() + ";");
 			sb.append(hombre.getEstaDisponible() + ";");
 			sb.append(hombre.getAlias() + ";");
-			sb.append(hombre.getFoto() + ";");
+			sb.append(hombre.getURLfoto() + ";");
 			sb.append(hombre.getEsIncognito() + ";");
 			sb.append(hombre.getNumLikes() + ";");
 			sb.append(hombre.getPromedioIngMensual() + ";");
