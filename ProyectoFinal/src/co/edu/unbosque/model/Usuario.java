@@ -53,7 +53,7 @@ public abstract class Usuario extends Persona {
 	}
 
 
-	public Boolean isEstaDisponible() {
+	public boolean isEstaDisponible() {
 		return estaDisponible;
 	}
 
