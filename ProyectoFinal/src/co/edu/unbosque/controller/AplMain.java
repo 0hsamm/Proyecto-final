@@ -3,7 +3,7 @@ package co.edu.unbosque.controller;
 public class AplMain {
 
 	public static void main(String[] args) {
-		Control c = new Control();
+		Controller c = new Controller();
 		c.runGUI();
 
 	}
