@@ -47,7 +47,6 @@ public class VentanaPrincipal extends JFrame {
 	private Properties prop;
 
 	public VentanaPrincipal() {
-		prop = new Properties();
 
 	}
 

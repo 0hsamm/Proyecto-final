@@ -60,15 +60,20 @@ public class VentanaRegistro extends JFrame {
 	
 	//Otros
 	private JLabel lblCodigoDeVerificacion;
+	private JTextField textCodigoVerificacion;
 	private JButton btnEnviarCodigoDeVerificacion;
 	private JButton btnSubirImagen;
 	private JCalendar calendario;
 	
+	//ADMIN
+	private JLabel lblesAdministrador;
+
+	private JComboBox<String> cbesAdministrador;
+	
 	private Properties prop;
 
 	public VentanaRegistro() {
-		prop = new Properties();
-	
+
 	}
 
 	public void inicializarComponentes() {
@@ -167,13 +172,13 @@ public class VentanaRegistro extends JFrame {
 		
 		lblAlias = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblalias"));
 		lblAlias.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
-		lblAlias.setBounds(480, 130, 1200, 70);
+		lblAlias.setBounds(480, 120, 1200, 70);
 		lblAlias.setForeground(Color.WHITE);
 		this.add(lblAlias);
 
 		textAlias = new JTextField();
 		textAlias.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		textAlias.setBounds(470, 190, 260, 40);
+		textAlias.setBounds(470, 180, 260, 40);
 		textAlias.setForeground(Color.WHITE);
 		textAlias.setBackground(new Color(0,0,0));
 		textAlias.setOpaque(true);
@@ -183,13 +188,13 @@ public class VentanaRegistro extends JFrame {
 		//HOMBRE
 		lblIngreso = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblingresos"));
 		lblIngreso.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
-		lblIngreso.setBounds(480, 260, 1200, 70);
+		lblIngreso.setBounds(480, 205, 1200, 70);
 		lblIngreso.setForeground(Color.WHITE);
 		this.add(lblIngreso);
 
 		textIngreso = new JTextField();
 		textIngreso.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		textIngreso.setBounds(470, 320, 260, 40);
+		textIngreso.setBounds(470, 263, 260, 40);
 		textIngreso.setForeground(Color.WHITE);
 		textIngreso.setBackground(new Color(0,0,0));
 		textIngreso.setOpaque(true);
@@ -198,13 +203,13 @@ public class VentanaRegistro extends JFrame {
 		
 		lblEstatura = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblestatura"));
 		lblEstatura.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
-		lblEstatura.setBounds(480, 350, 1200, 70);
+		lblEstatura.setBounds(480, 283, 1200, 70);
 		lblEstatura.setForeground(Color.WHITE);
 		this.add(lblEstatura);
 
 		textEstatura = new JTextField();
 		textEstatura.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		textEstatura.setBounds(470, 408, 260, 40);
+		textEstatura.setBounds(470, 340, 260, 40);
 		textEstatura.setForeground(Color.WHITE);
 		textEstatura.setBackground(new Color(0,0,0));
 		textEstatura.setOpaque(true);
@@ -214,25 +219,55 @@ public class VentanaRegistro extends JFrame {
 		//MUJER
 		lblDivorcio = new JLabel(prop.getProperty("bostinder.ventanaregistro.lbldivorcio"));
 		lblDivorcio.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
-		lblDivorcio.setBounds(480, 438, 1200, 70);
+		lblDivorcio.setBounds(480, 364, 1200, 70);
 		lblDivorcio.setForeground(Color.WHITE);
 		this.add(lblDivorcio);
 
 		cbSeHaDivorciado = new JComboBox<>(new String[] { "Seleccione...", "Sí", "No" });
 		cbSeHaDivorciado.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		cbSeHaDivorciado.setBounds(470, 495, 260, 40);
+		cbSeHaDivorciado.setBounds(470, 420, 260, 40);
 		cbSeHaDivorciado.setBackground(new Color(0,0,0));
 		cbSeHaDivorciado.setForeground(Color.WHITE);
 		cbSeHaDivorciado.setBorder(BorderFactory.createEmptyBorder());
 		cbSeHaDivorciado.setUI(new javax.swing.plaf.basic.BasicComboBoxUI());
 		this.add(cbSeHaDivorciado);
 
+		//admin
+		
+		lblesAdministrador = new JLabel(prop.getProperty("bostinder.ventanaregistro.lbladmin"));
+		lblesAdministrador.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
+		lblesAdministrador.setBounds(480, 440, 1200, 70);
+		lblesAdministrador.setForeground(Color.WHITE);
+		this.add(lblesAdministrador);
+
+		cbesAdministrador = new JComboBox<>(prop.getProperty("bostinder.ventanaregistro.cbAdmin").split(","));
+		cbesAdministrador.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+		cbesAdministrador.setBounds(470, 495, 260, 40);
+		cbesAdministrador.setBackground(new Color(0,0,0));
+		cbesAdministrador.setForeground(Color.WHITE);
+		cbesAdministrador.setBorder(BorderFactory.createEmptyBorder());
+		cbesAdministrador.setUI(new javax.swing.plaf.basic.BasicComboBoxUI());
+		this.add(cbesAdministrador);
 		
 		//Botones
+		lblCodigoDeVerificacion = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblCodigo"));
+		lblCodigoDeVerificacion.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
+		lblCodigoDeVerificacion.setBounds(480, 520, 1200, 70);
+		lblCodigoDeVerificacion.setForeground(Color.WHITE);
+		this.add(lblCodigoDeVerificacion);
+		
+		textCodigoVerificacion = new JTextField();
+		textCodigoVerificacion.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+		textCodigoVerificacion.setBounds(470, 575, 260, 40);
+		textCodigoVerificacion.setForeground(Color.WHITE);
+		textCodigoVerificacion.setBackground(new Color(0,0,0));
+		textCodigoVerificacion.setOpaque(true);
+		textCodigoVerificacion.setBorder(null);
+		this.add(textCodigoVerificacion);
 		
 		btnEnviarCodigoDeVerificacion = new JButton(prop.getProperty("bostinder.ventanaregistro.btnEnviarCodigoDeVerificacion"));
 		btnEnviarCodigoDeVerificacion.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		btnEnviarCodigoDeVerificacion.setBounds(470, 600, 250, 30);
+		btnEnviarCodigoDeVerificacion.setBounds(480, 630, 250, 30);
 		btnEnviarCodigoDeVerificacion.setBackground(new Color(198, 48, 44));
 		btnEnviarCodigoDeVerificacion.setForeground(Color.WHITE);
 		btnEnviarCodigoDeVerificacion.setFocusPainted(false);
@@ -240,12 +275,14 @@ public class VentanaRegistro extends JFrame {
 		this.add(btnEnviarCodigoDeVerificacion);
 		
 		btnCrearCuenta = new JButton(prop.getProperty("bostinder.ventanaregistro.btnCrearCuenta"));
-		btnCrearCuenta.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		btnCrearCuenta.setBounds(855, 593, 250, 30);
-		btnCrearCuenta.setBackground(new Color(198, 48, 44));
+		btnCrearCuenta.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 30));
+		btnCrearCuenta.setBounds(920, 605, 240, 30);
 		btnCrearCuenta.setForeground(Color.WHITE);
-		btnCrearCuenta.setFocusPainted(false);
+		btnCrearCuenta.setFocusPainted(true);
 		btnCrearCuenta.setBorder(null);
+		btnCrearCuenta.setOpaque(true);
+		btnCrearCuenta.setBorderPainted(false);
+		btnCrearCuenta.setContentAreaFilled(false);
 		this.add(btnCrearCuenta);
 		
 		btnVolver = new JButton("");
@@ -253,21 +290,23 @@ public class VentanaRegistro extends JFrame {
 		btnVolver.setBounds(26, 50, 135, 40);
 		btnVolver.setForeground(Color.BLACK);
 		btnVolver.setFocusPainted(true);
-		btnVolver.setContentAreaFilled(false);
+		btnVolver.setBorder(null);
+		btnVolver.setOpaque(true);
 		btnVolver.setBorderPainted(false);
-		btnVolver.setOpaque(false);
+		btnVolver.setContentAreaFilled(false);
 		this.add(btnVolver);
 	
 		
 		btnSubirImagen = new JButton(prop.getProperty("bostinder.ventanaregistro.btnSubirImagen"));
-		btnSubirImagen.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		btnSubirImagen.setBounds(855, 500, 250, 30);
-		btnSubirImagen.setBackground(new Color(198, 48, 44));
+		btnSubirImagen.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 90));
+		btnSubirImagen.setBounds(1092, 467, 60, 60);
 		btnSubirImagen.setForeground(Color.WHITE);
-		btnSubirImagen.setFocusPainted(false);
+		btnSubirImagen.setFocusPainted(true);
 		btnSubirImagen.setBorder(null);
+		btnSubirImagen.setOpaque(true);
+		btnSubirImagen.setBorderPainted(false);
+		btnSubirImagen.setContentAreaFilled(false);
 		this.add(btnSubirImagen);
-		
 		
 	}
 	
