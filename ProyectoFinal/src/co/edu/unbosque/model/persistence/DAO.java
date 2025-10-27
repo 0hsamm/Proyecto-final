@@ -58,4 +58,10 @@ public interface DAO<E> {
      * Escribe los datos en un archivo de texto.
      */
     void escribirEnArchivoDeTexto();
-}
+    
+    
+    void cargarDesdeArchivoSerializado();
+    
+    void escribirEnArchivoSerializado();
+    
+    }

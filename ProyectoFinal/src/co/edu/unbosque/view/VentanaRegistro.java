@@ -28,45 +28,38 @@ public class VentanaRegistro extends JFrame {
 
 	private JLabel titulo;
 
-	private JLabel lblnombre;
-	private JLabel lblconrreo;
+	private JLabel lblNombre;
+	private JLabel lblCorreo;
 	
-	private JLabel lblnacimiento;
-	private JLabel lbldia;
-	private JLabel lblmes;
-	private JLabel lblanio;
-	
-	private JLabel lblcontrasenia;
-	private JLabel lblSexo;
-	private JLabel lblalias;
+	private JLabel lblNacimiento;
 
-	private JTextField textnombre;
-	private JTextField textcorreo;
-	
-	private JTextField textdia;
-	private JTextField textmes;
-	private JTextField textanio;
-	
-	private JTextField textcontrasenia;
+	private JLabel lblContrasenia;
+	private JLabel lblSexo;
+	private JLabel lblAlias;
+
+	private JTextField textNombre;
+	private JTextField textCorreo;
+		
+	private JTextField textContrasenia;
 
 	private JComboBox<String> cbSexo;
 	
-	private JTextField textalias;
+	private JTextField textAlias;
 	
 	// Hombre
-	private JLabel lblingresos;
-	private JLabel lblestatura;
+	private JLabel lblIngreso;
+	private JLabel lblEstatura;
 
-	private JTextField textingresos;
-	private JTextField textestatura;
+	private JTextField textIngreso;
+	private JTextField textEstatura;
 
 	// Mujer
-	private JLabel lbldivorcio;
+	private JLabel lblDivorcio;
 
 	private JComboBox<String> cbSeHaDivorciado;
 	
 	//Otros
-	private JLabel lblcodigoDeVerificacion;
+	private JLabel lblCodigoDeVerificacion;
 	private JButton btnEnviarCodigoDeVerificacion;
 	private JButton btnSubirImagen;
 	private JCalendar calendario;
@@ -74,7 +67,8 @@ public class VentanaRegistro extends JFrame {
 	private Properties prop;
 
 	public VentanaRegistro() {
-
+		prop = new Properties();
+		inicializarComponentes();
 	}
 
 	public void inicializarComponentes() {
@@ -98,62 +92,62 @@ public class VentanaRegistro extends JFrame {
 		titulo.setForeground(Color.WHITE);
 		this.add(titulo);
 
-		lblnombre = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblnombre"));
-		lblnombre.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
-		lblnombre.setBounds(90, 120, 1200, 70);
-		lblnombre.setForeground(Color.WHITE);
-		this.add(lblnombre);
+		lblNombre = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblnombre"));
+		lblNombre.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
+		lblNombre.setBounds(90, 120, 1200, 70);
+		lblNombre.setForeground(Color.WHITE);
+		this.add(lblNombre);
 
-		textnombre = new JTextField();
-		textnombre.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		textnombre.setBounds(76, 180, 260, 40);
-		textnombre.setForeground(Color.WHITE);
-		textnombre.setBackground(new Color(0,0,0));
-		textnombre.setOpaque(true);
-		textnombre.setBorder(null);
-		this.add(textnombre);
+		textNombre = new JTextField();
+		textNombre.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+		textNombre.setBounds(76, 180, 260, 40);
+		textNombre.setForeground(Color.WHITE);
+		textNombre.setBackground(new Color(0,0,0));
+		textNombre.setOpaque(true);
+		textNombre.setBorder(null);
+		this.add(textNombre);
 
-		lblconrreo = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblcorreo"));
-		lblconrreo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
-		lblconrreo.setBounds(90, 205, 1200, 70);
-		lblconrreo.setForeground(Color.WHITE);
-		this.add(lblconrreo);
+		lblCorreo = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblcorreo"));
+		lblCorreo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
+		lblCorreo.setBounds(90, 205, 1200, 70);
+		lblCorreo.setForeground(Color.WHITE);
+		this.add(lblCorreo);
 
-		textcorreo = new JTextField();
-		textcorreo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		textcorreo.setBounds(76, 262, 260, 40);
-		textcorreo.setForeground(Color.WHITE);
-		textcorreo.setBackground(new Color(0,0,0));
-		textcorreo.setOpaque(true);
-		textcorreo.setBorder(null);
-		this.add(textcorreo);
+		textCorreo = new JTextField();
+		textCorreo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+		textCorreo.setBounds(76, 262, 260, 40);
+		textCorreo.setForeground(Color.WHITE);
+		textCorreo.setBackground(new Color(0,0,0));
+		textCorreo.setOpaque(true);
+		textCorreo.setBorder(null);
+		this.add(textCorreo);
 		
 		//Fecha nacimiento
 		
-		lblnacimiento = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblnacimiento"));
-		lblnacimiento.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
-		lblnacimiento.setBounds(90, 443, 1200, 70);
-		lblnacimiento.setForeground(Color.WHITE);
-		this.add(lblnacimiento);
+		lblNacimiento = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblnacimiento"));
+		lblNacimiento.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
+		lblNacimiento.setBounds(90, 443, 1200, 70);
+		lblNacimiento.setForeground(Color.WHITE);
+		this.add(lblNacimiento);
 		
 		calendario = new JCalendar();
 		calendario.setBounds(76, 490, 295, 170);
 		this.add(calendario);
 		
-		lblcontrasenia = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblcontrasenia"));
-		lblcontrasenia.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
-		lblcontrasenia.setBounds(90, 283, 1200, 70);
-		lblcontrasenia.setForeground(Color.WHITE);
-		this.add(lblcontrasenia);
+		lblContrasenia = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblcontrasenia"));
+		lblContrasenia.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
+		lblContrasenia.setBounds(90, 283, 1200, 70);
+		lblContrasenia.setForeground(Color.WHITE);
+		this.add(lblContrasenia);
 
-		textcontrasenia = new JTextField();
-		textcontrasenia.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		textcontrasenia.setBounds(76, 340, 260, 40);
-		textcontrasenia.setForeground(Color.WHITE);
-		textcontrasenia.setBackground(new Color(0,0,0));
-		textcontrasenia.setOpaque(true);
-		textcontrasenia.setBorder(null);
-		this.add(textcontrasenia);
+		textContrasenia = new JTextField();
+		textContrasenia.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+		textContrasenia.setBounds(76, 340, 260, 40);
+		textContrasenia.setForeground(Color.WHITE);
+		textContrasenia.setBackground(new Color(0,0,0));
+		textContrasenia.setOpaque(true);
+		textContrasenia.setBorder(null);
+		this.add(textContrasenia);
 		
 		lblSexo = new JLabel(prop.getProperty("bostinder.ventanaregistro.lbSexo"));
 		lblSexo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
@@ -171,58 +165,58 @@ public class VentanaRegistro extends JFrame {
 		this.add(cbSexo);
 		//DERECHA
 		
-		lblalias = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblalias"));
-		lblalias.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
-		lblalias.setBounds(480, 130, 1200, 70);
-		lblalias.setForeground(Color.WHITE);
-		this.add(lblalias);
+		lblAlias = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblalias"));
+		lblAlias.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
+		lblAlias.setBounds(480, 130, 1200, 70);
+		lblAlias.setForeground(Color.WHITE);
+		this.add(lblAlias);
 
-		textalias = new JTextField();
-		textalias.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		textalias.setBounds(470, 190, 260, 40);
-		textalias.setForeground(Color.WHITE);
-		textalias.setBackground(new Color(0,0,0));
-		textalias.setOpaque(true);
-		textalias.setBorder(null);
-		this.add(textalias);
+		textAlias = new JTextField();
+		textAlias.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+		textAlias.setBounds(470, 190, 260, 40);
+		textAlias.setForeground(Color.WHITE);
+		textAlias.setBackground(new Color(0,0,0));
+		textAlias.setOpaque(true);
+		textAlias.setBorder(null);
+		this.add(textAlias);
 		
 		//HOMBRE
-		lblingresos = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblingresos"));
-		lblingresos.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
-		lblingresos.setBounds(480, 260, 1200, 70);
-		lblingresos.setForeground(Color.WHITE);
-		this.add(lblingresos);
+		lblIngreso = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblingresos"));
+		lblIngreso.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
+		lblIngreso.setBounds(480, 260, 1200, 70);
+		lblIngreso.setForeground(Color.WHITE);
+		this.add(lblIngreso);
 
-		textingresos = new JTextField();
-		textingresos.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		textingresos.setBounds(470, 320, 260, 40);
-		textingresos.setForeground(Color.WHITE);
-		textingresos.setBackground(new Color(0,0,0));
-		textingresos.setOpaque(true);
-		textingresos.setBorder(null);
-		this.add(textingresos);
+		textIngreso = new JTextField();
+		textIngreso.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+		textIngreso.setBounds(470, 320, 260, 40);
+		textIngreso.setForeground(Color.WHITE);
+		textIngreso.setBackground(new Color(0,0,0));
+		textIngreso.setOpaque(true);
+		textIngreso.setBorder(null);
+		this.add(textIngreso);
 		
-		lblestatura = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblestatura"));
-		lblestatura.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
-		lblestatura.setBounds(480, 350, 1200, 70);
-		lblestatura.setForeground(Color.WHITE);
-		this.add(lblestatura);
+		lblEstatura = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblestatura"));
+		lblEstatura.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
+		lblEstatura.setBounds(480, 350, 1200, 70);
+		lblEstatura.setForeground(Color.WHITE);
+		this.add(lblEstatura);
 
-		textestatura = new JTextField();
-		textestatura.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		textestatura.setBounds(470, 408, 260, 40);
-		textestatura.setForeground(Color.WHITE);
-		textestatura.setBackground(new Color(0,0,0));
-		textestatura.setOpaque(true);
-		textestatura.setBorder(null);
-		this.add(textestatura);
+		textEstatura = new JTextField();
+		textEstatura.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+		textEstatura.setBounds(470, 408, 260, 40);
+		textEstatura.setForeground(Color.WHITE);
+		textEstatura.setBackground(new Color(0,0,0));
+		textEstatura.setOpaque(true);
+		textEstatura.setBorder(null);
+		this.add(textEstatura);
 		
 		//MUJER
-		lbldivorcio = new JLabel(prop.getProperty("bostinder.ventanaregistro.lbldivorcio"));
-		lbldivorcio.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
-		lbldivorcio.setBounds(480, 438, 1200, 70);
-		lbldivorcio.setForeground(Color.WHITE);
-		this.add(lbldivorcio);
+		lblDivorcio = new JLabel(prop.getProperty("bostinder.ventanaregistro.lbldivorcio"));
+		lblDivorcio.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
+		lblDivorcio.setBounds(480, 438, 1200, 70);
+		lblDivorcio.setForeground(Color.WHITE);
+		this.add(lblDivorcio);
 
 		cbSeHaDivorciado = new JComboBox<>(new String[] { "Seleccione...", "Sí", "No" });
 		cbSeHaDivorciado.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
@@ -286,6 +280,16 @@ public class VentanaRegistro extends JFrame {
 		}
 	}
 	
+	public Properties getProp() {
+		return prop;
+	}
+	
+	
+	public void setProp(Properties prop) {
+	    this.prop = prop;
+	    inicializarComponentes();
+	}
+
 	public JButton getBtnVolver() {
 		return btnVolver;
 	}
@@ -334,60 +338,36 @@ public class VentanaRegistro extends JFrame {
 		this.titulo = titulo;
 	}
 
-	public JLabel getLblnombre() {
-		return lblnombre;
+	public JLabel getLblNombre() {
+		return lblNombre;
 	}
 
-	public void setLblnombre(JLabel lblnombre) {
-		this.lblnombre = lblnombre;
+	public void setLblNombre(JLabel lblNombre) {
+		this.lblNombre = lblNombre;
 	}
 
-	public JLabel getLblconrreo() {
-		return lblconrreo;
+	public JLabel getLblCorreo() {
+		return lblCorreo;
 	}
 
-	public void setLblconrreo(JLabel lblconrreo) {
-		this.lblconrreo = lblconrreo;
+	public void setLblCorreo(JLabel lblCorreo) {
+		this.lblCorreo = lblCorreo;
 	}
 
-	public JLabel getLblnacimiento() {
-		return lblnacimiento;
+	public JLabel getLblNacimiento() {
+		return lblNacimiento;
 	}
 
-	public void setLblnacimiento(JLabel lblnacimiento) {
-		this.lblnacimiento = lblnacimiento;
+	public void setLblNacimiento(JLabel lblNacimiento) {
+		this.lblNacimiento = lblNacimiento;
 	}
 
-	public JLabel getLbldia() {
-		return lbldia;
+	public JLabel getLblContrasenia() {
+		return lblContrasenia;
 	}
 
-	public void setLbldia(JLabel lbldia) {
-		this.lbldia = lbldia;
-	}
-
-	public JLabel getLblmes() {
-		return lblmes;
-	}
-
-	public void setLblmes(JLabel lblmes) {
-		this.lblmes = lblmes;
-	}
-
-	public JLabel getLblanio() {
-		return lblanio;
-	}
-
-	public void setLblanio(JLabel lblanio) {
-		this.lblanio = lblanio;
-	}
-
-	public JLabel getLblcontrasenia() {
-		return lblcontrasenia;
-	}
-
-	public void setLblcontrasenia(JLabel lblcontrasenia) {
-		this.lblcontrasenia = lblcontrasenia;
+	public void setLblContrasenia(JLabel lblContrasenia) {
+		this.lblContrasenia = lblContrasenia;
 	}
 
 	public JLabel getLblSexo() {
@@ -398,60 +378,36 @@ public class VentanaRegistro extends JFrame {
 		this.lblSexo = lblSexo;
 	}
 
-	public JLabel getLblalias() {
-		return lblalias;
+	public JLabel getLblAlias() {
+		return lblAlias;
 	}
 
-	public void setLblalias(JLabel lblalias) {
-		this.lblalias = lblalias;
+	public void setLblAlias(JLabel lblAlias) {
+		this.lblAlias = lblAlias;
 	}
 
-	public JTextField getTextnombre() {
-		return textnombre;
+	public JTextField getTextNombre() {
+		return textNombre;
 	}
 
-	public void setTextnombre(JTextField textnombre) {
-		this.textnombre = textnombre;
+	public void setTextNombre(JTextField textNombre) {
+		this.textNombre = textNombre;
 	}
 
-	public JTextField getTextcorreo() {
-		return textcorreo;
+	public JTextField getTextCorreo() {
+		return textCorreo;
 	}
 
-	public void setTextcorreo(JTextField textcorreo) {
-		this.textcorreo = textcorreo;
+	public void setTextCorreo(JTextField textCorreo) {
+		this.textCorreo = textCorreo;
 	}
 
-	public JTextField getTextdia() {
-		return textdia;
+	public JTextField getTextContrasenia() {
+		return textContrasenia;
 	}
 
-	public void setTextdia(JTextField textdia) {
-		this.textdia = textdia;
-	}
-
-	public JTextField getTextmes() {
-		return textmes;
-	}
-
-	public void setTextmes(JTextField textmes) {
-		this.textmes = textmes;
-	}
-
-	public JTextField getTextanio() {
-		return textanio;
-	}
-
-	public void setTextanio(JTextField textanio) {
-		this.textanio = textanio;
-	}
-
-	public JTextField getTextcontrasenia() {
-		return textcontrasenia;
-	}
-
-	public void setTextcontrasenia(JTextField textcontrasenia) {
-		this.textcontrasenia = textcontrasenia;
+	public void setTextContrasenia(JTextField textContrasenia) {
+		this.textContrasenia = textContrasenia;
 	}
 
 	public JComboBox<String> getCbSexo() {
@@ -462,52 +418,52 @@ public class VentanaRegistro extends JFrame {
 		this.cbSexo = cbSexo;
 	}
 
-	public JTextField getTextalias() {
-		return textalias;
+	public JTextField getTextAlias() {
+		return textAlias;
 	}
 
-	public void setTextalias(JTextField textalias) {
-		this.textalias = textalias;
+	public void setTextAlias(JTextField textAlias) {
+		this.textAlias = textAlias;
 	}
 
-	public JLabel getLblingresos() {
-		return lblingresos;
+	public JLabel getLblIngresos() {
+		return lblIngreso;
 	}
 
-	public void setLblingresos(JLabel lblingresos) {
-		this.lblingresos = lblingresos;
+	public void setLblIngresos(JLabel lblIngresos) {
+		this.lblIngreso = lblIngresos;
 	}
 
-	public JLabel getLblestatura() {
-		return lblestatura;
+	public JLabel getLblEstatura() {
+		return lblEstatura;
 	}
 
-	public void setLblestatura(JLabel lblestatura) {
-		this.lblestatura = lblestatura;
+	public void setLblEstatura(JLabel lblEstatura) {
+		this.lblEstatura = lblEstatura;
 	}
 
-	public JTextField getTextingresos() {
-		return textingresos;
+	public JTextField getTextIngresos() {
+		return textIngreso;
 	}
 
-	public void setTextingresos(JTextField textingresos) {
-		this.textingresos = textingresos;
+	public void setTextIngresos(JTextField textIngresos) {
+		this.textIngreso = textIngresos;
 	}
 
-	public JTextField getTextestatura() {
-		return textestatura;
+	public JTextField getTextEstatura() {
+		return textEstatura;
 	}
 
-	public void setTextestatura(JTextField textestatura) {
-		this.textestatura = textestatura;
+	public void setTextEstatura(JTextField textEstatura) {
+		this.textEstatura = textEstatura;
 	}
 
-	public JLabel getLbldivorcio() {
-		return lbldivorcio;
+	public JLabel getLblDivorcio() {
+		return lblDivorcio;
 	}
 
-	public void setLbldivorcio(JLabel lbldivorcio) {
-		this.lbldivorcio = lbldivorcio;
+	public void setLblDivorcio(JLabel lblDivorcio) {
+		this.lblDivorcio = lblDivorcio;
 	}
 
 	public JComboBox<String> getCbSeHaDivorciado() {
@@ -518,22 +474,12 @@ public class VentanaRegistro extends JFrame {
 		this.cbSeHaDivorciado = cbSeHaDivorciado;
 	}
 
-	public Properties getProp() {
-		return prop;
-	}
-	
-	
-	public void setProp(Properties prop) {
-	    this.prop = prop;
-	    inicializarComponentes();
+	public JLabel getLblCodigoDeVerificacion() {
+		return lblCodigoDeVerificacion;
 	}
 
-	public JLabel getLblcodigoDeVerificacion() {
-		return lblcodigoDeVerificacion;
-	}
-
-	public void setLblcodigoDeVerificacion(JLabel lblcodigoDeVerificacion) {
-		this.lblcodigoDeVerificacion = lblcodigoDeVerificacion;
+	public void setLblCodigoDeVerificacion(JLabel lblCodigoDeVerificacion) {
+		this.lblCodigoDeVerificacion = lblCodigoDeVerificacion;
 	}
 
 	public JButton getBtnEnviarCodigoDeVerificacion() {
@@ -551,6 +497,17 @@ public class VentanaRegistro extends JFrame {
 	public void setBtnSubirImagen(JButton btnSubirImagen) {
 		this.btnSubirImagen = btnSubirImagen;
 	}
+
+	public JCalendar getCalendario() {
+		return calendario;
+	}
+
+	public void setCalendario(JCalendar calendario) {
+		this.calendario = calendario;
+	}
+
+
+	
 
 
 	

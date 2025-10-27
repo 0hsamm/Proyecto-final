@@ -154,5 +154,15 @@ public class HombreDAO implements DAO<Hombre>{
 	public String getSERIAL_FILE_NAME() {
 		return SERIAL_FILE_NAME;
 	}
+
+	public ArrayList<Hombre> getListaHombres() {
+		return listaHombres;
+	}
+
+	public void setListaHombres(ArrayList<Hombre> listaHombres) {
+		this.listaHombres = listaHombres;
+	}
+	
+	
 	
 }

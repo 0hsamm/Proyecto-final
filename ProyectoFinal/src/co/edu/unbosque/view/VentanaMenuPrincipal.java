@@ -24,8 +24,8 @@ public class VentanaMenuPrincipal extends JFrame{
 	private JLabel titulo;
 	private JLabel titulo2;
 	
-	private JLabel lblalias;
-	private JLabel lblcontrasenia;
+	private JLabel lblAlias;
+	private JLabel lblContrasenia;
 	private JLabel lblRegistro;
 	
 	private JTextField textAlias;
@@ -34,7 +34,8 @@ public class VentanaMenuPrincipal extends JFrame{
 	private Properties prop;
 	
 	public VentanaMenuPrincipal() {
-
+		prop = new Properties();
+		inicializarComponentes();
 	}
 	
 	
@@ -67,10 +68,10 @@ public class VentanaMenuPrincipal extends JFrame{
 		titulo2.setForeground(Color.WHITE); 
 		fondoMenu.add(titulo2);
 		
-		lblalias = new JLabel(prop.getProperty("bostinder.ventanamenu.lblalias"));
-		lblalias.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		lblalias.setBounds(810, 243, 1200, 70);
-		fondoMenu.add(lblalias);
+		lblAlias = new JLabel(prop.getProperty("bostinder.ventanamenu.lblalias"));
+		lblAlias.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+		lblAlias.setBounds(810, 243, 1200, 70);
+		fondoMenu.add(lblAlias);
 		
 		textAlias = new JTextField();
 		textAlias.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
@@ -78,10 +79,10 @@ public class VentanaMenuPrincipal extends JFrame{
 		textAlias.setBorder(null);
 		this.add(textAlias);
 		
-		lblcontrasenia = new JLabel(prop.getProperty("bostinder.ventanamenu.lblcontrasenia"));
-		lblcontrasenia.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		lblcontrasenia.setBounds(810, 320, 1200, 70);
-		fondoMenu.add(lblcontrasenia);
+		lblContrasenia = new JLabel(prop.getProperty("bostinder.ventanamenu.lblcontrasenia"));
+		lblContrasenia.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+		lblContrasenia.setBounds(810, 320, 1200, 70);
+		fondoMenu.add(lblContrasenia);
 		
 		textContrasenia = new JTextField();
 		textContrasenia.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
@@ -188,19 +189,19 @@ public class VentanaMenuPrincipal extends JFrame{
 	}
 
 	public JLabel getLblalias() {
-		return lblalias;
+		return lblAlias;
 	}
 
 	public void setLblalias(JLabel lblalias) {
-		this.lblalias = lblalias;
+		this.lblAlias = lblalias;
 	}
 
 	public JLabel getLblcontrasenia() {
-		return lblcontrasenia;
+		return lblContrasenia;
 	}
 
 	public void setLblcontrasenia(JLabel lblcontrasenia) {
-		this.lblcontrasenia = lblcontrasenia;
+		this.lblContrasenia = lblcontrasenia;
 	}
 
 	public JLabel getLblRegistro() {
