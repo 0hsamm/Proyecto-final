@@ -18,7 +18,7 @@ public class DataMapper {
 		dto.setFecha(entity.getFecha());
 		dto.setGenero(entity.getGenero());
 		dto.setEstaDisponible(entity.getEstaDisponible());
-		dto.setEsAdministrador(entity.getEsAdministrador());
+		dto.setEsAdministrador(entity.isEsAdministrador());
 		dto.setAlias(entity.getAlias());
 		dto.setURLfoto(entity.getURLfoto());
 		dto.setEsIncognito(entity.getEsIncognito());
@@ -39,7 +39,7 @@ public class DataMapper {
 		entity.setFecha(dto.getFecha());
 		entity.setGenero(dto.getGenero());
 		entity.setEstaDisponible(dto.getEstaDisponible());
-		entity.setEsAdministrador(dto.getEsAdministrador());
+		entity.setEsAdministrador(dto.isEsAdministrador());
 		entity.setAlias(dto.getAlias());
 		entity.setURLfoto(dto.getURLfoto());
 		entity.setEsIncognito(dto.getEsIncognito());
@@ -58,7 +58,7 @@ public class DataMapper {
 		dto.setFecha(entity.getFecha());
 		dto.setGenero(entity.getGenero());
 		dto.setEstaDisponible(entity.getEstaDisponible());
-		dto.setEsAdministrador(entity.getEsAdministrador());
+		dto.setEsAdministrador(entity.isEsAdministrador());
 		dto.setAlias(entity.getAlias());
 		dto.setURLfoto(entity.getURLfoto());
 		dto.setEsIncognito(entity.getEsIncognito());
@@ -78,7 +78,7 @@ public class DataMapper {
 		entity.setFecha(dto.getFecha());
 		entity.setGenero(dto.getGenero());
 		entity.setEstaDisponible(dto.getEstaDisponible());
-		entity.setEsAdministrador(dto.getEsAdministrador());
+		entity.setEsAdministrador(dto.isEsAdministrador());
 		entity.setAlias(dto.getAlias());
 		entity.setURLfoto(dto.getURLfoto());
 		entity.setEsIncognito(dto.getEsIncognito());
