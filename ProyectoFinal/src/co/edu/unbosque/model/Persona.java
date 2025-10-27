@@ -7,9 +7,11 @@ public abstract class Persona {
 	private String nombre;
 	private String apellido;
 	private String email;
+	private String contrasena;
 	private LocalDate fecha;
 	private String genero;
-	private Boolean esAdministrador;
+
+	private boolean esAdministrador;
 
 	public Persona() {
 
@@ -17,10 +19,16 @@ public abstract class Persona {
 
 	public Persona(String nombre, String apellido, String email, LocalDate fecha, String genero,
 			Boolean esAdministrador) {
+
+	}
+
+	public Persona(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
+			boolean esAdministrador) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.email = email;
+		this.contrasena = contrasena;
 		this.fecha = fecha;
 		this.genero = genero;
 		this.esAdministrador = esAdministrador;
@@ -50,6 +58,14 @@ public abstract class Persona {
 		this.email = email;
 	}
 
+	public String getContrasena() {
+		return contrasena;
+	}
+
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
+	}
+
 	public LocalDate getFecha() {
 		return fecha;
 	}
@@ -66,18 +82,18 @@ public abstract class Persona {
 		this.genero = genero;
 	}
 
-	public Boolean getEsAdministrador() {
+	public boolean isEsAdministrador() {
 		return esAdministrador;
 	}
 
-	public void setEsAdministrador(Boolean esAdministrador) {
+	public void setEsAdministrador(boolean esAdministrador) {
 		this.esAdministrador = esAdministrador;
 	}
 
 	@Override
 	public String toString() {
-		return "Nombre: " + nombre + "\nApellido: " + apellido + "\nEmail: " + email + "\nFecha: " + fecha
-				+ "\nGenero: " + genero + "\nEs administrador?: " + esAdministrador;
+		return "Nombre: " + nombre + "\nApellido: " + apellido + "\nEmail: " + email + "\nEmail: " + "\ncontrasena"
+				+ contrasena + "\nFecha: " + fecha + "\nGenero: " + genero + "\nEs administrador?: " + esAdministrador;
 	}
 
 }

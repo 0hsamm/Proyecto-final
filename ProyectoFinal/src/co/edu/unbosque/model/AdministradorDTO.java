@@ -3,7 +3,7 @@ package co.edu.unbosque.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Administrador extends Persona implements Serializable{
+public class AdministradorDTO extends Persona implements Serializable{
 
 	/**
 	 * 
@@ -13,11 +13,11 @@ public class Administrador extends Persona implements Serializable{
 	
 	
 	
-	public Administrador() {
+	public AdministradorDTO() {
 
 	}
 
-	public Administrador(String nombre, String apellido, String email, String contrasena, LocalDate fecha,
+	public AdministradorDTO(String nombre, String apellido, String email, String contrasena, LocalDate fecha,
 			String genero, boolean esAdministrador) {
 		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador);
 	}

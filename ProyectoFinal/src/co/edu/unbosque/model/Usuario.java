@@ -1,22 +1,21 @@
 package co.edu.unbosque.model;	
 
-import java.awt.Image;
 import java.time.LocalDate;
 
 public abstract class Usuario extends Persona {
 
-	private Boolean estaDisponible;
+	private boolean estaDisponible;
 	private String alias;
 	private String URLfoto;
-	private Boolean esIncognito;
+	private boolean esIncognito;
 	private int numLikes;
-	//codigo de validación (preguntazrle a dieguito)
+
 	
 	public Usuario() {
 	}
 
 
-	public Usuario(Boolean estaDisponible, String alias, String URLfoto, Boolean esIncognito, int numLikes) {
+	public Usuario(boolean estaDisponible, String alias, String URLfoto, boolean esIncognito, int numLikes) {
 		super();
 		this.estaDisponible = estaDisponible;
 		this.alias = alias;
@@ -32,38 +31,29 @@ public abstract class Usuario extends Persona {
 
 
 
-	public Usuario(String nombre, String apellido, String email, LocalDate fecha, String genero,
-			Boolean esAdministrador, Boolean estaDisponible, String alias, String URLfoto, Boolean esIncognito,
+	public Usuario(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
+			boolean esAdministrador, boolean estaDisponible, String alias, String uRLfoto, boolean esIncognito,
 			int numLikes) {
-		super(nombre, apellido, email, fecha, genero, esAdministrador);
+		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador);
 		this.estaDisponible = estaDisponible;
 		this.alias = alias;
-		this.URLfoto = URLfoto;
+		URLfoto = uRLfoto;
 		this.esIncognito = esIncognito;
 		this.numLikes = numLikes;
 	}
 
+	
+	
+	
 
-
-
-
-
-
-
-	public Usuario(String nombre, String apellido, String email, LocalDate fecha, String genero,
-			Boolean esAdministrador) {
-		super(nombre, apellido, email, fecha, genero, esAdministrador);
+	public Usuario(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
+			boolean esAdministrador) {
+		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador);
 		// TODO Auto-generated constructor stub
 	}
 
 
-
-
-
-
-
-
-	public Boolean getEstaDisponible() {
+	public boolean isEstaDisponible() {
 		return estaDisponible;
 	}
 
@@ -105,18 +95,19 @@ public abstract class Usuario extends Persona {
 
 
 
-	public Boolean getEsIncognito() {
+
+
+
+
+
+	public boolean isEsIncognito() {
 		return esIncognito;
 	}
 
 
-
-
-	public void setEsIncognito(Boolean esIncognito) {
+	public void setEsIncognito(boolean esIncognito) {
 		this.esIncognito = esIncognito;
 	}
-
-
 
 
 	public int getNumLikes() {

@@ -88,16 +88,17 @@ public class MujerDAO implements DAO<Mujer>{
 				temp.setNombre(columna[0]);
 				temp.setApellido(columna[1]);;
 				temp.setEmail(columna[2]);
-				temp.setFecha(LocalDate.parse(columna[3]));
-				temp.setGenero(columna[4]);
-				temp.setEstaDisponible(Boolean.parseBoolean(columna[5]));
-				temp.setEsAdministrador(Boolean.parseBoolean(columna[6]));
-				temp.setAlias(columna[7]);
-				temp.setURLfoto(columna[8]);
-				temp.setEsIncognito(Boolean.parseBoolean(columna[9]));
-				temp.setNumLikes(Integer.parseInt(columna[10]));
-				temp.setEstatura(Double.parseDouble(columna[11]));
-				temp.setEsDivorciada(Boolean.parseBoolean(columna[12]));
+				temp.setContrasena(columna[3]);
+				temp.setFecha(LocalDate.parse(columna[4]));
+				temp.setGenero(columna[5]);
+				temp.setEstaDisponible(Boolean.parseBoolean(columna[6]));
+				temp.setEsAdministrador(Boolean.parseBoolean(columna[7]));
+				temp.setAlias(columna[8]);
+				temp.setURLfoto(columna[9]);
+				temp.setEsIncognito(Boolean.parseBoolean(columna[10]));
+				temp.setNumLikes(Integer.parseInt(columna[11]));
+				temp.setEstatura(Double.parseDouble(columna[12]));
+				temp.setEsDivorciada(Boolean.parseBoolean(columna[13]));
 				
 				listaMujeres.add(temp);
 			}
@@ -112,13 +113,14 @@ public class MujerDAO implements DAO<Mujer>{
 			sb.append(mujer.getNombre() + ";");
 			sb.append(mujer.getApellido() + ";");
 			sb.append(mujer.getEmail() + ";");
+			sb.append(mujer.getContrasena() + ";");
 			sb.append(mujer.getFecha() + ";");
 			sb.append(mujer.getGenero() + ";");
-			sb.append(mujer.getEsAdministrador() + ";");
-			sb.append(mujer.getEstaDisponible() + ";");
+			sb.append(mujer.isEsAdministrador() + ";");
+			sb.append(mujer.isEstaDisponible() + ";");
 			sb.append(mujer.getAlias() + ";");
 			sb.append(mujer.getURLfoto() + ";");
-			sb.append(mujer.getEsIncognito() + ";");
+			sb.append(mujer.isEsIncognito() + ";");
 			sb.append(mujer.getNumLikes() + ";");
 			sb.append(mujer.getEstatura() + ";");
 			sb.append(mujer.isEsDivorciada() + "\n");
