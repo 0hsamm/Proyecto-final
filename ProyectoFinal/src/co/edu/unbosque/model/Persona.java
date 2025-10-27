@@ -153,7 +153,7 @@ public abstract class Persona {
 
 	@Override
 	public String toString() {
-		return "Nombre: " + nombre + "\nApellido: " + apellido + "\nEmail: " + email + "\nEmail: " + "\ncontrasena" + contrasena +  "\nFecha: " + fecha
+		return "Nombre: " + nombre + "\nApellido: " + apellido + "\nEmail: " + email + "\nEmail: " + "\nContrasena" + contrasena +  "\nFecha: " + fecha
 				+ "\nGenero: " + genero + "\nEs administrador?: " + esAdministrador;
 	}
 
