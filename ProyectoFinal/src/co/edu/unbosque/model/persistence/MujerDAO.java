@@ -120,7 +120,7 @@ public class MujerDAO implements DAO<Mujer>{
 			sb.append(mujer.getEstaDisponible() + ";");
 			sb.append(mujer.getAlias() + ";");
 			sb.append(mujer.getURLfoto() + ";");
-			sb.append(mujer.getEsIncognito() + ";");
+			sb.append(mujer.isEsIncognito() + ";");
 			sb.append(mujer.getNumLikes() + ";");
 			sb.append(mujer.getEstatura() + ";");
 			sb.append(mujer.isEsDivorciada() + "\n");

@@ -142,8 +142,7 @@ public abstract class Persona {
 
 
 
-
-	public Boolean getEsAdministrador() {
+	public boolean getEsAdministrador() {
 		return esAdministrador;
 	}
 
@@ -152,7 +151,7 @@ public abstract class Persona {
 
 
 
-	public void setEsAdministrador(Boolean esAdministrador) {
+	public void setEsAdministrador(boolean esAdministrador) {
 		this.esAdministrador = esAdministrador;
 	}
 

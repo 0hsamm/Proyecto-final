@@ -79,7 +79,7 @@ public class HombreDAO implements DAO<Hombre>{
 				if(filas[i].trim().isEmpty()) continue;
 				
 				String[] columna = filas[i].split("\n");
-				if(columna.length < 7) {
+				if(columna.length < 13) {
 					System.out.println("Línea inválida en archivo de Hombres: " + filas[i]);
 					continue;
 				}
@@ -119,7 +119,7 @@ public class HombreDAO implements DAO<Hombre>{
 			sb.append(hombre.getEstaDisponible() + ";");
 			sb.append(hombre.getAlias() + ";");
 			sb.append(hombre.getURLfoto() + ";");
-			sb.append(hombre.getEsIncognito() + ";");
+			sb.append(hombre.isEsIncognito() + ";");
 			sb.append(hombre.getNumLikes() + ";");
 			sb.append(hombre.getPromedioIngMensual() + ";");
 			sb.append(hombre.getEstatura() + "\n");

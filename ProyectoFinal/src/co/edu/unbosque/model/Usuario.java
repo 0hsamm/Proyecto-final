@@ -7,7 +7,7 @@ public abstract class Usuario extends Persona {
 	private Boolean estaDisponible;
 	private String alias;
 	private String URLfoto;
-	private Boolean esIncognito;
+	private boolean esIncognito;
 	private int numLikes;
 	//codigo de validación (preguntazrle a dieguito)
 	
@@ -95,18 +95,19 @@ public abstract class Usuario extends Persona {
 
 
 
-	public Boolean getEsIncognito() {
+
+
+
+
+
+	public boolean isEsIncognito() {
 		return esIncognito;
 	}
 
 
-
-
-	public void setEsIncognito(Boolean esIncognito) {
+	public void setEsIncognito(boolean esIncognito) {
 		this.esIncognito = esIncognito;
 	}
-
-
 
 
 	public int getNumLikes() {

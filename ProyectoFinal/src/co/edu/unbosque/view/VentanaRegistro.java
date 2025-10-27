@@ -68,7 +68,7 @@ public class VentanaRegistro extends JFrame {
 
 	public VentanaRegistro() {
 		prop = new Properties();
-		inicializarComponentes();
+	
 	}
 
 	public void inicializarComponentes() {
