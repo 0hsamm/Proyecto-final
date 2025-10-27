@@ -87,16 +87,17 @@ public class HombreDAO implements DAO<Hombre>{
 				temp.setNombre(columna[0]);
 				temp.setApellido(columna[1]);;
 				temp.setEmail(columna[2]);
-				temp.setFecha(LocalDate.parse(columna[3]));
-				temp.setGenero(columna[4]);
-				temp.setEsAdministrador(Boolean.parseBoolean(columna[5]));
-				temp.setEstaDisponible(Boolean.parseBoolean(columna[6]));
-				temp.setAlias(columna[7]);
-				temp.setURLfoto(columna[8]);
-				temp.setEsIncognito(Boolean.parseBoolean(columna[9]));
-				temp.setNumLikes(Integer.parseInt(columna[10]));
-				temp.setPromedioIngMensual(Integer.parseInt(columna[11]));
-				temp.setEstatura(Double.parseDouble(columna[12]));
+				temp.setContrasena(columna[3]);
+				temp.setFecha(LocalDate.parse(columna[4]));
+				temp.setGenero(columna[5]);
+				temp.setEsAdministrador(Boolean.parseBoolean(columna[6]));
+				temp.setEstaDisponible(Boolean.parseBoolean(columna[7]));
+				temp.setAlias(columna[8]);
+				temp.setURLfoto(columna[9]);
+				temp.setEsIncognito(Boolean.parseBoolean(columna[10]));
+				temp.setNumLikes(Integer.parseInt(columna[11]));
+				temp.setPromedioIngMensual(Integer.parseInt(columna[12]));
+				temp.setEstatura(Double.parseDouble(columna[13]));
 				
 				listaHombres.add(temp);
 			}
@@ -111,6 +112,7 @@ public class HombreDAO implements DAO<Hombre>{
 			sb.append(hombre.getNombre() + ";");
 			sb.append(hombre.getApellido() + ";");
 			sb.append(hombre.getEmail() + ";");
+			sb.append(hombre.getContrasena() + ";");
 			sb.append(hombre.getFecha() + ";");
 			sb.append(hombre.getGenero() + ";");
 			sb.append(hombre.getEsAdministrador() + ";");

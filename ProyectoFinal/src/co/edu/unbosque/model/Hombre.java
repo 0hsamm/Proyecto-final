@@ -1,6 +1,5 @@
 package co.edu.unbosque.model;
 
-import java.awt.Image;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -26,24 +25,55 @@ public class Hombre extends Usuario implements Serializable{
 
 
 
-	public Hombre(String nombre, String apellido, String email, LocalDate fecha, String genero, Boolean esAdministrador,
-			Boolean estaDisponible, String alias, String URLfoto, Boolean esIncognito, int numLikes, int promedioIngMensual,
-			double estatura) {
-		super(nombre, apellido, email, fecha, genero, esAdministrador, estaDisponible, alias, URLfoto, esIncognito,
-				numLikes);
+
+	
+
+	public Hombre(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
+			Boolean esAdministrador, int promedioIngMensual, double estatura) {
+		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador);
 		this.promedioIngMensual = promedioIngMensual;
 		this.estatura = estatura;
 	}
 
 
+	public Hombre(Boolean estaDisponible, String alias, String URLfoto, Boolean esIncognito, int numLikes,
+			int promedioIngMensual, double estatura) {
+		super(estaDisponible, alias, URLfoto, esIncognito, numLikes);
+		this.promedioIngMensual = promedioIngMensual;
+		this.estatura = estatura;
+	}
 
 
-	public Hombre(String nombre, String apellido, String email, LocalDate fecha, String genero, Boolean esAdministrador,
-			Boolean estaDisponible, String alias, String URLfoto, Boolean esIncognito, int numLikes) {
-		super(nombre, apellido, email, fecha, genero, esAdministrador, estaDisponible, alias, URLfoto, esIncognito, numLikes);
+	public Hombre(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
+			Boolean esAdministrador, Boolean estaDisponible, String alias, String URLfoto, Boolean esIncognito,
+			int numLikes, int promedioIngMensual, double estatura) {
+		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador, estaDisponible, alias, URLfoto,
+				esIncognito, numLikes);
+		this.promedioIngMensual = promedioIngMensual;
+		this.estatura = estatura;
+	}
+
+
+	public Hombre(Boolean estaDisponible, String alias, String URLfoto, Boolean esIncognito, int numLikes) {
+		super(estaDisponible, alias, URLfoto, esIncognito, numLikes);
 		// TODO Auto-generated constructor stub
 	}
 
+
+	public Hombre(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
+			Boolean esAdministrador, Boolean estaDisponible, String alias, String uRLfoto, Boolean esIncognito,
+			int numLikes) {
+		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador, estaDisponible, alias, uRLfoto, esIncognito,
+				numLikes);
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public Hombre(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
+			Boolean esAdministrador) {
+		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador);
+		// TODO Auto-generated constructor stub
+	}
 
 
 	public int getPromedioIngMensual() {

@@ -14,6 +14,7 @@ public class DataMapper {
 		dto.setNombre(entity.getNombre());
 		dto.setApellido(entity.getApellido());
 		dto.setEmail(entity.getEmail());
+		dto.setContrasena(entity.getContrasena());
 		dto.setFecha(entity.getFecha());
 		dto.setGenero(entity.getGenero());
 		dto.setEstaDisponible(entity.getEstaDisponible());
@@ -34,6 +35,7 @@ public class DataMapper {
 		entity.setNombre(dto.getNombre());
 		entity.setApellido(dto.getApellido());
 		entity.setEmail(dto.getEmail());
+		entity.setContrasena(dto.getContrasena());
 		entity.setFecha(dto.getFecha());
 		entity.setGenero(dto.getGenero());
 		entity.setEstaDisponible(dto.getEstaDisponible());
@@ -52,6 +54,7 @@ public class DataMapper {
 		dto.setNombre(entity.getNombre());
 		dto.setApellido(entity.getApellido());
 		dto.setEmail(entity.getEmail());
+		dto.setContrasena(entity.getContrasena());
 		dto.setFecha(entity.getFecha());
 		dto.setGenero(entity.getGenero());
 		dto.setEstaDisponible(entity.getEstaDisponible());
@@ -71,6 +74,7 @@ public class DataMapper {
 		entity.setNombre(dto.getNombre());
 		entity.setApellido(dto.getApellido());
 		entity.setEmail(dto.getEmail());
+		entity.setContrasena(dto.getContrasena());
 		entity.setFecha(dto.getFecha());
 		entity.setGenero(dto.getGenero());
 		entity.setEstaDisponible(dto.getEstaDisponible());

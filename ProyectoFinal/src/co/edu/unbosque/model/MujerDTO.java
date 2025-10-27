@@ -1,6 +1,5 @@
 package co.edu.unbosque.model;
 
-import java.awt.Image;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -26,23 +25,52 @@ public class MujerDTO extends Usuario implements Serializable{
 	}
 
 
-
-	public MujerDTO(String nombre, String apellido, String email, LocalDate fecha, String genero, Boolean esAdministrador,
-			Boolean estaDisponible, String alias, String URLfoto, Boolean esIncognito, int numLikes, double estatura,
-			boolean esDivorciada) {
-		super(nombre, apellido, email, fecha, genero, esAdministrador, estaDisponible, alias, URLfoto, esIncognito,
-				numLikes);
+	public MujerDTO(Boolean estaDisponible, String alias, String URLfoto, Boolean esIncognito, int numLikes,
+			double estatura, boolean esDivorciada) {
+		super(estaDisponible, alias, URLfoto, esIncognito, numLikes);
 		this.estatura = estatura;
 		this.esDivorciada = esDivorciada;
 	}
 
 
-	public MujerDTO(String nombre, String apellido, String email, LocalDate fecha, String genero, Boolean esAdministrador,
-			Boolean estaDisponible, String alias, String URLfoto, Boolean esIncognito, int numLikes) {
-		super(nombre, apellido, email, fecha, genero, esAdministrador, estaDisponible, alias, URLfoto, esIncognito, numLikes);
+	public MujerDTO(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
+			Boolean esAdministrador, Boolean estaDisponible, String alias, String uRLfoto, Boolean esIncognito,
+			int numLikes, double estatura, boolean esDivorciada) {
+		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador, estaDisponible, alias, uRLfoto,
+				esIncognito, numLikes);
+		this.estatura = estatura;
+		this.esDivorciada = esDivorciada;
+	}
+
+
+	public MujerDTO(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
+			Boolean esAdministrador, double estatura, boolean esDivorciada) {
+		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador);
+		this.estatura = estatura;
+		this.esDivorciada = esDivorciada;
+	}
+
+
+	public MujerDTO(Boolean estaDisponible, String alias, String URLfoto, Boolean esIncognito, int numLikes) {
+		super(estaDisponible, alias, URLfoto, esIncognito, numLikes);
 		// TODO Auto-generated constructor stub
 	}
 
+
+	public MujerDTO(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
+			Boolean esAdministrador, Boolean estaDisponible, String alias, String uRLfoto, Boolean esIncognito,
+			int numLikes) {
+		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador, estaDisponible, alias, uRLfoto, esIncognito,
+				numLikes);
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public MujerDTO(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
+			Boolean esAdministrador) {
+		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador);
+		// TODO Auto-generated constructor stub
+	}
 
 
 	public double getEstatura() {

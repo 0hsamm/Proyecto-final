@@ -7,6 +7,7 @@ public abstract class Persona {
 	private String nombre;
 	private String apellido;
 	private String email;
+	private String contrasena;
 	private LocalDate fecha;
 	private String genero;
 	private Boolean esAdministrador;
@@ -20,18 +21,18 @@ public abstract class Persona {
 
 
 
-	
-	public Persona(String nombre, String apellido, String email, LocalDate fecha, String genero,
+
+	public Persona(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
 			Boolean esAdministrador) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.email = email;
+		this.contrasena = contrasena;
 		this.fecha = fecha;
 		this.genero = genero;
 		this.esAdministrador = esAdministrador;
 	}
-
 
 
 
@@ -84,6 +85,21 @@ public abstract class Persona {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+
+
+	public String getContrasena() {
+		return contrasena;
+	}
+
+
+
+
+
+
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
 
 
@@ -147,7 +163,7 @@ public abstract class Persona {
 
 	@Override
 	public String toString() {
-		return "Nombre: " + nombre + "\nApellido: " + apellido + "\nEmail: " + email + "\nFecha: " + fecha
+		return "Nombre: " + nombre + "\nApellido: " + apellido + "\nEmail: " + email + "\nEmail: " + "\ncontrasena" + contrasena +  "\nFecha: " + fecha
 				+ "\nGenero: " + genero + "\nEs administrador?: " + esAdministrador;
 	}
 
