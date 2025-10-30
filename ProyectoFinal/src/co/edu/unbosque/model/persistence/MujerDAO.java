@@ -5,9 +5,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import co.edu.unbosque.model.Mujer;
+import co.edu.unbosque.model.MujerDTO;
 import co.edu.unbosque.model.Mujer;
 
-public class MujerDAO implements DAO<Mujer>{
+public class MujerDAO implements DAO<MujerDTO>{
 
 	private ArrayList<Mujer> listaMujeres;
 	private final String FILE_NAME = "Mujer.csv";
@@ -20,7 +21,9 @@ public class MujerDAO implements DAO<Mujer>{
 	}
 	
 	@Override
-	public void create(Mujer newData) {
+	public void create(MujerDTO temp) {
+		
+		Mujer newData = DataMapper.convertirMujerDTOAMujer(temp);
 		listaMujeres.add(newData);
 		escribirEnArchivoDeTexto();
 		cargarDesdeArchivoSerializado();
@@ -40,10 +43,11 @@ public class MujerDAO implements DAO<Mujer>{
 	}
 
 	@Override
-	public boolean update(int index, Mujer newData) {
+	public boolean update(int index, MujerDTO temp) {
 		if(index < 0 || index >= listaMujeres.size()) {
 			return false;
 		}else {
+			Mujer newData = DataMapper.convertirMujerDTOAMujer(temp);
 			listaMujeres.set(index, newData);
 			escribirEnArchivoDeTexto();
 			escribirEnArchivoSerializado();
@@ -54,11 +58,12 @@ public class MujerDAO implements DAO<Mujer>{
 	@Override
 	public String showAll() {
 		StringBuilder sb = new StringBuilder();
+		ArrayList<MujerDTO> listaTemp = DataMapper.listaMujeres(listaMujeres);
 		
-		for (int i = 0; i < listaMujeres.size(); i++) {
+		for (int i = 0; i < listaTemp.size(); i++) {
 			sb.append(i + 1);
 			sb.append(" - ");
-			sb.append(listaMujeres.get(i).toString());
+			sb.append(listaTemp.get(i).toString());
 			sb.append("\n");
 		}
 		return sb.toString();
@@ -160,6 +165,5 @@ public class MujerDAO implements DAO<Mujer>{
 		return SERIAL_FILE_NAME;
 	}
 
-	
 
 }

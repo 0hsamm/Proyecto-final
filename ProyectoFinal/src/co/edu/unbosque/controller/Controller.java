@@ -61,7 +61,9 @@ public class Controller implements ActionListener {
 			vf.getVenMenu().setProp(prop);
 			vf.getVenRegistro().setProp(prop);
 			vf.getVenPrincipal().setProp(prop);
+			vf.getVenCRUD().setProp(prop);
 			vf.getVenMenu().setVisible(true);
+			//vf.getVenCRUD().setVisible(true);
 			asignarListeners();
 			break mainloop;
 		}

@@ -5,12 +5,14 @@ public class ViewFacade {
 	private VentanaMenuPrincipal venMenu;
 	private VentanaRegistro venRegistro;
 	private VentanaPrincipal venPrincipal;
+	private VentanaCRUD venCRUD;
 	
 	public ViewFacade() {
 		
 		venMenu = new VentanaMenuPrincipal();
 		venRegistro = new VentanaRegistro();
 		venPrincipal = new VentanaPrincipal();
+		venCRUD = new VentanaCRUD();
 		
 	}
 
@@ -37,5 +39,15 @@ public class ViewFacade {
 	public void setVenPrincipal(VentanaPrincipal venPrincipal) {
 		this.venPrincipal = venPrincipal;
 	}
+
+	public VentanaCRUD getVenCRUD() {
+		return venCRUD;
+	}
+
+	public void setVenCRUD(VentanaCRUD venCRUD) {
+		this.venCRUD = venCRUD;
+	}
+	
+	
 
 }
