@@ -5,8 +5,9 @@ import java.util.ArrayList;
 
 
 import co.edu.unbosque.model.Hombre;
+import co.edu.unbosque.model.HombreDTO;
 
-public class HombreDAO implements DAO<Hombre>{
+public class HombreDAO implements DAO<HombreDTO>{
 	
 	private ArrayList<Hombre> listaHombres;
 	private final String FILE_NAME = "Hombre.csv";
@@ -19,7 +20,9 @@ public class HombreDAO implements DAO<Hombre>{
 	}
 	
 	@Override
-	public void create(Hombre newData) {
+	public void create(HombreDTO temp) {
+		
+		Hombre newData = DataMapper.convertirHombreDTOAHombre(temp);
 		listaHombres.add(newData);
 		escribirEnArchivoDeTexto();
 		cargarDesdeArchivoSerializado();
@@ -39,10 +42,11 @@ public class HombreDAO implements DAO<Hombre>{
 	}
 
 	@Override
-	public boolean update(int index, Hombre newData) {
+	public boolean update(int index, HombreDTO temp) {
 		if(index < 0 || index >= listaHombres.size()) {
 			return false;
 		}else {
+			Hombre newData = DataMapper.convertirHombreDTOAHombre(temp);
 			listaHombres.set(index, newData);
 			escribirEnArchivoDeTexto();
 			escribirEnArchivoSerializado();
@@ -53,11 +57,13 @@ public class HombreDAO implements DAO<Hombre>{
 	@Override
 	public String showAll() {
 		StringBuilder sb = new StringBuilder();
+		ArrayList<HombreDTO> listaTemp = DataMapper.listaHombres(listaHombres);
 		
-		for (int i = 0; i < listaHombres.size(); i++) {
+		
+		for (int i = 0; i < listaTemp.size(); i++) {
 			sb.append(i + 1);
 			sb.append(" - ");
-			sb.append(listaHombres.get(i).toString());
+			sb.append(listaTemp.get(i).toString());
 			sb.append("\n");
 		}
 		return sb.toString();

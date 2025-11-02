@@ -4,35 +4,36 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import co.edu.unbosque.model.Administrador;
+import co.edu.unbosque.model.AdministradorDTO;
 import co.edu.unbosque.model.Hombre;
 
-public class AdministradorDAO implements DAO<Administrador>{
+public class AdministradorDAO implements DAO<AdministradorDTO> {
 
 	private ArrayList<Administrador> listaAdministradores;
 	private final String FILE_NAME = "Hombre.csv";
 	private final String SERIAL_FILE_NAME = "Hombre.bin";
-	
+
 	public AdministradorDAO() {
 		listaAdministradores = new ArrayList<Administrador>();
 		leerDesdeArchivoDeTexto(FILE_NAME);
 		cargarDesdeArchivoSerializado();
 	}
 
-	
-	
 	@Override
-	public void create(Administrador newData) {
+	public void create(AdministradorDTO temp) {
+
+		Administrador newData = DataMapper.convertirAdministradorDTOAAdministrador(temp);
 		listaAdministradores.add(newData);
 		escribirEnArchivoDeTexto();
 		cargarDesdeArchivoSerializado();
-		
+
 	}
 
 	@Override
 	public boolean delete(int index) {
-		if(index < 0 || index >= listaAdministradores.size()) {
+		if (index < 0 || index >= listaAdministradores.size()) {
 			return false;
-		}else {
+		} else {
 			listaAdministradores.remove(index);
 			escribirEnArchivoDeTexto();
 			escribirEnArchivoSerializado();
@@ -41,10 +42,11 @@ public class AdministradorDAO implements DAO<Administrador>{
 	}
 
 	@Override
-	public boolean update(int index, Administrador newData) {
-		if(index < 0 || index >= listaAdministradores.size()) {
+	public boolean update(int index, AdministradorDTO temp) {
+		if (index < 0 || index >= listaAdministradores.size()) {
 			return false;
-		}else {
+		} else {
+			Administrador newData = DataMapper.convertirAdministradorDTOAAdministrador(temp);
 			listaAdministradores.set(index, newData);
 			escribirEnArchivoDeTexto();
 			escribirEnArchivoSerializado();
@@ -54,8 +56,9 @@ public class AdministradorDAO implements DAO<Administrador>{
 
 	@Override
 	public String showAll() {
-StringBuilder sb = new StringBuilder();
-		
+		StringBuilder sb = new StringBuilder();
+		ArrayList<AdministradorDTO> listaTemp = DataMapper.listaAdministradores(listaAdministradores);
+
 		for (int i = 0; i < listaAdministradores.size(); i++) {
 			sb.append(i + 1);
 			sb.append(" - ");
@@ -73,32 +76,33 @@ StringBuilder sb = new StringBuilder();
 	@Override
 	public void leerDesdeArchivoDeTexto(String url) {
 		String contenido = FileHandler.leerDesdeArchivoDeTexto(url);
-		if(contenido == null || contenido.isBlank()) {
+		if (contenido == null || contenido.isBlank()) {
 			return;
-		}else {
+		} else {
 			String[] filas = contenido.split("\n");
 			for (int i = 0; i < filas.length; i++) {
-				if(filas[i].trim().isEmpty()) continue;
-				
+				if (filas[i].trim().isEmpty())
+					continue;
+
 				String[] columna = filas[i].split("\n");
-				if(columna.length < 6) {
+				if (columna.length < 6) {
 					System.out.println("Línea inválida en archivo de Hombres: " + filas[i]);
 					continue;
 				}
 				Administrador temp = new Administrador();
 				temp.setNombre(columna[0]);
-				temp.setApellido(columna[1]);;
+				temp.setApellido(columna[1]);
+				;
 				temp.setEmail(columna[2]);
 				temp.setContrasena(columna[3]);
 				temp.setFecha(LocalDate.parse(columna[4]));
 				temp.setGenero(columna[5]);
 				temp.setEsAdministrador(Boolean.parseBoolean(columna[6]));
-			
-				
+
 				listaAdministradores.add(temp);
 			}
 		}
-		
+
 	}
 
 	@Override
@@ -112,10 +116,10 @@ StringBuilder sb = new StringBuilder();
 			sb.append(administrador.getFecha() + ";");
 			sb.append(administrador.getGenero() + ";");
 			sb.append(administrador.isEsAdministrador() + ";");
-		
+
 		}
 		FileHandler.escribirEnArchivoDeTexto(FILE_NAME, sb.toString());
-		
+
 	}
 
 	@Override
@@ -125,13 +129,13 @@ StringBuilder sb = new StringBuilder();
 			listaAdministradores = (ArrayList<Administrador>) contenido;
 		} else {
 			listaAdministradores = new ArrayList<>();
-		}		
+		}
 	}
 
 	@Override
 	public void escribirEnArchivoSerializado() {
 		FileHandler.escribirEnArchivoSerializado(SERIAL_FILE_NAME, listaAdministradores);
-		
+
 	}
 
 }
