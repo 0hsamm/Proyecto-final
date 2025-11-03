@@ -22,6 +22,13 @@ public class Administrador extends Persona implements Serializable{
 		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador);
 	}
 
+	
+	
+	@Override
+	public String toString() {
+		return super.toString();
+	}
+
 
 	
 	

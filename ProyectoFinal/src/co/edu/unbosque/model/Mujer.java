@@ -33,19 +33,19 @@ public class Mujer extends Usuario implements Serializable{
 	}
 
 
-	public Mujer(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
+	public Mujer(String nombre, String apellido, String email, String contrasena, LocalDate fechaNacimiento, String genero,
 			boolean esAdministrador, boolean estaDisponible, String alias, String uRLfoto, boolean esIncognito,
 			int numLikes, double estatura, boolean esDivorciada) {
-		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador, estaDisponible, alias, uRLfoto,
+		super(nombre, apellido, email, contrasena, fechaNacimiento, genero, esAdministrador, estaDisponible, alias, uRLfoto,
 				esIncognito, numLikes);
 		this.estatura = estatura;
 		this.esDivorciada = esDivorciada;
 	}
 
 
-	public Mujer(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
+	public Mujer(String nombre, String apellido, String email, String contrasena, LocalDate fechaNacimiento, String genero,
 			boolean esAdministrador, double estatura, boolean esDivorciada) {
-		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador);
+		super(nombre, apellido, email, contrasena, fechaNacimiento, genero, esAdministrador);
 		this.estatura = estatura;
 		this.esDivorciada = esDivorciada;
 	}
@@ -57,18 +57,18 @@ public class Mujer extends Usuario implements Serializable{
 	}
 
 
-	public Mujer(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
+	public Mujer(String nombre, String apellido, String email, String contrasena, LocalDate fechaNacimiento, String genero,
 			boolean esAdministrador, boolean estaDisponible, String alias, String uRLfoto, boolean esIncognito,
 			int numLikes) {
-		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador, estaDisponible, alias, uRLfoto, esIncognito,
+		super(nombre, apellido, email, contrasena, fechaNacimiento, genero, esAdministrador, estaDisponible, alias, uRLfoto, esIncognito,
 				numLikes);
 		// TODO Auto-generated constructor stub
 	}
 
 
-	public Mujer(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
+	public Mujer(String nombre, String apellido, String email, String contrasena, LocalDate fechaNacimiento, String genero,
 			boolean esAdministrador) {
-		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador);
+		super(nombre, apellido, email, contrasena, fechaNacimiento, genero, esAdministrador);
 		// TODO Auto-generated constructor stub
 	}
 

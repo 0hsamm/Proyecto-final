@@ -24,7 +24,10 @@ public class AdministradorDTO extends Persona implements Serializable{
 
 
 	
-	
+	@Override
+    public String toString() {
+        return super.toString();
+    }
 
 	
 

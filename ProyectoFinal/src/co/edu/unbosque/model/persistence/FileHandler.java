@@ -1,5 +1,6 @@
 package co.edu.unbosque.model.persistence;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -108,27 +109,36 @@ public class FileHandler {
      * @param url ruta del archivo
      * @return objeto leído o null si ocurre un error
      */
-    public static Object leerDesdeArchivoSerializado(String url) {
-        archivo = new File(url);
+    public static Object leerDesdeArchivoSerializado(String fileName) {
+        ObjectInputStream ois = null;
         try {
-            if (!archivo.exists()) {
-                archivo.createNewFile();
+            File file = new File(fileName);
+            if (!file.exists() || file.length() == 0) {
+                System.out.println("Archivo binario vacío o no existente: " + fileName);
+                return null;
             }
-            fis = new FileInputStream(archivo);
+
+            FileInputStream fis = new FileInputStream(file);
             ois = new ObjectInputStream(fis);
-            Object contenido = ois.readObject();
-            ois.close();
-            fis.close();
-            return contenido;
-        } catch (IOException e) {
+            Object obj = ois.readObject();
+            return obj;
+
+        } catch (EOFException e) {
+            System.out.println("Archivo binario vacío: " + fileName);
+            return null;
+
+        } catch (Exception e) {
             System.out.println("No se pudo leer el archivo binario");
-            System.out.println(e.getMessage());
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            System.out.println("El objeto guardado no se pudo convertir");
-            e.printStackTrace();
+            return null;
+
+        } finally {
+            try {
+                if (ois != null) ois.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        return null;
     }
 
     /**

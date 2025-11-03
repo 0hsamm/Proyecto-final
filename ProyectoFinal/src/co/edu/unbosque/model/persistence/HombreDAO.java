@@ -15,8 +15,9 @@ public class HombreDAO implements DAO<HombreDTO>{
 	
 	public HombreDAO() {
 		listaHombres = new ArrayList<Hombre>();
-		leerDesdeArchivoDeTexto(FILE_NAME);
 		cargarDesdeArchivoSerializado();
+		leerDesdeArchivoDeTexto(FILE_NAME);
+		
 	}
 	
 	@Override
@@ -25,7 +26,7 @@ public class HombreDAO implements DAO<HombreDTO>{
 		Hombre newData = DataMapper.convertirHombreDTOAHombre(temp);
 		listaHombres.add(newData);
 		escribirEnArchivoDeTexto();
-		cargarDesdeArchivoSerializado();
+		escribirEnArchivoSerializado();
 		
 	}
 
@@ -84,8 +85,8 @@ public class HombreDAO implements DAO<HombreDTO>{
 			for (int i = 0; i < filas.length; i++) {
 				if(filas[i].trim().isEmpty()) continue;
 				
-				String[] columna = filas[i].split("\n");
-				if(columna.length < 13) {
+				String[] columna = filas[i].split(";");
+				if(columna.length < 14) {
 					System.out.println("Línea inválida en archivo de Hombres: " + filas[i]);
 					continue;
 				}
@@ -94,12 +95,12 @@ public class HombreDAO implements DAO<HombreDTO>{
 				temp.setApellido(columna[1]);;
 				temp.setEmail(columna[2]);
 				temp.setContrasena(columna[3]);
-				temp.setFecha(LocalDate.parse(columna[4]));
+				temp.setFechaNacimiento(LocalDate.parse(columna[4]));
 				temp.setGenero(columna[5]);
 				temp.setEsAdministrador(Boolean.parseBoolean(columna[6]));
 				temp.setEstaDisponible(Boolean.parseBoolean(columna[7]));
 				temp.setAlias(columna[8]);
-				temp.setURLfoto(columna[9]);
+				temp.setURLFoto(columna[9]);
 				temp.setEsIncognito(Boolean.parseBoolean(columna[10]));
 				temp.setNumLikes(Integer.parseInt(columna[11]));
 				temp.setPromedioIngMensual(Integer.parseInt(columna[12]));
@@ -119,7 +120,7 @@ public class HombreDAO implements DAO<HombreDTO>{
 			sb.append(hombre.getApellido() + ";");
 			sb.append(hombre.getEmail() + ";");
 			sb.append(hombre.getContrasena() + ";");
-			sb.append(hombre.getFecha() + ";");
+			sb.append(hombre.getFechaNacimiento() + ";");
 			sb.append(hombre.getGenero() + ";");
 			sb.append(hombre.isEsAdministrador() + ";");
 			sb.append(hombre.isEstaDisponible() + ";");
@@ -134,6 +135,7 @@ public class HombreDAO implements DAO<HombreDTO>{
 		
 	}
 
+	 @SuppressWarnings("unchecked")
 	public void cargarDesdeArchivoSerializado() {
 		Object contenido = FileHandler.leerDesdeArchivoSerializado(SERIAL_FILE_NAME);
 		if (contenido != null) {
@@ -147,13 +149,6 @@ public class HombreDAO implements DAO<HombreDTO>{
 		FileHandler.escribirEnArchivoSerializado(SERIAL_FILE_NAME, listaHombres);
 	}
 
-	public ArrayList<Hombre> getListaCompradores() {
-		return listaHombres;
-	}
-
-	public void setListaCompradores(ArrayList<Hombre> listaCompradores) {
-		this.listaHombres = listaCompradores;
-	}
 
 	public String getFILE_NAME() {
 		return FILE_NAME;
