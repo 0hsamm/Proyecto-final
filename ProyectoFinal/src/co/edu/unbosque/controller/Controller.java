@@ -59,11 +59,15 @@ public class Controller implements ActionListener {
 			}
 
 			vf.getVenMenu().setProp(prop);
-			vf.getVenRegistro().setProp(prop);
+			vf.getVenGenero().setProp(prop);
+			vf.getVenRegistroHombre().setProp(prop);
+			vf.getVenRegistroMujer().setProp(prop);
 			vf.getVenPrincipal().setProp(prop);
 			vf.getVenCRUD().setProp(prop);
 			vf.getVenMenu().setVisible(true);
 			//vf.getVenCRUD().setVisible(true);
+			//vf.getVenGenero().setVisible(true);
+			//vf.getVenRegistroMujer().setVisible(true);
 			asignarListeners();
 			break mainloop;
 		}
@@ -81,15 +85,35 @@ public class Controller implements ActionListener {
 		vf.getVenMenu().getBtnSalir().addActionListener(this);
 		vf.getVenMenu().getBtnSalir().setActionCommand("SALIR_MENU");
 		
-		//VENTANA REGISTRO
-		vf.getVenRegistro().getBtnCrearCuenta().addActionListener(this);
-		vf.getVenRegistro().getBtnCrearCuenta().setActionCommand("CREAR_CUENTA");
-
-		vf.getVenRegistro().getBtnVolver().addActionListener(this);
-		vf.getVenRegistro().getBtnVolver().setActionCommand("VOLVER_DESDE_REGISTRO");
+		//VENTANA GENERO
+		vf.getVenGenero().getBtnVolver().addActionListener(this);
+		vf.getVenGenero().getBtnVolver().setActionCommand("VOLVER_DESDE_GENERO");
 		
-		vf.getVenRegistro().getBtnSubirImagen().addActionListener(this);
-		vf.getVenRegistro().getBtnSubirImagen().setActionCommand("SUBIR_FOTO");
+		vf.getVenGenero().getBtnHombre().addActionListener(this);
+		vf.getVenGenero().getBtnHombre().setActionCommand("HOMBRE");
+		
+		vf.getVenGenero().getBtnMujer().addActionListener(this);
+		vf.getVenGenero().getBtnMujer().setActionCommand("MUJER");
+		
+		//VENTANA REGISTRO HOMBRE
+		vf.getVenRegistroHombre().getBtnCrearCuenta().addActionListener(this);
+		vf.getVenRegistroHombre().getBtnCrearCuenta().setActionCommand("CREAR_CUENTA_HOMBRE");
+
+		vf.getVenRegistroHombre().getBtnVolver().addActionListener(this);
+		vf.getVenRegistroHombre().getBtnVolver().setActionCommand("VOLVER_DESDE_REGISTRO_HOMBRE");
+		
+		vf.getVenRegistroHombre().getBtnSubirImagen().addActionListener(this);
+		vf.getVenRegistroHombre().getBtnSubirImagen().setActionCommand("SUBIR_FOTO_HOMBRE");
+		
+		//VENTANA REGISTRO MUJER
+		vf.getVenRegistroMujer().getBtnCrearCuenta().addActionListener(this);
+		vf.getVenRegistroMujer().getBtnCrearCuenta().setActionCommand("CREAR_CUENTA_MUJER");
+
+		vf.getVenRegistroMujer().getBtnVolver().addActionListener(this);
+		vf.getVenRegistroMujer().getBtnVolver().setActionCommand("VOLVER_DESDE_REGISTRO_MUJER");
+		
+		vf.getVenRegistroMujer().getBtnSubirImagen().addActionListener(this);
+		vf.getVenRegistroMujer().getBtnSubirImagen().setActionCommand("SUBIR_FOTO_MUJER");
 		
 		//VENTANA PRINCIPAL
 		vf.getVenPrincipal().getBtnVolver().addActionListener(this);
@@ -107,15 +131,45 @@ public class Controller implements ActionListener {
 		}
 		case "REGISTRATE_AQUI": {
 			vf.getVenMenu().setVisible(false);
-			vf.getVenRegistro().setVisible(true);
+			vf.getVenGenero().setVisible(true);
 			break;
 		}
 		case "SALIR_MENU": {
 			vf.getVenMenu().dispose();
 			break;
 		}
+		
+		case "VOLVER_DESDE_GENERO": {
+			vf.getVenGenero().setVisible(false);
+			vf.getVenMenu().setVisible(true);
+			break;
+		}
+		
+		case "HOMBRE": {
+			vf.getVenGenero().setVisible(false);
+			vf.getVenRegistroHombre().setVisible(true);
+			break;
+		}
+		
+		case "VOLVER_DESDE_REGISTRO_HOMBRE": {
+			vf.getVenGenero().setVisible(true);
+			vf.getVenRegistroHombre().setVisible(false);
+			break;
+		}
+		
+		case "MUJER": {
+			vf.getVenGenero().setVisible(false);
+			vf.getVenRegistroMujer().setVisible(true);
+			
+			break;
+		}
+		case "VOLVER_DESDE_REGISTRO_MUJER": {
+			vf.getVenGenero().setVisible(true);
+			vf.getVenRegistroMujer().setVisible(false);
+			break;
+		}
 		case "VOLVER_DESDE_REGISTRO": {
-			vf.getVenRegistro().setVisible(false);
+			vf.getVenRegistroHombre().setVisible(false);
 			vf.getVenMenu().setVisible(true);
 			break;
 		}
@@ -124,7 +178,7 @@ public class Controller implements ActionListener {
 			vf.getVenMenu().setVisible(true);
 		}
 		case "SUBIR_FOTO" :{
-			vf.getVenRegistro().subirFotoPerfil();
+			vf.getVenRegistroHombre().subirFotoPerfil();
 		}
 		}
 	}

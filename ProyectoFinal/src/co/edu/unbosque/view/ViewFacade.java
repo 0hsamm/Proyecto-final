@@ -3,16 +3,20 @@ package co.edu.unbosque.view;
 public class ViewFacade {
 	
 	private VentanaMenuPrincipal venMenu;
-	private VentanaRegistro venRegistro;
+	private VentanaRegistroHombre venRegistroHombre;
+	private VentanaRegistroMujer venRegistroMujer;
 	private VentanaPrincipal venPrincipal;
 	private VentanaCRUD venCRUD;
+	private VentanaEscogerGenero venGenero;
 	
 	public ViewFacade() {
 		
 		venMenu = new VentanaMenuPrincipal();
-		venRegistro = new VentanaRegistro();
+		venRegistroHombre = new VentanaRegistroHombre();
+		venRegistroMujer = new VentanaRegistroMujer();
 		venPrincipal = new VentanaPrincipal();
 		venCRUD = new VentanaCRUD();
+		venGenero = new VentanaEscogerGenero();
 		
 	}
 
@@ -24,12 +28,20 @@ public class ViewFacade {
 		this.venMenu = venMenu;
 	}
 
-	public VentanaRegistro getVenRegistro() {
-		return venRegistro;
+	public VentanaRegistroHombre getVenRegistroHombre() {
+		return venRegistroHombre;
 	}
 
-	public void setVenRegistro(VentanaRegistro venRegistro) {
-		this.venRegistro = venRegistro;
+	public void setVenRegistroHombre(VentanaRegistroHombre venRegistroHombre) {
+		this.venRegistroHombre = venRegistroHombre;
+	}
+
+	public VentanaRegistroMujer getVenRegistroMujer() {
+		return venRegistroMujer;
+	}
+
+	public void setVenRegistroMujer(VentanaRegistroMujer venRegistroMujer) {
+		this.venRegistroMujer = venRegistroMujer;
 	}
 
 	public VentanaPrincipal getVenPrincipal() {
@@ -47,7 +59,13 @@ public class ViewFacade {
 	public void setVenCRUD(VentanaCRUD venCRUD) {
 		this.venCRUD = venCRUD;
 	}
-	
-	
 
+	public VentanaEscogerGenero getVenGenero() {
+		return venGenero;
+	}
+
+	public void setVenGenero(VentanaEscogerGenero venGenero) {
+		this.venGenero = venGenero;
+	}
+	
 }
