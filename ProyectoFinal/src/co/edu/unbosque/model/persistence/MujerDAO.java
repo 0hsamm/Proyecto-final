@@ -1,13 +1,11 @@
 
 package co.edu.unbosque.model.persistence;
 
-import java.awt.Image;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 import co.edu.unbosque.model.Mujer;
 import co.edu.unbosque.model.MujerDTO;
-import co.edu.unbosque.model.Mujer;
 
 public class MujerDAO implements DAO<MujerDTO>{
 
