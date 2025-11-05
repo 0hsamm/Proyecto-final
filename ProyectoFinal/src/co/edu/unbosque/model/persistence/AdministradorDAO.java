@@ -10,8 +10,8 @@ import co.edu.unbosque.model.Hombre;
 public class AdministradorDAO implements DAO<AdministradorDTO> {
 
 	private ArrayList<Administrador> listaAdministradores;
-	private final String FILE_NAME = "Hombre.csv";
-	private final String SERIAL_FILE_NAME = "Hombre.bin";
+	private final String FILE_NAME = "Administrador.csv";
+	private final String SERIAL_FILE_NAME = "Administrador.bin";
 
 	public AdministradorDAO() {
 		listaAdministradores = new ArrayList<Administrador>();
@@ -25,7 +25,7 @@ public class AdministradorDAO implements DAO<AdministradorDTO> {
 		Administrador newData = DataMapper.convertirAdministradorDTOAAdministrador(temp);
 		listaAdministradores.add(newData);
 		escribirEnArchivoDeTexto();
-		cargarDesdeArchivoSerializado();
+		 escribirEnArchivoSerializado();
 
 	}
 
@@ -84,9 +84,9 @@ public class AdministradorDAO implements DAO<AdministradorDTO> {
 				if (filas[i].trim().isEmpty())
 					continue;
 
-				String[] columna = filas[i].split("\n");
-				if (columna.length < 6) {
-					System.out.println("Línea inválida en archivo de Hombres: " + filas[i]);
+				String[] columna = filas[i].split(";");
+				if (columna.length < 7) {
+					System.out.println("Línea inválida en archivo de Administradores: " + filas[i]);
 					continue;
 				}
 				Administrador temp = new Administrador();
@@ -95,7 +95,7 @@ public class AdministradorDAO implements DAO<AdministradorDTO> {
 				;
 				temp.setEmail(columna[2]);
 				temp.setContrasena(columna[3]);
-				temp.setFecha(LocalDate.parse(columna[4]));
+				temp.setFechaNacimiento(LocalDate.parse(columna[4]));
 				temp.setGenero(columna[5]);
 				temp.setEsAdministrador(Boolean.parseBoolean(columna[6]));
 
@@ -113,9 +113,9 @@ public class AdministradorDAO implements DAO<AdministradorDTO> {
 			sb.append(administrador.getApellido() + ";");
 			sb.append(administrador.getEmail() + ";");
 			sb.append(administrador.getContrasena() + ";");
-			sb.append(administrador.getFecha() + ";");
+			sb.append(administrador.getFechaNacimiento() + ";");
 			sb.append(administrador.getGenero() + ";");
-			sb.append(administrador.isEsAdministrador() + ";");
+			sb.append(administrador.isEsAdministrador()).append("\n");
 
 		}
 		FileHandler.escribirEnArchivoDeTexto(FILE_NAME, sb.toString());
@@ -138,4 +138,11 @@ public class AdministradorDAO implements DAO<AdministradorDTO> {
 
 	}
 
+	public ArrayList<Administrador> getListaAdministradores() {
+        return listaAdministradores;
+    }
+
+    public void setListaAdministradores(ArrayList<Administrador> listaAdministradores) {
+        this.listaAdministradores = listaAdministradores;
+    }
 }

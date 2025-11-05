@@ -15,8 +15,9 @@ public class MujerDAO implements DAO<MujerDTO>{
 	
 	public MujerDAO() {
 		listaMujeres = new ArrayList<Mujer>();
-		leerDesdeArchivoDeTexto(FILE_NAME);
 		cargarDesdeArchivoSerializado();
+		leerDesdeArchivoDeTexto(FILE_NAME);
+	
 	}
 	
 	@Override
@@ -25,7 +26,7 @@ public class MujerDAO implements DAO<MujerDTO>{
 		Mujer newData = DataMapper.convertirMujerDTOAMujer(temp);
 		listaMujeres.add(newData);
 		escribirEnArchivoDeTexto();
-		cargarDesdeArchivoSerializado();
+		escribirEnArchivoSerializado();
 		
 	}
 
@@ -83,9 +84,9 @@ public class MujerDAO implements DAO<MujerDTO>{
 			for (int i = 0; i < filas.length; i++) {
 				if(filas[i].trim().isEmpty()) continue;
 				
-				String[] columna = filas[i].split("\n");
-				if(columna.length < 7) {
-					System.out.println("Línea inválida en archivo de Hombres: " + filas[i]);
+				String[] columna = filas[i].split(";");
+				if(columna.length < 14) {
+					System.out.println("Línea inválida en archivo de Mujeres: " + filas[i]);
 					continue;
 				}
 				Mujer temp = new Mujer();
@@ -93,12 +94,12 @@ public class MujerDAO implements DAO<MujerDTO>{
 				temp.setApellido(columna[1]);;
 				temp.setEmail(columna[2]);
 				temp.setContrasena(columna[3]);
-				temp.setFecha(LocalDate.parse(columna[4]));
+				temp.setFechaNacimiento(LocalDate.parse(columna[4]));
 				temp.setGenero(columna[5]);
 				temp.setEstaDisponible(Boolean.parseBoolean(columna[6]));
 				temp.setEsAdministrador(Boolean.parseBoolean(columna[7]));
 				temp.setAlias(columna[8]);
-				temp.setURLfoto(columna[9]);
+				temp.setURLFoto(columna[9]);
 				temp.setEsIncognito(Boolean.parseBoolean(columna[10]));
 				temp.setNumLikes(Integer.parseInt(columna[11]));
 				temp.setEstatura(Double.parseDouble(columna[12]));
@@ -118,7 +119,7 @@ public class MujerDAO implements DAO<MujerDTO>{
 			sb.append(mujer.getApellido() + ";");
 			sb.append(mujer.getEmail() + ";");
 			sb.append(mujer.getContrasena() + ";");
-			sb.append(mujer.getFecha() + ";");
+			sb.append(mujer.getFechaNacimiento() + ";");
 			sb.append(mujer.getGenero() + ";");
 			sb.append(mujer.isEsAdministrador() + ";");
 			sb.append(mujer.isEstaDisponible() + ";");
@@ -135,6 +136,7 @@ public class MujerDAO implements DAO<MujerDTO>{
 		
 	}
 
+	 @SuppressWarnings("unchecked")
 	public void cargarDesdeArchivoSerializado() {
 		Object contenido = FileHandler.leerDesdeArchivoSerializado(SERIAL_FILE_NAME);
 		if (contenido != null) {
@@ -148,12 +150,12 @@ public class MujerDAO implements DAO<MujerDTO>{
 		FileHandler.escribirEnArchivoSerializado(SERIAL_FILE_NAME, listaMujeres);
 	}
 
-	public ArrayList<Mujer> getListaCompradores() {
+	public ArrayList<Mujer> getListaMujeres() {
 		return listaMujeres;
 	}
 
-	public void setListaCompradores(ArrayList<Mujer> listaCompradores) {
-		this.listaMujeres = listaCompradores;
+	public void setListaMujeres(ArrayList<Mujer> listaMujeres) {
+		this.listaMujeres = listaMujeres;
 	}
 
 	public String getFILE_NAME() {

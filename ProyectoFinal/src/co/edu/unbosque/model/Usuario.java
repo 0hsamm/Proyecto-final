@@ -6,7 +6,7 @@ public abstract class Usuario extends Persona {
 
 	private boolean estaDisponible;
 	private String alias;
-	private String URLfoto;
+	private String UrlFoto;
 	private boolean esIncognito;
 	private int numLikes;
 
@@ -19,7 +19,7 @@ public abstract class Usuario extends Persona {
 		super();
 		this.estaDisponible = estaDisponible;
 		this.alias = alias;
-		this.URLfoto = URLfoto;
+		this.UrlFoto = URLfoto;
 		this.esIncognito = esIncognito;
 		this.numLikes = numLikes;
 	}
@@ -31,13 +31,13 @@ public abstract class Usuario extends Persona {
 
 
 
-	public Usuario(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
+	public Usuario(String nombre, String apellido, String email, String contrasena, LocalDate fechaNacimiento, String genero,
 			boolean esAdministrador, boolean estaDisponible, String alias, String uRLfoto, boolean esIncognito,
 			int numLikes) {
-		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador);
+		super(nombre, apellido, email, contrasena, fechaNacimiento, genero, esAdministrador);
 		this.estaDisponible = estaDisponible;
 		this.alias = alias;
-		URLfoto = uRLfoto;
+		UrlFoto = uRLfoto;
 		this.esIncognito = esIncognito;
 		this.numLikes = numLikes;
 	}
@@ -75,22 +75,28 @@ public abstract class Usuario extends Persona {
 
 
 	public void setAlias(String alias) {
-		this.alias = alias;
-	}
+        if (alias == null || alias.isBlank()) {
+            throw new IllegalArgumentException("El alias no puede estar vacío.");
+        }
+        this.alias = alias.trim();
+    }
 
 
 
 
 	public String getURLfoto() {
-		return URLfoto;
+		return UrlFoto;
 	}
 
 
 
 
-	public void setURLfoto(String foto) {
-		this.URLfoto = foto;
-	}
+	public void setURLFoto(String urlFoto) {
+        if (urlFoto == null || !urlFoto.toLowerCase().endsWith(".jpg")) {
+            throw new IllegalArgumentException("La foto debe ser un archivo con formato .jpg");
+        }
+        this.UrlFoto = urlFoto.trim();
+    }
 
 
 
@@ -126,7 +132,7 @@ public abstract class Usuario extends Persona {
 
 	@Override
 	public String toString() {
-		return super.toString() + "\nEstá disponible?: " + estaDisponible +  "\nAlias: " + alias + "\nFoto: " + URLfoto + "\nModo incognito?: " + esIncognito + "\nNúmero de likes: " + numLikes;
+		return super.toString() + "\nEstá disponible?: " + estaDisponible +  "\nAlias: " + alias + "\nFoto: " + UrlFoto + "\nModo incognito?: " + esIncognito + "\nNúmero de likes: " + numLikes;
 	}
 	
 	
