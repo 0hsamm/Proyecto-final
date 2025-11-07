@@ -6,40 +6,49 @@ import co.edu.unbosque.model.persistence.MujerDAO;
 
 public class ModelFacade {
 
-	private HombreDAO hombreDao;
-	private MujerDAO mujerDao;
-	private AdministradorDAO adminDao;
+	private HombreDAO hombreDAO;
+	private MujerDAO mujerDAO;
+	private AdministradorDAO adminDAO;
 	
 	
 	public ModelFacade() {
-		hombreDao = new HombreDAO();
-		mujerDao = new MujerDAO();
-		adminDao = new AdministradorDAO();
+		hombreDAO = new HombreDAO();
+		mujerDAO = new MujerDAO();
+		adminDAO = new AdministradorDAO();
 	}
 
-	public HombreDAO getHombreDao() {
-		return hombreDao;
+
+	public HombreDAO getHombreDAO() {
+		return hombreDAO;
 	}
 
-	public void setHombreDao(HombreDAO hombreDao) {
-		this.hombreDao = hombreDao;
+
+	public void setHombreDAO(HombreDAO hombreDAO) {
+		this.hombreDAO = hombreDAO;
 	}
 
-	public MujerDAO getMujerDao() {
-		return mujerDao;
+
+	public MujerDAO getMujerDAO() {
+		return mujerDAO;
 	}
 
-	public void setMujerDao(MujerDAO mujerDao) {
-		this.mujerDao = mujerDao;
+
+	public void setMujerDAO(MujerDAO mujerDAO) {
+		this.mujerDAO = mujerDAO;
 	}
 
-	public AdministradorDAO getAdminDao() {
-		return adminDao;
+
+	public AdministradorDAO getAdminDAO() {
+		return adminDAO;
 	}
 
-	public void setAdminDao(AdministradorDAO adminDao) {
-		this.adminDao = adminDao;
+
+	public void setAdminDAO(AdministradorDAO adminDAO) {
+		this.adminDAO = adminDAO;
 	}
+
+	
+	
 	
 	
 	

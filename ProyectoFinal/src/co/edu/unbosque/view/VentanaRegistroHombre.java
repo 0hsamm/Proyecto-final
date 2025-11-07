@@ -3,6 +3,9 @@ package co.edu.unbosque.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Properties;
 
 import javax.swing.BorderFactory;
@@ -253,13 +256,14 @@ public class VentanaRegistroHombre extends JFrame {
 		
 	}
 	
-	public void subirFotoPerfil() {
+	public String subirFotoPerfil() {
 		JFileChooser fileChooser = new JFileChooser();
 		int resultado = fileChooser.showOpenDialog(this);
 		if (resultado == fileChooser.APPROVE_OPTION) {
 			System.out.println("Abrir este archivo: " +
 					fileChooser.getSelectedFile().getName());
 		}
+		return null;
 	}
 	
 	public Properties getProp() {
@@ -464,5 +468,11 @@ public class VentanaRegistroHombre extends JFrame {
 		this.calendario = calendario;
 	}
 	
-	
+	public LocalDate getFechaSeleccionada() {
+	    Date date = calendario.getDate();
+	    if (date == null) {
+	        return null;
+	    }
+	    return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	}
 }
