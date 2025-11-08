@@ -105,9 +105,10 @@ public class VentanaCRUD extends JFrame {
 		btnVolver.setBounds(26, 50, 135, 40);
 		btnVolver.setForeground(Color.BLACK);
 		btnVolver.setFocusPainted(true);
-		btnVolver.setContentAreaFilled(false);
+		btnVolver.setBorder(null);
+		btnVolver.setOpaque(true);
 		btnVolver.setBorderPainted(false);
-		btnVolver.setOpaque(false);
+		btnVolver.setContentAreaFilled(false);
 		this.add(btnVolver);
 	}
 
