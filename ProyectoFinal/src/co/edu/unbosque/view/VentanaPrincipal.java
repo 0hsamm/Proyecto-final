@@ -1,6 +1,7 @@
 package co.edu.unbosque.view;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.Image;
 import java.util.Properties;
@@ -11,6 +12,10 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 public class VentanaPrincipal extends JFrame {
 
@@ -42,6 +47,10 @@ public class VentanaPrincipal extends JFrame {
 	private JComboBox<String> cbIngreso;
 	private JComboBox<String> cbDivorcio;
 	
+	//tabla
+	private JTable tablaUsuarios;
+	private DefaultTableModel modeloTabla;
+	private JScrollPane scrollTabla;
 	
 
 	private Properties prop;
@@ -193,6 +202,53 @@ public class VentanaPrincipal extends JFrame {
 		btnVolver.setBorderPainted(false);
 		btnVolver.setOpaque(false);
 		this.add(btnVolver);
+		
+		
+		//tabla de usuarios
+		String[] columnas = {"Foto", "Nombre", "Alias", "Correo", "Edad", "Estatura (cm)", "Ingresos / Divorcio", "Likes"};
+		modeloTabla = new DefaultTableModel(columnas, 0) {
+		    @Override
+		    public Class<?> getColumnClass(int columnIndex) {
+		        if (columnIndex == 0) return ImageIcon.class; // Primera columna: imagen
+		        return Object.class;
+		    }
+
+		    @Override
+		    public boolean isCellEditable(int row, int column) {
+		        return false; // No editable
+		    }
+		};
+
+		tablaUsuarios = new JTable(modeloTabla);
+		tablaUsuarios.setFillsViewportHeight(true);
+		tablaUsuarios.setBackground(Color.DARK_GRAY);
+		tablaUsuarios.setForeground(Color.WHITE);
+		tablaUsuarios.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 13));
+		tablaUsuarios.setRowHeight(80); // más alto para la foto
+		tablaUsuarios.getTableHeader().setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 14));
+		tablaUsuarios.getTableHeader().setBackground(Color.BLACK);
+		tablaUsuarios.getTableHeader().setForeground(Color.WHITE);
+
+		// Renderer personalizado para mostrar imágenes centradas
+		tablaUsuarios.setDefaultRenderer(ImageIcon.class, new DefaultTableCellRenderer() {
+		   
+		    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+		        JLabel lbl = new JLabel();
+		        lbl.setHorizontalAlignment(JLabel.CENTER);
+		        if (value instanceof ImageIcon) {
+		            lbl.setIcon((ImageIcon) value);
+		        }
+		        return lbl;
+		    }
+		});
+
+		// Scroll y bordes
+		scrollTabla = new JScrollPane(tablaUsuarios);
+		scrollTabla.setBounds(475, 155, 680, 430);
+		scrollTabla.setBorder(BorderFactory.createDashedBorder(Color.WHITE));
+		scrollTabla.getViewport().setBackground(Color.BLACK);
+
+		this.add(scrollTabla);
 
 	}
 
@@ -405,6 +461,12 @@ public class VentanaPrincipal extends JFrame {
 		this.cbIngreso = cbIngreso;
 	}
 
-	
+	public DefaultTableModel getModeloTabla() {
+	    return modeloTabla;
+	}
+
+	public JTable getTablaUsuarios() {
+	    return tablaUsuarios;
+	}
 
 }

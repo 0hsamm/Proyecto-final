@@ -1,12 +1,17 @@
 package co.edu.unbosque.controller;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Properties;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 import co.edu.unbosque.model.Administrador;
 import co.edu.unbosque.model.AdministradorDTO;
@@ -165,7 +170,7 @@ public class Controller implements ActionListener {
 		case "INICIAR_SESION": {
 		    try {
 		        String alias = vf.getVenMenu().getTextAlias().getText().trim();
-		        String contrasena = vf.getVenMenu().getTextContrasenia().getText().trim();
+		        String contrasena = new String(vf.getVenMenu().getTextContrasenia().getPassword()).trim();
 
 		        if (alias.isEmpty() || contrasena.isEmpty()) {
 		            JOptionPane.showMessageDialog(null, "Por favor ingrese alias y contraseña.");
@@ -174,40 +179,128 @@ public class Controller implements ActionListener {
 
 		        boolean encontrado = false;
 
-		        // Buscar en Hombres
+		        //Buscar si es un HOMBRE
 		        for (Hombre h : mf.getHombreDAO().getListaHombres()) {
 		            if (h == null) continue;
 
-		            String aliasH = h.getAlias();
-		            String passH = h.getContrasena();
-
-		            if (aliasH != null && passH != null &&
-		                aliasH.equalsIgnoreCase(alias) &&
-		                passH.equals(contrasena)) {
+		            if (h.getAlias() != null && h.getContrasena() != null &&
+		                h.getAlias().equalsIgnoreCase(alias) &&
+		                h.getContrasena().equals(contrasena)) {
 
 		                JOptionPane.showMessageDialog(null, "Bienvenido " + h.getNombre() + " 👋");
+
 		                vf.getVenMenu().setVisible(false);
 		                vf.getVenPrincipal().setVisible(true);
+		                vf.getVenPrincipal().setLocationRelativeTo(null);
+
+		                //tabla: ver solo mujeres
+		                DefaultTableModel modelo = (DefaultTableModel) vf.getVenPrincipal().getTablaUsuarios().getModel();
+		                String[] columnas = {"Foto", "Nombre", "Alias", "Correo", "Edad", "Estatura (cm)", "Divorciada", "Likes"};
+		                modelo.setColumnIdentifiers(columnas);
+		                modelo.setRowCount(0);
+
+		                for (Mujer mu : mf.getMujerDAO().getListaMujeres()) {
+		                    if (mu == null) continue;
+
+		                    //imagen del perfil
+		                    ImageIcon icon = null;
+		                    try {
+		                        Image img = new ImageIcon(mu.getURLfoto()).getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+		                        icon = new ImageIcon(img);
+		                    } catch (Exception e1) {
+		                        icon = new ImageIcon(new BufferedImage(60, 60, BufferedImage.TYPE_INT_ARGB));
+		                    }
+
+		                    modelo.addRow(new Object[]{
+		                        icon,
+		                        mu.getNombre() + " " + mu.getApellido(),
+		                        mu.getAlias(),
+		                        mu.getEmail(),
+		                        Period.between(mu.getFechaNacimiento(), LocalDate.now()).getYears(),
+		                        mu.getEstatura(),
+		                        mu.isEsDivorciada() ? "Sí" : "No",
+		                        mu.getNumLikes()
+		                    });
+		                }
+
+		                //Ajustar renderizado de imágenes
+		                vf.getVenPrincipal().getTablaUsuarios().setRowHeight(60);
+		                vf.getVenPrincipal().getTablaUsuarios().getColumnModel().getColumn(0)
+		                        .setCellRenderer(new DefaultTableCellRenderer() {
+		                            @Override
+		                            public void setValue(Object value) {
+		                                if (value instanceof ImageIcon) {
+		                                    setIcon((ImageIcon) value);
+		                                    setText("");
+		                                } else {
+		                                    super.setValue(value);
+		                                }
+		                            }
+		                        });
+
 		                encontrado = true;
 		                break;
 		            }
 		        }
 
-		        // Buscar en Mujeres si no se encontró antes
+		        //Buscar si es una MUJER
 		        if (!encontrado) {
 		            for (Mujer m : mf.getMujerDAO().getListaMujeres()) {
 		                if (m == null) continue;
 
-		                String aliasM = m.getAlias();
-		                String passM = m.getContrasena();
-
-		                if (aliasM != null && passM != null &&
-		                    aliasM.equalsIgnoreCase(alias) &&
-		                    passM.equals(contrasena)) {
+		                if (m.getAlias() != null && m.getContrasena() != null &&
+		                    m.getAlias().equalsIgnoreCase(alias) &&
+		                    m.getContrasena().equals(contrasena)) {
 
 		                    JOptionPane.showMessageDialog(null, "Bienvenida " + m.getNombre() + " 💕");
+
 		                    vf.getVenMenu().setVisible(false);
 		                    vf.getVenPrincipal().setVisible(true);
+		                    vf.getVenPrincipal().setLocationRelativeTo(null);
+
+		                    //tabla: ver solo HOMBRES
+		                    DefaultTableModel modelo = (DefaultTableModel) vf.getVenPrincipal().getTablaUsuarios().getModel();
+		                    String[] columnas = {"Foto", "Nombre", "Alias", "Correo", "Edad", "Estatura (cm)", "Ingresos", "Likes"};
+		                    modelo.setColumnIdentifiers(columnas);
+		                    modelo.setRowCount(0);
+
+		                    for (Hombre ho : mf.getHombreDAO().getListaHombres()) {
+		                        if (ho == null) continue;
+
+		                        ImageIcon icon = null;
+		                        try {
+		                            Image img = new ImageIcon(ho.getURLfoto()).getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+		                            icon = new ImageIcon(img);
+		                        } catch (Exception e1) {
+		                        	BufferedImage imgVacia = new BufferedImage(60, 60, BufferedImage.TYPE_INT_ARGB);
+		                        	icon = new ImageIcon((Image) imgVacia);
+		                        }
+
+		                        modelo.addRow(new Object[]{
+		                            icon,
+		                            ho.getNombre() + " " + ho.getApellido(),
+		                            ho.getAlias(),
+		                            ho.getEmail(),
+		                            Period.between(ho.getFechaNacimiento(), LocalDate.now()).getYears(),
+		                            ho.getEstatura(),
+		                            ho.getPromedioIngMensual(),
+		                            ho.getNumLikes()
+		                        });
+		                    }
+
+		                    vf.getVenPrincipal().getTablaUsuarios().setRowHeight(60);
+		                    vf.getVenPrincipal().getTablaUsuarios().getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
+		                                @Override
+		                                public void setValue(Object value) {
+		                                    if (value instanceof ImageIcon) {
+		                                        setIcon((ImageIcon) value);
+		                                        setText("");
+		                                    } else {
+		                                        super.setValue(value);
+		                                    }
+		                                }
+		                            });
+
 		                    encontrado = true;
 		                    break;
 		                }
@@ -215,7 +308,7 @@ public class Controller implements ActionListener {
 		        }
 
 		        if (!encontrado) {
-		            JOptionPane.showMessageDialog(null, "Alias o contraseña incorrectos ❌");
+		            JOptionPane.showMessageDialog(null, "Alias o contraseña incorrectos");
 		        }
 
 		    } catch (Exception e1) {
@@ -224,6 +317,8 @@ public class Controller implements ActionListener {
 		    }
 		    break;
 		}
+
+
 
 		case "REGISTRATE_AQUI": {
 			vf.getVenMenu().setVisible(false);
@@ -237,9 +332,55 @@ public class Controller implements ActionListener {
 			break;
 		}
 		case "INICIAR_SESION_DESDE_ADMIN": {
-			vf.getVenInicioSesionAdmin().setVisible(false);
-			vf.getVenCRUD().setVisible(true);
-			break;
+			 String correo = vf.getVenInicioSesionAdmin().getTextCorreo().getText().trim();
+			 String contrasena = new String(vf.getVenMenu().getTextContrasenia().getPassword()).trim();
+
+			    if (correo.isEmpty() || contrasena.isEmpty()) {
+			        JOptionPane.showMessageDialog(null, "Por favor ingrese correo y contraseña.");
+			        break;
+			    }
+
+			    boolean encontrado = false;
+
+			    // Buscar en hombres 
+			    for (Hombre h : mf.getHombreDAO().getListaHombres()) {
+			        if (h != null && h.getEmail() != null && h.getContrasena() != null) {
+			            if (h.getEmail().equalsIgnoreCase(correo) &&
+			                h.getContrasena().equals(contrasena) &&
+			                h.isEsAdministrador()) {
+
+			                JOptionPane.showMessageDialog(null, "Bienvenido Administrador " + h.getNombre() + " 👑");
+			                vf.getVenInicioSesionAdmin().setVisible(false);
+			                vf.getVenPrincipal().setVisible(true);
+			                encontrado = true;
+			                break;
+			            }
+			        }
+			    }
+
+			    // Buscar en mujeres si no se encontró antes
+			    if (!encontrado) {
+			        for (Mujer m : mf.getMujerDAO().getListaMujeres()) {
+			            if (m != null && m.getEmail() != null && m.getContrasena() != null) {
+			                if (m.getEmail().equalsIgnoreCase(correo) &&
+			                    m.getContrasena().equals(contrasena) &&
+			                    m.isEsAdministrador()) {
+
+			                    JOptionPane.showMessageDialog(null, "Bienvenida Administradora " + m.getNombre() + " 👑");
+			                    vf.getVenInicioSesionAdmin().setVisible(false);
+			                    vf.getVenPrincipal().setVisible(true);
+			                    encontrado = true;
+			                    break;
+			                }
+			            }
+			        }
+			    }
+
+			    if (!encontrado) {
+			        JOptionPane.showMessageDialog(null, "Credenciales inválidas o el usuario no es administrador ❌");
+			    }
+
+			    break;
 		}
 		//VENTANA INICIO SESION ADMIN
 		case "SALIR_MENU": {
@@ -279,7 +420,7 @@ public class Controller implements ActionListener {
 				String apellido = vf.getVenRegistroHombre().getTextApellido().getText();
 				String email = vf.getVenRegistroHombre().getTextCorreo().getText();
 				String alias = vf.getVenRegistroHombre().getTextAlias().getText();
-				String contrasena = vf.getVenRegistroHombre().getTextContrasenia().getText();
+				String contrasena = new String(vf.getVenMenu().getTextContrasenia().getPassword()).trim();
 				double estatura = Double.parseDouble(vf.getVenRegistroHombre().getTextEstatura().getText());
 				int promedioIngMensual = Integer.parseInt(vf.getVenRegistroHombre().getTextIngreso().getText());
 				
@@ -342,7 +483,7 @@ public class Controller implements ActionListener {
 		        String apellido = vf.getVenRegistroHombre().getTextApellido().getText();
 		        String alias = vf.getVenRegistroHombre().getTextAlias().getText();
 		        String correo = vf.getVenRegistroHombre().getTextCorreo().getText();
-		        String contrasena = vf.getVenRegistroHombre().getTextContrasenia().getText();
+		        String contrasena = new String(vf.getVenMenu().getTextContrasenia().getPassword()).trim();
 		        LocalDate fechaNacimiento = vf.getVenRegistroHombre().getFechaSeleccionada();
 		        String genero = "Hombre";
 		        boolean esAdministrador = false;
@@ -395,7 +536,7 @@ public class Controller implements ActionListener {
 		        String apellido = vf.getVenRegistroMujer().getTextApellido().getText();
 		        String alias = vf.getVenRegistroMujer().getTextAlias().getText();
 		        String correo = vf.getVenRegistroMujer().getTextCorreo().getText();
-		        String contrasena = vf.getVenRegistroMujer().getTextContrasenia().getText();
+		        String contrasena = new String(vf.getVenMenu().getTextContrasenia().getPassword()).trim();
 		        LocalDate fechaNacimiento = vf.getVenRegistroMujer().getFechaSeleccionada();
 		        String genero = "Mujer";
 		        boolean esAdministrador = false;
@@ -446,7 +587,7 @@ public class Controller implements ActionListener {
 		        String nombre = vf.getVenRegistroAdmin().getTextNombre().getText().trim();
 		        String apellido = vf.getVenRegistroAdmin().getTextApellido().getText().trim();
 		        String email = vf.getVenRegistroAdmin().getTextCorreo().getText().trim();
-		        String contrasena = vf.getVenRegistroAdmin().getTextContrasenia().getText().trim();
+		        String contrasena = new String(vf.getVenMenu().getTextContrasenia().getPassword()).trim();
 		        LocalDate fechaNacimiento = vf.getVenRegistroAdmin().getFechaSeleccionada();
 
 		        // Validación básica

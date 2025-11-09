@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class VentanaMenuPrincipal extends JFrame {
@@ -30,7 +31,7 @@ public class VentanaMenuPrincipal extends JFrame {
 	private JLabel lblRegistro;
 
 	private JTextField textAlias;
-	private JTextField textContrasenia;
+	private JPasswordField textContrasenia;
 
 	private Properties prop;
 
@@ -82,7 +83,7 @@ public class VentanaMenuPrincipal extends JFrame {
 		lblContrasenia.setBounds(810, 320, 1200, 70);
 		fondoMenu.add(lblContrasenia);
 
-		textContrasenia = new JTextField();
+		textContrasenia = new JPasswordField();
 		textContrasenia.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
 		textContrasenia.setBounds(813, 374, 214, 40);
 		textContrasenia.setBorder(null);
@@ -227,11 +228,13 @@ public class VentanaMenuPrincipal extends JFrame {
 		this.textAlias = textAlias;
 	}
 
-	public JTextField getTextContrasenia() {
+	
+
+	public JPasswordField getTextContrasenia() {
 		return textContrasenia;
 	}
 
-	public void setTextContrasenia(JTextField textContrasenia) {
+	public void setTextContrasenia(JPasswordField textContrasenia) {
 		this.textContrasenia = textContrasenia;
 	}
 

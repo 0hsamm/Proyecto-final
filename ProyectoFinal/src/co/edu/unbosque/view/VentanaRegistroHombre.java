@@ -20,6 +20,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 
@@ -49,7 +50,7 @@ public class VentanaRegistroHombre extends JFrame {
 	private JTextField textApellido;
 	private JTextField textCorreo;
 		
-	private JTextField textContrasenia;
+	private JPasswordField textContrasenia;
 
 	
 	private JTextField textAlias;
@@ -146,7 +147,7 @@ public class VentanaRegistroHombre extends JFrame {
 		lblContrasenia.setForeground(Color.WHITE);
 		this.add(lblContrasenia);
 
-		textContrasenia = new JTextField();
+		textContrasenia = new JPasswordField();
 		textContrasenia.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
 		textContrasenia.setBounds(76, 420, 260, 40);
 		textContrasenia.setForeground(Color.WHITE);
@@ -415,11 +416,13 @@ public class VentanaRegistroHombre extends JFrame {
 		this.textCorreo = textCorreo;
 	}
 
-	public JTextField getTextContrasenia() {
+	
+
+	public JPasswordField getTextContrasenia() {
 		return textContrasenia;
 	}
 
-	public void setTextContrasenia(JTextField textContrasenia) {
+	public void setTextContrasenia(JPasswordField textContrasenia) {
 		this.textContrasenia = textContrasenia;
 	}
 
