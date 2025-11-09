@@ -54,7 +54,7 @@ public class LanzadorDeExcepcion {
         }
     }
     
-    
+    //holi
     public static void verificarPalabra(String palabra) throws InvalidWordException {
     	 if (!palabra.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
     	        throw new InvalidWordException();
