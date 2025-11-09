@@ -527,6 +527,7 @@ public class VentanaRegistroHombre extends JFrame {
 		this.rutaFotoPerfil = rutaFotoPerfil;
 	}
 	
+
 	
 	
 }

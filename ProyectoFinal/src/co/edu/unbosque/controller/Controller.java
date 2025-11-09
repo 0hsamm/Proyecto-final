@@ -7,6 +7,7 @@ import java.util.Properties;
 
 import javax.swing.JOptionPane;
 
+
 import co.edu.unbosque.model.Administrador;
 import co.edu.unbosque.model.AdministradorDTO;
 import co.edu.unbosque.model.Hombre;
@@ -17,6 +18,7 @@ import co.edu.unbosque.model.MujerDTO;
 import co.edu.unbosque.model.persistence.FileHandler;
 import co.edu.unbosque.util.EmailService;
 import co.edu.unbosque.view.ViewFacade;
+import jakarta.mail.search.IntegerComparisonTerm;
 
 public class Controller implements ActionListener {
 
@@ -247,6 +249,26 @@ public class Controller implements ActionListener {
 		case "VOLVER_DESDE_REGISTRO_HOMBRE": {
 			vf.getVenGenero().setVisible(true);
 			vf.getVenRegistroHombre().setVisible(false);
+			break;
+		}
+		
+		case "CREAR_CUENTA":{
+			try {
+				String nombre = vf.getVenRegistroHombre().getTextNombre().getText();
+			
+				String apellido = vf.getVenRegistroHombre().getTextApellido().getText();
+				String email = vf.getVenRegistroHombre().getTextCorreo().getText();
+				String alias = vf.getVenRegistroHombre().getTextAlias().getText();
+				String contrasena = vf.getVenRegistroHombre().getTextContrasenia().getText();
+				double estatura = Double.parseDouble(vf.getVenRegistroHombre().getTextEstatura().getText());
+				int promedioIngMensual = Integer.parseInt(vf.getVenRegistroHombre().getTextIngreso().getText());
+				
+				HombreDTO hombreDTO = new HombreDTO( nombre,  apellido,  email,  contrasena,  LocalDate.now(),  "", false,  false,  alias,  "",  false, 0,  promedioIngMensual,  estatura);
+			
+			} catch (Exception e1) {
+				// TODO: handle exception
+			}
+			
 			break;
 		}
 		
