@@ -64,10 +64,12 @@ public class Controller implements ActionListener {
 			vf.getVenRegistroMujer().setProp(prop);
 			vf.getVenPrincipal().setProp(prop);
 			vf.getVenCRUD().setProp(prop);
+			vf.getVenRegistroAdmin().setProp(prop);
 			vf.getVenMenu().setVisible(true);
 			//vf.getVenCRUD().setVisible(true);
 			//vf.getVenGenero().setVisible(true);
 			//vf.getVenRegistroMujer().setVisible(true);
+			//vf.getVenRegistroAdmin().setVisible(true);
 			asignarListeners();
 			break mainloop;
 		}
@@ -105,6 +107,9 @@ public class Controller implements ActionListener {
 		vf.getVenRegistroHombre().getBtnSubirImagen().addActionListener(this);
 		vf.getVenRegistroHombre().getBtnSubirImagen().setActionCommand("SUBIR_FOTO_HOMBRE");
 		
+		vf.getVenRegistroHombre().getBtnRegistro().addActionListener(this);
+		vf.getVenRegistroHombre().getBtnRegistro().setActionCommand("REGISTRAR_ADMIN_DESDE_HOMBRE");
+		
 		//VENTANA REGISTRO MUJER
 		vf.getVenRegistroMujer().getBtnCrearCuenta().addActionListener(this);
 		vf.getVenRegistroMujer().getBtnCrearCuenta().setActionCommand("CREAR_CUENTA_MUJER");
@@ -115,6 +120,20 @@ public class Controller implements ActionListener {
 		vf.getVenRegistroMujer().getBtnSubirImagen().addActionListener(this);
 		vf.getVenRegistroMujer().getBtnSubirImagen().setActionCommand("SUBIR_FOTO_MUJER");
 		
+		vf.getVenRegistroMujer().getBtnRegistro().addActionListener(this);
+		vf.getVenRegistroMujer().getBtnRegistro().setActionCommand("REGISTRAR_ADMIN_DESDE_MUJER");
+		
+		//VENTANA REGISTRO ADMIN 
+		vf.getVenRegistroAdmin().getBtnVolver().addActionListener(this);
+		vf.getVenRegistroAdmin().getBtnVolver().setActionCommand("VOLVER_DESDE_REGISTRO_ADMIN");
+		
+		vf.getVenRegistroAdmin().getBtnCrearCuenta().addActionListener(this);
+		vf.getVenRegistroAdmin().getBtnCrearCuenta().setActionCommand("CREAR_CUENTA_ADMIN");
+		
+		//VENTANA CRUD
+		vf.getVenCRUD().getBtnVolver().addActionListener(this);
+		vf.getVenCRUD().getBtnVolver().setActionCommand("VOLVER_DESDE_CRUD");
+		
 		//VENTANA PRINCIPAL
 		vf.getVenPrincipal().getBtnVolver().addActionListener(this);
 		vf.getVenPrincipal().getBtnVolver().setActionCommand("VOLVER_DESDE_VENTANA_PRINCIPAL");
@@ -123,7 +142,8 @@ public class Controller implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) throws NumberFormatException {
 		switch (e.getActionCommand()) {
-
+		
+		//VENTANA MENU
 		case "INICIAR_SESION": {
 			vf.getVenMenu().setVisible(false);
 			vf.getVenPrincipal().setVisible(true);
@@ -138,7 +158,7 @@ public class Controller implements ActionListener {
 			vf.getVenMenu().dispose();
 			break;
 		}
-		
+		//VENTANA GENERO
 		case "VOLVER_DESDE_GENERO": {
 			vf.getVenGenero().setVisible(false);
 			vf.getVenMenu().setVisible(true);
@@ -151,34 +171,60 @@ public class Controller implements ActionListener {
 			break;
 		}
 		
-		case "VOLVER_DESDE_REGISTRO_HOMBRE": {
-			vf.getVenGenero().setVisible(true);
-			vf.getVenRegistroHombre().setVisible(false);
-			break;
-		}
-		
 		case "MUJER": {
 			vf.getVenGenero().setVisible(false);
 			vf.getVenRegistroMujer().setVisible(true);
 			
 			break;
 		}
+		//VENTANA REGISTRO HOMBRE
+		case "VOLVER_DESDE_REGISTRO_HOMBRE": {
+			vf.getVenGenero().setVisible(true);
+			vf.getVenRegistroHombre().setVisible(false);
+			break;
+		}
+		
+		case "REGISTRAR_ADMIN_DESDE_HOMBRE": {
+			vf.getVenRegistroAdmin().setVisible(true);
+			vf.getVenRegistroHombre().setVisible(false);
+			break;
+		}
+		//VENTANA REGISTRO MUJER
 		case "VOLVER_DESDE_REGISTRO_MUJER": {
 			vf.getVenGenero().setVisible(true);
 			vf.getVenRegistroMujer().setVisible(false);
 			break;
 		}
-		case "VOLVER_DESDE_REGISTRO": {
-			vf.getVenRegistroHombre().setVisible(false);
-			vf.getVenMenu().setVisible(true);
+		
+		case "REGISTRAR_ADMIN_DESDE_MUJER": {
+			vf.getVenRegistroAdmin().setVisible(true);
+			vf.getVenRegistroMujer().setVisible(false);
 			break;
 		}
+		//VENTANA REGISTRO ADMIN
+		case "VOLVER_DESDE_REGISTRO_ADMIN": {
+			vf.getVenRegistroAdmin().setVisible(false);
+			vf.getVenGenero().setVisible(true);
+			break;
+		}
+		
+		case "CREAR_CUENTA_ADMIN": {
+			vf.getVenRegistroAdmin().setVisible(false);
+			vf.getVenCRUD().setVisible(true);
+			break;
+		}
+		
+		//VENTANA CRUD
+		case "VOLVER_DESDE_CRUD": {
+			vf.getVenMenu().setVisible(true);
+			vf.getVenCRUD().setVisible(false);
+			break;
+		}
+		
+		//VENTANA PRINCIPAL
 		case "VOLVER_DESDE_VENTANA_PRINCIPAL" :{
 			vf.getVenPrincipal().setVisible(false);
 			vf.getVenMenu().setVisible(true);
-		}
-		case "SUBIR_FOTO" :{
-			vf.getVenRegistroHombre().subirFotoPerfil();
 		}
 		}
 	}

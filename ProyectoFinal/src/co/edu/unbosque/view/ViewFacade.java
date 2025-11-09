@@ -8,7 +8,7 @@ public class ViewFacade {
 	private VentanaPrincipal venPrincipal;
 	private VentanaCRUD venCRUD;
 	private VentanaEscogerGenero venGenero;
-	
+	private VentanaRegistroAdministrador venRegistroAdmin;	
 	public ViewFacade() {
 		
 		venMenu = new VentanaMenuPrincipal();
@@ -17,6 +17,7 @@ public class ViewFacade {
 		venPrincipal = new VentanaPrincipal();
 		venCRUD = new VentanaCRUD();
 		venGenero = new VentanaEscogerGenero();
+		venRegistroAdmin = new VentanaRegistroAdministrador();
 		
 	}
 
@@ -67,5 +68,12 @@ public class ViewFacade {
 	public void setVenGenero(VentanaEscogerGenero venGenero) {
 		this.venGenero = venGenero;
 	}
-	
+
+	public VentanaRegistroAdministrador getVenRegistroAdmin() {
+		return venRegistroAdmin;
+	}
+
+	public void setVenRegistroAdmin(VentanaRegistroAdministrador venRegistroAdmin) {
+		this.venRegistroAdmin = venRegistroAdmin;
+	}
 }
