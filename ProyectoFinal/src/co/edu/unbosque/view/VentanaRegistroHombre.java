@@ -3,6 +3,10 @@ package co.edu.unbosque.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -15,6 +19,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 
@@ -66,6 +71,7 @@ public class VentanaRegistroHombre extends JFrame {
 	
 	
 	private Properties prop;
+	private String rutaFotoPerfil;
 
 	public VentanaRegistroHombre() {
 
@@ -234,6 +240,7 @@ public class VentanaRegistroHombre extends JFrame {
 		btnVolver.setOpaque(true);
 		btnVolver.setBorderPainted(false);
 		btnVolver.setContentAreaFilled(false);
+		btnVolver.setActionCommand("VOLVER_MENU_HOMBRE");
 		this.add(btnVolver);
 	
 		
@@ -261,17 +268,37 @@ public class VentanaRegistroHombre extends JFrame {
 		btnRegistro.setFocusPainted(false);
 		btnRegistro.setBorder(null);
 		this.add(btnRegistro);
+		btnSubirImagen.addActionListener(e -> subirFotoPerfil());
 		
 	}
 	
-	public String subirFotoPerfil() {
-		JFileChooser fileChooser = new JFileChooser();
-		int resultado = fileChooser.showOpenDialog(this);
-		if (resultado == fileChooser.APPROVE_OPTION) {
-			System.out.println("Abrir este archivo: " +
-					fileChooser.getSelectedFile().getName());
-		}
-		return null;
+	public void subirFotoPerfil() {
+	    JFileChooser fileChooser = new JFileChooser();
+	    int resultado = fileChooser.showOpenDialog(this);
+
+	    if (resultado == JFileChooser.APPROVE_OPTION) {
+	        File archivoOrigen = fileChooser.getSelectedFile();
+
+	        try {
+	            // Crear carpeta interna "perfiles" si no existe
+	            File carpetaDestino = new File("src/co/edu/unbosque/resources/perfiles/");
+	            if (!carpetaDestino.exists()) {
+	                carpetaDestino.mkdirs();
+	            }
+
+	            // Copiar imagen al proyecto con el mismo nombre
+	            File archivoDestino = new File(carpetaDestino, archivoOrigen.getName());
+	            Files.copy(archivoOrigen.toPath(), archivoDestino.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+	            rutaFotoPerfil = archivoDestino.getPath(); // Guardar la ruta
+	            System.out.println("Imagen copiada en: " + rutaFotoPerfil);
+	            JOptionPane.showMessageDialog(this, "Imagen subida correctamente.");
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            JOptionPane.showMessageDialog(this, "Error al copiar la imagen.");
+	        }
+	    }
 	}
 	
 	public Properties getProp() {
@@ -491,6 +518,16 @@ public class VentanaRegistroHombre extends JFrame {
 	public void setTextApellido(JTextField textApellido) {
 		this.textApellido = textApellido;
 	}
+
+	public String getRutaFotoPerfil() {
+		return rutaFotoPerfil;
+	}
+
+	public void setRutaFotoPerfil(String rutaFotoPerfil) {
+		this.rutaFotoPerfil = rutaFotoPerfil;
+	}
+	
+
 	
 	
 }

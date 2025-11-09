@@ -1,13 +1,16 @@
 package co.edu.unbosque.model.persistence;
 
+import java.io.BufferedReader;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -63,20 +66,29 @@ public class FileHandler {
             archivo = new File(url);
             if (!archivo.exists()) {
                 archivo.createNewFile();
+                return "";
             }
-            sc = new Scanner(archivo);
-            String contenido = "";
-            while (sc.hasNext()) {
-                contenido += sc.nextLine() + "\n";
+
+            StringBuilder contenido = new StringBuilder();
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(archivo), StandardCharsets.UTF_8))) {
+                String linea;
+                while ((linea = br.readLine()) != null) {
+                    // 🔹 Limpieza de caracteres invisibles y BOM
+                    linea = linea.replace("\uFEFF", "").replace("\r", "").trim();
+                    if (!linea.isEmpty()) {
+                        contenido.append(linea).append("\n");
+                    }
+                }
             }
-            sc.close();
-            return contenido;
+
+            return contenido.toString();
         } catch (IOException e) {
             System.out.println("No se pudo leer bien el archivo de texto");
             System.out.println(e.getMessage());
+            return "";
         }
-        return null;
     }
+
 
     /**
      * Guarda un objeto en un archivo binario (serializado).

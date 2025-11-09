@@ -11,37 +11,34 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class VentanaMenuPrincipal extends JFrame{
-	
+public class VentanaInicioSesionAdmin extends JFrame {
+
 	private JButton btnSalir;
 	private JButton btnConfirmar;
 	private JButton btnRegistro;
-	private JButton btnInicioSesionAdmin;
-	
+
 	private JLabel fondoMenu;
 	private ImageIcon fondo;
 	private Image escalar;
-	
+
 	private JLabel titulo;
 	private JLabel titulo2;
-	
-	private JLabel lblAlias;
+
+	private JLabel lblCorreo;
 	private JLabel lblContrasenia;
 	private JLabel lblRegistro;
-	
-	private JTextField textAlias;
+
+	private JTextField textCorreo;
 	private JTextField textContrasenia;
-	
+
 	private Properties prop;
-	
-	public VentanaMenuPrincipal() {
+
+	public VentanaInicioSesionAdmin() {
 		prop = new Properties();
 	}
-	
-	
-	
+
 	public void inicializarComponentes() {
-		this.setTitle("Menu Principall");
+		this.setTitle("Menu Principal");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
@@ -55,50 +52,41 @@ public class VentanaMenuPrincipal extends JFrame{
 		this.setContentPane(fondoMenu);
 		this.pack();
 		this.setLocationRelativeTo(null);
-		
+
 		titulo = new JLabel(prop.getProperty("bostinder.ventanamenu.lbltitulo"));
-        titulo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 60));
-        titulo.setBounds(100, 80, 1200, 70);
-        titulo.setForeground(Color.WHITE);
+		titulo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 60));
+		titulo.setBounds(100, 80, 1200, 70);
+		titulo.setForeground(Color.WHITE);
 		fondoMenu.add(titulo);
-		
+
 		titulo2 = new JLabel(prop.getProperty("bostinder.ventanamenu.lbltitulo2"));
 		titulo2.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 60));
 		titulo2.setBounds(100, 300, 1200, 70);
-		titulo2.setForeground(Color.WHITE); 
+		titulo2.setForeground(Color.WHITE);
 		fondoMenu.add(titulo2);
-		
-		lblAlias = new JLabel(prop.getProperty("bostinder.ventanamenu.lblalias"));
-		lblAlias.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		lblAlias.setBounds(810, 243, 1200, 70);
-		fondoMenu.add(lblAlias);
-		
-		textAlias = new JTextField();
-		textAlias.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		textAlias.setBounds(813, 293, 214, 40);
-		textAlias.setBorder(null);
-		fondoMenu.add(textAlias);
-		
+
+		lblCorreo = new JLabel(prop.getProperty("bostinder.ventanamenuadmin.lblcorreo"));
+		lblCorreo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+		lblCorreo.setBounds(810, 243, 1200, 70);
+		fondoMenu.add(lblCorreo);
+
+		textCorreo = new JTextField();
+		textCorreo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+		textCorreo.setBounds(813, 293, 214, 40);
+		textCorreo.setBorder(null);
+		fondoMenu.add(textCorreo);
+
 		lblContrasenia = new JLabel(prop.getProperty("bostinder.ventanamenu.lblcontrasenia"));
 		lblContrasenia.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
 		lblContrasenia.setBounds(810, 320, 1200, 70);
 		fondoMenu.add(lblContrasenia);
-		
+
 		textContrasenia = new JTextField();
 		textContrasenia.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
 		textContrasenia.setBounds(813, 374, 214, 40);
 		textContrasenia.setBorder(null);
 		fondoMenu.add(textContrasenia);
-		
-		btnInicioSesionAdmin = new JButton(prop.getProperty("bostinder.ventanamenu.btniniciosesionadmin"));
-		btnInicioSesionAdmin.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 13));
-		btnInicioSesionAdmin.setBounds(846, 500, 110, 25);
-		btnInicioSesionAdmin.setBackground(new Color(255, 185, 185));
-		btnInicioSesionAdmin.setForeground(Color.WHITE);
-		btnInicioSesionAdmin.setFocusPainted(false);
-		btnInicioSesionAdmin.setBorder(null);
-		fondoMenu.add(btnInicioSesionAdmin);
-		
+
 		btnConfirmar = new JButton(prop.getProperty("bostinder.ventanamenu.btnConfirmar"));
 		btnConfirmar.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
 		btnConfirmar.setBounds(778, 480, 250, 30);
@@ -107,7 +95,7 @@ public class VentanaMenuPrincipal extends JFrame{
 		btnConfirmar.setFocusPainted(false);
 		btnConfirmar.setBorder(null);
 		fondoMenu.add(btnConfirmar);
-		
+
 		btnSalir = new JButton(prop.getProperty("bostinder.ventanamenu.btnSalir"));
 		btnSalir.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
 		btnSalir.setBounds(21, 620, 177, 30);
@@ -116,12 +104,12 @@ public class VentanaMenuPrincipal extends JFrame{
 		btnSalir.setFocusPainted(false);
 		btnSalir.setBorder(null);
 		fondoMenu.add(btnSalir);
-		
+
 		lblRegistro = new JLabel(prop.getProperty("bostinder.ventanamenu.lblRegistro"));
 		lblRegistro.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 15));
 		lblRegistro.setBounds(845, 570, 250, 30);
 		fondoMenu.add(lblRegistro);
-		
+
 		btnRegistro = new JButton(prop.getProperty("bostinder.ventanamenu.btnRegistro"));
 		btnRegistro.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 13));
 		btnRegistro.setBounds(846, 616, 110, 25);
@@ -130,7 +118,7 @@ public class VentanaMenuPrincipal extends JFrame{
 		btnRegistro.setFocusPainted(false);
 		btnRegistro.setBorder(null);
 		fondoMenu.add(btnRegistro);
-		
+
 	}
 
 	public JButton getBtnSalir() {
@@ -197,14 +185,6 @@ public class VentanaMenuPrincipal extends JFrame{
 		this.titulo2 = titulo2;
 	}
 
-	public JLabel getLblalias() {
-		return lblAlias;
-	}
-
-	public void setLblalias(JLabel lblalias) {
-		this.lblAlias = lblalias;
-	}
-
 	public JLabel getLblcontrasenia() {
 		return lblContrasenia;
 	}
@@ -221,14 +201,6 @@ public class VentanaMenuPrincipal extends JFrame{
 		this.lblRegistro = lblRegistro;
 	}
 
-	public JTextField getTextAlias() {
-		return textAlias;
-	}
-
-	public void setTextAlias(JTextField textAlias) {
-		this.textAlias = textAlias;
-	}
-
 	public JTextField getTextContrasenia() {
 		return textContrasenia;
 	}
@@ -242,9 +214,32 @@ public class VentanaMenuPrincipal extends JFrame{
 	}
 
 	public void setProp(Properties prop) {
-	    this.prop = prop;
-	    inicializarComponentes();
+		this.prop = prop;
+		inicializarComponentes();
 	}
 
+	public JLabel getLblCorreo() {
+		return lblCorreo;
+	}
 
-}	
+	public void setLblCorreo(JLabel lblCorreo) {
+		this.lblCorreo = lblCorreo;
+	}
+
+	public JLabel getLblContrasenia() {
+		return lblContrasenia;
+	}
+
+	public void setLblContrasenia(JLabel lblContrasenia) {
+		this.lblContrasenia = lblContrasenia;
+	}
+
+	public JTextField getTextCorreo() {
+		return textCorreo;
+	}
+
+	public void setTextCorreo(JTextField textCorreo) {
+		this.textCorreo = textCorreo;
+	}
+
+}
