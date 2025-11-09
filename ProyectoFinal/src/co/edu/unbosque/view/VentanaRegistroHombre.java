@@ -475,6 +475,22 @@ public class VentanaRegistroHombre extends JFrame {
 	public void setBtnRegistro(JButton btnRegistro) {
 		this.btnRegistro = btnRegistro;
 	}
+
+	public JLabel getLblApellido() {
+		return lblApellido;
+	}
+
+	public void setLblApellido(JLabel lblApellido) {
+		this.lblApellido = lblApellido;
+	}
+
+	public JTextField getTextApellido() {
+		return textApellido;
+	}
+
+	public void setTextApellido(JTextField textApellido) {
+		this.textApellido = textApellido;
+	}
 	
 	
 }
