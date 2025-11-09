@@ -76,7 +76,7 @@ public class VentanaMenuPrincipal extends JFrame{
 		textAlias.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
 		textAlias.setBounds(813, 293, 214, 40);
 		textAlias.setBorder(null);
-		this.add(textAlias);
+		fondoMenu.add(textAlias);
 		
 		lblContrasenia = new JLabel(prop.getProperty("bostinder.ventanamenu.lblcontrasenia"));
 		lblContrasenia.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));

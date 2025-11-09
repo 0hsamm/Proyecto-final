@@ -79,6 +79,7 @@ public class HombreDAO implements DAO<HombreDTO>{
 	public void leerDesdeArchivoDeTexto(String url) {
 		String contenido = FileHandler.leerDesdeArchivoDeTexto(url);
 		if(contenido == null || contenido.isBlank()) {
+			System.out.println("archivo vacio");
 			return;
 		}else {
 			String[] filas = contenido.split("\n");
