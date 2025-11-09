@@ -38,6 +38,7 @@ public class VentanaPrincipal extends JFrame {
 
 	// Botones y cb
 	private JButton btnVolver;
+	private JButton btnPerfil;
 
 	private JComboBox<String> cbGenero;
 	private JComboBox<String> cbEdad;
@@ -244,11 +245,21 @@ public class VentanaPrincipal extends JFrame {
 
 		// Scroll y bordes
 		scrollTabla = new JScrollPane(tablaUsuarios);
-		scrollTabla.setBounds(475, 155, 680, 430);
+		scrollTabla.setBounds(503, 180, 662, 455);
 		scrollTabla.setBorder(BorderFactory.createDashedBorder(Color.WHITE));
 		scrollTabla.getViewport().setBackground(Color.BLACK);
 
 		this.add(scrollTabla);
+		
+		btnPerfil = new JButton("");
+		btnPerfil.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+		btnPerfil.setBounds(955, 20, 88, 90);
+		btnPerfil.setForeground(Color.BLACK);
+		btnPerfil.setFocusPainted(true);
+		btnPerfil.setContentAreaFilled(false);
+		btnPerfil.setBorderPainted(false);
+		btnPerfil.setOpaque(false);
+		this.add(btnPerfil);
 
 	}
 

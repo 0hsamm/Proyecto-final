@@ -10,6 +10,7 @@ public class ViewFacade {
 	private VentanaEscogerGenero venGenero;
 	private VentanaRegistroAdministrador venRegistroAdmin;
 	private VentanaInicioSesionAdmin venInicioSesionAdmin;
+	private VentanaPerfil venPerfil;
 
 	public ViewFacade() {
 
@@ -21,6 +22,7 @@ public class ViewFacade {
 		venGenero = new VentanaEscogerGenero();
 		venRegistroAdmin = new VentanaRegistroAdministrador();
 		venInicioSesionAdmin = new VentanaInicioSesionAdmin();
+		venPerfil = new VentanaPerfil();
 
 	}
 
@@ -88,4 +90,13 @@ public class ViewFacade {
 		this.venInicioSesionAdmin = venInicioSesionAdmin;
 	}
 
+	public VentanaPerfil getVenPerfil() {
+		return venPerfil;
+	}
+
+	public void setVenPerfil(VentanaPerfil venPerfil) {
+		this.venPerfil = venPerfil;
+	}
+	
+	
 }

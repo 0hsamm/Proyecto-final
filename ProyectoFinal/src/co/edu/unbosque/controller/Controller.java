@@ -81,11 +81,14 @@ public class Controller implements ActionListener {
 			vf.getVenCRUD().setProp(prop);
 			vf.getVenRegistroAdmin().setProp(prop);
 			vf.getVenInicioSesionAdmin().setProp(prop);
-			vf.getVenMenu().setVisible(true);
+			vf.getVenPerfil().setProp(prop);
+			//vf.getVenMenu().setVisible(true);
+			//vf.getVenPrincipal().setVisible(true);
 			//vf.getVenCRUD().setVisible(true);
 			//vf.getVenGenero().setVisible(true);
 			//vf.getVenRegistroMujer().setVisible(true);
 			//vf.getVenRegistroAdmin().setVisible(true);
+			vf.getVenPerfil().setVisible(true);
 			asignarListeners();
 			break mainloop;
 		}
@@ -160,6 +163,10 @@ public class Controller implements ActionListener {
 		//VENTANA PRINCIPAL
 		vf.getVenPrincipal().getBtnVolver().addActionListener(this);
 		vf.getVenPrincipal().getBtnVolver().setActionCommand("VOLVER_DESDE_VENTANA_PRINCIPAL");
+		
+		//VENTANA PERFIL
+		vf.getVenPerfil().getBtnCerrarSesion().addActionListener(this);
+		vf.getVenPerfil().getBtnCerrarSesion().setActionCommand("CERRAR_SESION");
 		
 	}
 
@@ -640,6 +647,13 @@ public class Controller implements ActionListener {
 
 		case "VOLVER_MENU_ADMIN": {
 		    vf.getVenRegistroAdmin().setVisible(false);
+		    vf.getVenMenu().setVisible(true);
+		    break;
+		}
+		
+		//VENTANA PERFIL 
+		case "CERRAR_SESION": {
+			vf.getVenPerfil().setVisible(false);
 		    vf.getVenMenu().setVisible(true);
 		    break;
 		}
