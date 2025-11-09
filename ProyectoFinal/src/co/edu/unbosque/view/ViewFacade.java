@@ -1,16 +1,18 @@
 package co.edu.unbosque.view;
 
 public class ViewFacade {
-	
+
 	private VentanaMenuPrincipal venMenu;
 	private VentanaRegistroHombre venRegistroHombre;
 	private VentanaRegistroMujer venRegistroMujer;
 	private VentanaPrincipal venPrincipal;
 	private VentanaCRUD venCRUD;
 	private VentanaEscogerGenero venGenero;
-	private VentanaRegistroAdministrador venRegistroAdmin;	
+	private VentanaRegistroAdministrador venRegistroAdmin;
+	private VentanaInicioSesionAdmin venInicioSesionAdmin;
+
 	public ViewFacade() {
-		
+
 		venMenu = new VentanaMenuPrincipal();
 		venRegistroHombre = new VentanaRegistroHombre();
 		venRegistroMujer = new VentanaRegistroMujer();
@@ -18,7 +20,8 @@ public class ViewFacade {
 		venCRUD = new VentanaCRUD();
 		venGenero = new VentanaEscogerGenero();
 		venRegistroAdmin = new VentanaRegistroAdministrador();
-		
+		venInicioSesionAdmin = new VentanaInicioSesionAdmin();
+
 	}
 
 	public VentanaMenuPrincipal getVenMenu() {
@@ -76,4 +79,13 @@ public class ViewFacade {
 	public void setVenRegistroAdmin(VentanaRegistroAdministrador venRegistroAdmin) {
 		this.venRegistroAdmin = venRegistroAdmin;
 	}
+
+	public VentanaInicioSesionAdmin getVenInicioSesionAdmin() {
+		return venInicioSesionAdmin;
+	}
+
+	public void setVenInicioSesionAdmin(VentanaInicioSesionAdmin venInicioSesionAdmin) {
+		this.venInicioSesionAdmin = venInicioSesionAdmin;
+	}
+
 }

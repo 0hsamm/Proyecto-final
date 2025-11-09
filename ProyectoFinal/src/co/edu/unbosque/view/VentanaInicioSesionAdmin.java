@@ -38,12 +38,12 @@ public class VentanaInicioSesionAdmin extends JFrame {
 	}
 
 	public void inicializarComponentes() {
-		this.setTitle("Menu Principal");
+		this.setTitle("Inicio sesion admin");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 
-		fondo = new ImageIcon("src/co/edu/unbosque/view/VentanaMenuOscuro.PNG");
+		fondo = new ImageIcon("src/co/edu/unbosque/view/VentanaInicioSesionAdmin.PNG");
 		escalar = fondo.getImage().getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
 		fondoMenu = new JLabel(new ImageIcon(escalar));
 		fondoMenu.setLayout(null);
@@ -104,20 +104,6 @@ public class VentanaInicioSesionAdmin extends JFrame {
 		btnSalir.setFocusPainted(false);
 		btnSalir.setBorder(null);
 		fondoMenu.add(btnSalir);
-
-		lblRegistro = new JLabel(prop.getProperty("bostinder.ventanamenu.lblRegistro"));
-		lblRegistro.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 15));
-		lblRegistro.setBounds(845, 570, 250, 30);
-		fondoMenu.add(lblRegistro);
-
-		btnRegistro = new JButton(prop.getProperty("bostinder.ventanamenu.btnRegistro"));
-		btnRegistro.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 13));
-		btnRegistro.setBounds(846, 616, 110, 25);
-		btnRegistro.setBackground(new Color(255, 184, 184));
-		btnRegistro.setForeground(Color.WHITE);
-		btnRegistro.setFocusPainted(false);
-		btnRegistro.setBorder(null);
-		fondoMenu.add(btnRegistro);
 
 	}
 

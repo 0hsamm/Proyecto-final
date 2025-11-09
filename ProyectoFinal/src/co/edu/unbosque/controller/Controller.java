@@ -75,6 +75,7 @@ public class Controller implements ActionListener {
 			vf.getVenPrincipal().setProp(prop);
 			vf.getVenCRUD().setProp(prop);
 			vf.getVenRegistroAdmin().setProp(prop);
+			vf.getVenInicioSesionAdmin().setProp(prop);
 			vf.getVenMenu().setVisible(true);
 			//vf.getVenCRUD().setVisible(true);
 			//vf.getVenGenero().setVisible(true);
@@ -96,6 +97,13 @@ public class Controller implements ActionListener {
 
 		vf.getVenMenu().getBtnSalir().addActionListener(this);
 		vf.getVenMenu().getBtnSalir().setActionCommand("SALIR_MENU");
+		
+		vf.getVenMenu().getBtnInicioSesionAdmin().addActionListener(this);
+		vf.getVenMenu().getBtnInicioSesionAdmin().setActionCommand("INICIO_SESION_ADMIN");
+		
+		//VENTANA INICIO SESION ADMIN
+		vf.getVenInicioSesionAdmin().getBtnConfirmar().addActionListener(this);
+		vf.getVenInicioSesionAdmin().getBtnConfirmar().setActionCommand("INICIAR_SESION_DESDE_ADMIN");
 		
 		//VENTANA GENERO
 		vf.getVenGenero().getBtnVolver().addActionListener(this);
@@ -222,6 +230,18 @@ public class Controller implements ActionListener {
 			vf.getVenGenero().setVisible(true);
 			break;
 		}
+		
+		case "INICIO_SESION_ADMIN": {
+			vf.getVenMenu().setVisible(false);
+			vf.getVenInicioSesionAdmin().setVisible(true);
+			break;
+		}
+		case "INICIAR_SESION_DESDE_ADMIN": {
+			vf.getVenInicioSesionAdmin().setVisible(false);
+			vf.getVenCRUD().setVisible(true);
+			break;
+		}
+		//VENTANA INICIO SESION ADMIN
 		case "SALIR_MENU": {
 			vf.getVenMenu().dispose();
 			break;
