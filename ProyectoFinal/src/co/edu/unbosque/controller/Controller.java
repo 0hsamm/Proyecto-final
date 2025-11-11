@@ -82,13 +82,13 @@ public class Controller implements ActionListener {
 			vf.getVenRegistroAdmin().setProp(prop);
 			vf.getVenInicioSesionAdmin().setProp(prop);
 			vf.getVenPerfil().setProp(prop);
-			//vf.getVenMenu().setVisible(true);
+			vf.getVenMenu().setVisible(true);
 			//vf.getVenPrincipal().setVisible(true);
 			//vf.getVenCRUD().setVisible(true);
 			//vf.getVenGenero().setVisible(true);
 			//vf.getVenRegistroMujer().setVisible(true);
 			//vf.getVenRegistroAdmin().setVisible(true);
-			vf.getVenPerfil().setVisible(true);
+			//vf.getVenPerfil().setVisible(true);
 			asignarListeners();
 			break mainloop;
 		}
