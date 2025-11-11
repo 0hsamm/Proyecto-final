@@ -1,6 +1,7 @@
 package co.edu.unbosque.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public abstract class Usuario extends Persona {
 
@@ -10,6 +11,10 @@ public abstract class Usuario extends Persona {
 	private boolean esIncognito;
 	private int numLikes;
 
+	private ArrayList<Usuario> likesDados;
+	private ArrayList<Usuario> likesRecibidos;
+	
+	
 	public Usuario() {
 	}
 
@@ -39,6 +44,30 @@ public abstract class Usuario extends Persona {
 		// TODO Auto-generated constructor stub
 	}
 
+	public void darLike(Usuario receptor) {
+	    if (receptor == null || receptor == this) return; 
+	    if (likesDados == null) likesDados = new ArrayList<>();
+	    if (likesRecibidos == null) likesRecibidos = new ArrayList<>();
+	    if (receptor.likesRecibidos == null) receptor.likesRecibidos = new ArrayList<>();
+	    if (receptor.likesDados == null) receptor.likesDados = new ArrayList<>();
+
+	    // Evita duplicados
+	    if (!likesDados.contains(receptor)) {
+	        likesDados.add(receptor);
+	        receptor.likesRecibidos.add(this);
+
+	        
+	        receptor.setNumLikes(receptor.getNumLikes() + 1);
+	    }
+	}
+
+	public boolean haDadoLikeA(Usuario u) {
+	    return likesDados != null && likesDados.contains(u);
+	}
+
+	
+	
+	
 	public boolean isEstaDisponible() {
 		return estaDisponible;
 	}
@@ -84,11 +113,29 @@ public abstract class Usuario extends Persona {
 	public void setNumLikes(int numLikes) {
 		this.numLikes = numLikes;
 	}
+	
+
+	public ArrayList<Usuario> getLikesDados() {
+		return likesDados;
+	}
+
+	public void setLikesDados(ArrayList<Usuario> likesDados) {
+		this.likesDados = likesDados;
+	}
+
+	public ArrayList<Usuario> getLikesRecibidos() {
+		return likesRecibidos;
+	}
+
+	public void setLikesRecibidos(ArrayList<Usuario> likesRecibidos) {
+		this.likesRecibidos = likesRecibidos;
+	}
 
 	@Override
 	public String toString() {
 		return super.toString() + "\nEstá disponible?: " + estaDisponible + "\nAlias: " + alias + "\nFoto: " + UrlFoto
 				+ "\nModo incognito?: " + esIncognito + "\nNúmero de likes: " + numLikes;
 	}
+	
 
 }

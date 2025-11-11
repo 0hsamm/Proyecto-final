@@ -20,6 +20,7 @@ import co.edu.unbosque.model.HombreDTO;
 import co.edu.unbosque.model.ModelFacade;
 import co.edu.unbosque.model.Mujer;
 import co.edu.unbosque.model.MujerDTO;
+import co.edu.unbosque.model.Usuario;
 import co.edu.unbosque.model.persistence.FileHandler;
 import co.edu.unbosque.util.EmailService;
 import co.edu.unbosque.view.ViewFacade;
@@ -189,13 +190,15 @@ public class Controller implements ActionListener {
 		        //Buscar si es un HOMBRE
 		        for (Hombre h : mf.getHombreDAO().getListaHombres()) {
 		            if (h == null) continue;
+		            
 
 		            if (h.getAlias() != null && h.getContrasena() != null &&
 		                h.getAlias().equalsIgnoreCase(alias) &&
 		                h.getContrasena().equals(contrasena)) {
 
 		                JOptionPane.showMessageDialog(null, "Bienvenido " + h.getNombre() + " 👋");
-
+		                mf.setUsuarioActual(h);
+		                
 		                vf.getVenMenu().setVisible(false);
 		                vf.getVenPrincipal().setVisible(true);
 		                vf.getVenPrincipal().setLocationRelativeTo(null);
@@ -209,6 +212,8 @@ public class Controller implements ActionListener {
 		                for (Mujer mu : mf.getMujerDAO().getListaMujeres()) {
 		                    if (mu == null) continue;
 
+		                    // Evitar mostrar el perfil propio
+		                    if (mu.getAlias().equalsIgnoreCase(mf.getUsuarioActual().getAlias())) continue;
 		                    //imagen del perfil
 		                    ImageIcon icon = null;
 		                    try {
@@ -260,7 +265,9 @@ public class Controller implements ActionListener {
 		                    m.getContrasena().equals(contrasena)) {
 
 		                    JOptionPane.showMessageDialog(null, "Bienvenida " + m.getNombre() + " 💕");
+		                    mf.setUsuarioActual(m);
 
+		                    
 		                    vf.getVenMenu().setVisible(false);
 		                    vf.getVenPrincipal().setVisible(true);
 		                    vf.getVenPrincipal().setLocationRelativeTo(null);
@@ -273,6 +280,8 @@ public class Controller implements ActionListener {
 
 		                    for (Hombre ho : mf.getHombreDAO().getListaHombres()) {
 		                        if (ho == null) continue;
+
+		                        if (ho.getAlias().equalsIgnoreCase(mf.getUsuarioActual().getAlias())) continue;
 
 		                        ImageIcon icon = null;
 		                        try {
@@ -324,7 +333,144 @@ public class Controller implements ActionListener {
 		    }
 		    break;
 		}
+		case "DAR_LIKE": {
+		    try {
+		        Usuario usuarioActual = mf.getUsuarioActual();
 
+		        if (usuarioActual == null) {
+		            JOptionPane.showMessageDialog(null, "Debe iniciar sesión antes de dar like.");
+		            break;
+		        }
+
+		        int filaSeleccionada = vf.getVenPrincipal().getTablaUsuarios().getSelectedRow();
+
+		        if (filaSeleccionada == -1) {
+		            JOptionPane.showMessageDialog(null, "Seleccione una persona de la tabla para dar like ❤️");
+		            break;
+		        }
+
+		        // Obtener el alias del usuario seleccionado (columna 2 en tu tabla)
+		        String aliasSeleccionado = (String) vf.getVenPrincipal().getTablaUsuarios().getValueAt(filaSeleccionada, 2);
+
+		        // Verificar si el alias pertenece a una mujer u hombre
+		        Usuario receptor = null;
+
+		        for (Hombre h : mf.getHombreDAO().getListaHombres()) {
+		            if (h.getAlias().equalsIgnoreCase(aliasSeleccionado)) {
+		                receptor = h;
+		                break;
+		            }
+		        }
+
+		        if (receptor == null) {
+		            for (Mujer m : mf.getMujerDAO().getListaMujeres()) {
+		                if (m.getAlias().equalsIgnoreCase(aliasSeleccionado)) {
+		                    receptor = m;
+		                    break;
+		                }
+		            }
+		        }
+
+		        if (receptor == null) {
+		            JOptionPane.showMessageDialog(null, "No se encontró el usuario seleccionado");
+		            break;
+		        }
+
+		        // Verificar que no se haya dado like antes
+		        if (usuarioActual.getLikesDados().contains(receptor)) {
+		           JOptionPane.showMessageDialog(null, "Ya le has dado like a " + receptor.getNombre());
+		        }
+
+		        
+		        // Registrar el like
+		        usuarioActual.getLikesDados().add(receptor);
+		        receptor.getLikesRecibidos().add(usuarioActual);
+
+		        // Actualizar contador de likes
+		        receptor.setNumLikes(receptor.getNumLikes() + 1);
+
+		        JOptionPane.showMessageDialog(null, "Le diste like a " + receptor.getNombre() + " 💘");
+
+		        // Refrescar tabla (para mostrar nuevo número de likes)
+		        DefaultTableModel modelo = (DefaultTableModel) vf.getVenPrincipal().getTablaUsuarios().getModel();
+		        modelo.setValueAt(receptor.getNumLikes(), filaSeleccionada, modelo.getColumnCount() - 1);
+
+		    } catch (Exception e1) {
+		        e1.printStackTrace();
+		        JOptionPane.showMessageDialog(null, "Error al dar like: " + e1.getMessage());
+		    }
+		    break;
+		}
+
+		case "DAR_DISLIKE": {
+		    try {
+		        Usuario usuarioActual = mf.getUsuarioActual();
+
+		        if (usuarioActual == null) {
+		            JOptionPane.showMessageDialog(null, "Debe iniciar sesión antes de dar dislike.");
+		            break;
+		        }
+
+		        int filaSeleccionada = vf.getVenPrincipal().getTablaUsuarios().getSelectedRow();
+
+		        if (filaSeleccionada == -1) {
+		            JOptionPane.showMessageDialog(null, "Seleccione una persona de la tabla para quitar like 💔");
+		            break;
+		        }
+
+		        // Obtener alias del usuario seleccionado (columna 2 = Alias)
+		        String aliasSeleccionado = (String) vf.getVenPrincipal().getTablaUsuarios().getValueAt(filaSeleccionada, 2);
+
+		        Usuario receptor = null;
+
+		        // Buscar entre hombres
+		        for (Hombre h : mf.getHombreDAO().getListaHombres()) {
+		            if (h.getAlias().equalsIgnoreCase(aliasSeleccionado)) {
+		                receptor = h;
+		                break;
+		            }
+		        }
+
+		        // Si no está en hombres, buscar entre mujeres
+		        if (receptor == null) {
+		            for (Mujer m : mf.getMujerDAO().getListaMujeres()) {
+		                if (m.getAlias().equalsIgnoreCase(aliasSeleccionado)) {
+		                    receptor = m;
+		                    break;
+		                }
+		            }
+		        }
+
+		        if (receptor == null) {
+		            JOptionPane.showMessageDialog(null, "No se encontró el usuario seleccionado 😕");
+		            break;
+		        }
+
+		        // Verificar si el usuario actual ya le había dado like
+		        if (!usuarioActual.getLikesDados().contains(receptor)) {
+		            JOptionPane.showMessageDialog(null, "No le habías dado like a " + receptor.getNombre() + " 🙃");
+		            break;
+		        }
+
+		        // Quitar el like
+		        usuarioActual.getLikesDados().remove(receptor);
+		        receptor.getLikesRecibidos().remove(usuarioActual);
+
+		        // Disminuir contador de likes, evitando valores negativos
+		        receptor.setNumLikes(Math.max(0, receptor.getNumLikes() - 1));
+
+		        JOptionPane.showMessageDialog(null, "Le quitaste el like a " + receptor.getNombre() + " 💔");
+
+		        // Refrescar valor de la columna de likes en la tabla
+		        DefaultTableModel modelo = (DefaultTableModel) vf.getVenPrincipal().getTablaUsuarios().getModel();
+		        modelo.setValueAt(receptor.getNumLikes(), filaSeleccionada, modelo.getColumnCount() - 1);
+
+		    } catch (Exception e1) {
+		        e1.printStackTrace();
+		        JOptionPane.showMessageDialog(null, "Error al quitar like: " + e1.getMessage());
+		    }
+		    break;
+		}
 
 
 		case "REGISTRATE_AQUI": {
@@ -420,25 +566,6 @@ public class Controller implements ActionListener {
 			break;
 		}
 		
-		case "CREAR_CUENTA":{
-			try {
-				String nombre = vf.getVenRegistroHombre().getTextNombre().getText();
-			
-				String apellido = vf.getVenRegistroHombre().getTextApellido().getText();
-				String email = vf.getVenRegistroHombre().getTextCorreo().getText();
-				String alias = vf.getVenRegistroHombre().getTextAlias().getText();
-				String contrasena = new String(vf.getVenMenu().getTextContrasenia().getPassword()).trim();
-				double estatura = Double.parseDouble(vf.getVenRegistroHombre().getTextEstatura().getText());
-				int promedioIngMensual = Integer.parseInt(vf.getVenRegistroHombre().getTextIngreso().getText());
-				
-				HombreDTO hombreDTO = new HombreDTO( nombre,  apellido,  email,  contrasena,  LocalDate.now(),  "", false,  false,  alias,  "",  false, 0,  promedioIngMensual,  estatura);
-			
-			} catch (Exception e1) {
-				// TODO: handle exception
-			}
-			
-			break;
-		}
 		
 		case "REGISTRAR_ADMIN_DESDE_HOMBRE": {
 			vf.getVenRegistroAdmin().setVisible(true);
