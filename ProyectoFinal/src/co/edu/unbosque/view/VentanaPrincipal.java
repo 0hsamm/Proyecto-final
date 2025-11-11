@@ -2,6 +2,7 @@ package co.edu.unbosque.view;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Image;
 import java.util.Properties;
@@ -39,6 +40,8 @@ public class VentanaPrincipal extends JFrame {
 	// Botones y cb
 	private JButton btnVolver;
 	private JButton btnPerfil;
+	private JButton btnLike;
+	private JButton btnDislike;
 
 	private JComboBox<String> cbGenero;
 	private JComboBox<String> cbEdad;
@@ -203,6 +206,28 @@ public class VentanaPrincipal extends JFrame {
 		btnVolver.setBorderPainted(false);
 		btnVolver.setOpaque(false);
 		this.add(btnVolver);
+		
+		//Boton Like
+		btnLike = new JButton("Like");
+		btnLike.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
+		btnLike.setBounds(640, 650, 150, 40); 
+		btnLike.setBackground(new Color(0, 153, 51));
+		btnLike.setForeground(Color.WHITE);
+		btnLike.setFocusPainted(false);
+		btnLike.setBorder(BorderFactory.createEmptyBorder());
+		btnLike.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		this.add(btnLike);
+
+		//Boton Dislike
+		btnDislike = new JButton("Dislike");
+		btnDislike.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
+		btnDislike.setBounds(830, 650, 150, 40); 
+		btnDislike.setBackground(new Color(204, 0, 0));
+		btnDislike.setForeground(Color.WHITE);
+		btnDislike.setFocusPainted(false);
+		btnDislike.setBorder(BorderFactory.createEmptyBorder());
+		btnDislike.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		this.add(btnDislike);
 		
 		
 		//tabla de usuarios

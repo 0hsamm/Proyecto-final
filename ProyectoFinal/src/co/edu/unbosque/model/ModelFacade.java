@@ -9,15 +9,29 @@ public class ModelFacade {
 	private HombreDAO hombreDAO;
 	private MujerDAO mujerDAO;
 	private AdministradorDAO adminDAO;
-	
+	private Usuario usuarioActual;
 	
 	public ModelFacade() {
 		hombreDAO = new HombreDAO();
 		mujerDAO = new MujerDAO();
-		adminDAO = new AdministradorDAO();
+		adminDAO = new AdministradorDAO(); 
 	}
 
 
+	
+	public Usuario buscarUsuarioPorAlias(String alias) {
+	    for (Hombre h : hombreDAO.getListaHombres()) {
+	        if (h.getAlias().equalsIgnoreCase(alias)) return h;
+	    }
+	    for (Mujer m : mujerDAO.getListaMujeres()) {
+	        if (m.getAlias().equalsIgnoreCase(alias)) return m;
+	    }
+	    return null;
+	}
+
+	
+	
+	
 	public HombreDAO getHombreDAO() {
 		return hombreDAO;
 	}
@@ -45,6 +59,16 @@ public class ModelFacade {
 
 	public void setAdminDAO(AdministradorDAO adminDAO) {
 		this.adminDAO = adminDAO;
+	}
+
+
+	public Usuario getUsuarioActual() {
+		return usuarioActual;
+	}
+
+
+	public void setUsuarioActual(Usuario usuarioActual) {
+		this.usuarioActual = usuarioActual;
 	}
 
 	
