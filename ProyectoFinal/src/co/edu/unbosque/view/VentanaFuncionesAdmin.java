@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class VentanaCRUD extends JFrame {
+public class VentanaFuncionesAdmin extends JFrame {
 
 	private JLabel fondoCRUD;
 	private ImageIcon fondo;
@@ -23,25 +23,24 @@ public class VentanaCRUD extends JFrame {
 
 	private JButton btnVolver;
 
-	private JButton btnCrear;
 	private JButton btnMostrar;
 	private JButton btnEliminar;
-	private JButton btnActualizar;
+	private JButton btnReporte;
 
 	private Properties prop;
 
-	public VentanaCRUD() {
+	public VentanaFuncionesAdmin() {
 		
 	}
 	
 	public void inicializarComponentes() {
 		
-		this.setTitle("CRUD");
+		this.setTitle("Funciones admin");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 
-		fondo = new ImageIcon(prop.getProperty("bostinder.ventanacrud.urlImagen"));
+		fondo = new ImageIcon("src/co/edu/unbosque/view/VentanaAdmin.PNG");
 		escalar = fondo.getImage().getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
 		fondoCRUD = new JLabel(new ImageIcon(escalar));
 		fondoCRUD.setLayout(null);
@@ -56,20 +55,9 @@ public class VentanaCRUD extends JFrame {
 		lblTitulo.setForeground(Color.WHITE);
 		this.add(lblTitulo);
 		
-		btnCrear = new JButton(prop.getProperty("bostinder.ventanacrud.btnCrear"));
-		btnCrear.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 40));
-		btnCrear.setBounds(90, 236, 300, 50);
-		btnCrear.setForeground(Color.BLACK);
-		btnCrear.setFocusPainted(true);
-		btnCrear.setBorder(null);
-		btnCrear.setContentAreaFilled(false);
-		btnCrear.setBorderPainted(false);
-		btnCrear.setOpaque(false);
-		fondoCRUD.add(btnCrear);
-		
 		btnMostrar = new JButton(prop.getProperty("bostinder.ventanacrud.btnMostrar"));
 		btnMostrar.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 40));
-		btnMostrar.setBounds(100, 340, 300, 50);
+		btnMostrar.setBounds(120, 236, 300, 50);
 		btnMostrar.setForeground(Color.BLACK);
 		btnMostrar.setFocusPainted(true);
 		btnMostrar.setBorder(null);
@@ -80,7 +68,7 @@ public class VentanaCRUD extends JFrame {
 		
 		btnEliminar = new JButton(prop.getProperty("bostinder.ventanacrud.btnEliminar"));
 		btnEliminar.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 40));
-		btnEliminar.setBounds(100, 450, 300, 50);
+		btnEliminar.setBounds(120, 340, 300, 50);
 		btnEliminar.setForeground(Color.BLACK);
 		btnEliminar.setFocusPainted(true);
 		btnEliminar.setBorder(null);
@@ -89,16 +77,16 @@ public class VentanaCRUD extends JFrame {
 		btnEliminar.setOpaque(false);
 		fondoCRUD.add(btnEliminar);
 		
-		btnActualizar = new JButton(prop.getProperty("bostinder.ventanacrud.btnActualizar"));
-		btnActualizar.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 40));
-		btnActualizar.setBounds(100, 560, 300, 50);
-		btnActualizar.setForeground(Color.BLACK);
-		btnActualizar.setFocusPainted(true);
-		btnActualizar.setBorder(null);
-		btnActualizar.setContentAreaFilled(false);
-		btnActualizar.setBorderPainted(false);
-		btnActualizar.setOpaque(false);
-		fondoCRUD.add(btnActualizar);
+		btnReporte = new JButton(prop.getProperty("bostinder.ventanacrud.btnReporte"));
+		btnReporte.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 40));
+		btnReporte.setBounds(120, 450, 300, 50);
+		btnReporte.setForeground(Color.BLACK);
+		btnReporte.setFocusPainted(true);
+		btnReporte.setBorder(null);
+		btnReporte.setContentAreaFilled(false);
+		btnReporte.setBorderPainted(false);
+		btnReporte.setOpaque(false);
+		fondoCRUD.add(btnReporte);
 		
 		btnVolver = new JButton("");
 		btnVolver.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
@@ -152,14 +140,6 @@ public class VentanaCRUD extends JFrame {
 		this.btnVolver = btnVolver;
 	}
 
-	public JButton getBtnCrear() {
-		return btnCrear;
-	}
-
-	public void setBtnCrear(JButton btnCrear) {
-		this.btnCrear = btnCrear;
-	}
-
 	public JButton getBtnMostrar() {
 		return btnMostrar;
 	}
@@ -176,13 +156,6 @@ public class VentanaCRUD extends JFrame {
 		this.btnEliminar = btnEliminar;
 	}
 
-	public JButton getBtnActualizar() {
-		return btnActualizar;
-	}
-
-	public void setBtnActualizar(JButton btnActualizar) {
-		this.btnActualizar = btnActualizar;
-	}
 
 	public Properties getProp() {
 		return prop;
@@ -192,6 +165,15 @@ public class VentanaCRUD extends JFrame {
 		this.prop = prop;
 		inicializarComponentes();
 	}
+
+	public JButton getBtnReporte() {
+		return btnReporte;
+	}
+
+	public void setBtnReporte(JButton btnReporte) {
+		this.btnReporte = btnReporte;
+	}
+	
 	
 	
 }

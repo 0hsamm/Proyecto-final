@@ -65,7 +65,7 @@ public class VentanaPrincipal extends JFrame {
 
 	public void inicializarComponentes() {
 
-		this.setTitle("Crear cuenta");
+		this.setTitle("Ventana Principal");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
@@ -208,9 +208,9 @@ public class VentanaPrincipal extends JFrame {
 		this.add(btnVolver);
 		
 		//Boton Like
-		btnLike = new JButton("Like");
+		btnLike = new JButton(prop.getProperty("bostinder.ventanaprinicipal.btnLike"));
 		btnLike.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
-		btnLike.setBounds(640, 650, 150, 40); 
+		btnLike.setBounds(640, 640, 150, 25); 
 		btnLike.setBackground(new Color(0, 153, 51));
 		btnLike.setForeground(Color.WHITE);
 		btnLike.setFocusPainted(false);
@@ -219,9 +219,9 @@ public class VentanaPrincipal extends JFrame {
 		this.add(btnLike);
 
 		//Boton Dislike
-		btnDislike = new JButton("Dislike");
+		btnDislike = new JButton(prop.getProperty("bostinder.ventanaprinicipal.btnDislike"));
 		btnDislike.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
-		btnDislike.setBounds(830, 650, 150, 40); 
+		btnDislike.setBounds(830, 640, 150, 25); 
 		btnDislike.setBackground(new Color(204, 0, 0));
 		btnDislike.setForeground(Color.WHITE);
 		btnDislike.setFocusPainted(false);
@@ -503,6 +503,46 @@ public class VentanaPrincipal extends JFrame {
 
 	public JTable getTablaUsuarios() {
 	    return tablaUsuarios;
+	}
+
+	public JButton getBtnPerfil() {
+		return btnPerfil;
+	}
+
+	public void setBtnPerfil(JButton btnPerfil) {
+		this.btnPerfil = btnPerfil;
+	}
+
+	public JButton getBtnLike() {
+		return btnLike;
+	}
+
+	public void setBtnLike(JButton btnLike) {
+		this.btnLike = btnLike;
+	}
+
+	public JButton getBtnDislike() {
+		return btnDislike;
+	}
+
+	public void setBtnDislike(JButton btnDislike) {
+		this.btnDislike = btnDislike;
+	}
+
+	public JScrollPane getScrollTabla() {
+		return scrollTabla;
+	}
+
+	public void setScrollTabla(JScrollPane scrollTabla) {
+		this.scrollTabla = scrollTabla;
+	}
+
+	public void setTablaUsuarios(JTable tablaUsuarios) {
+		this.tablaUsuarios = tablaUsuarios;
+	}
+
+	public void setModeloTabla(DefaultTableModel modeloTabla) {
+		this.modeloTabla = modeloTabla;
 	}
 
 }
