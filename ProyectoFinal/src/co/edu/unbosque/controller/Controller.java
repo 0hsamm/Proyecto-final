@@ -255,7 +255,7 @@ public class Controller implements ActionListener {
 			vf.getVenRegistroHombre().setVisible(false);
 			break;
 		}
-		
+	
 		
 		case "REGISTRAR_ADMIN_DESDE_HOMBRE": {
 			vf.getVenRegistroAdmin().setVisible(true);
