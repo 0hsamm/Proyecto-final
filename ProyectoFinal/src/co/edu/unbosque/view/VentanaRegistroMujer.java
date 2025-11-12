@@ -80,7 +80,7 @@ public class VentanaRegistroMujer extends JFrame {
 	}
 
 	public void inicializarComponentes() {
-		this.setTitle("Crear cuenta hombre");
+		this.setTitle("Crear cuenta mujer");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);

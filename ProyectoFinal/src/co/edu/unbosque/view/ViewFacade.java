@@ -11,6 +11,7 @@ public class ViewFacade {
 	private VentanaRegistroAdministrador venRegistroAdmin;
 	private VentanaInicioSesionAdmin venInicioSesionAdmin;
 	private VentanaPerfil venPerfil;
+	private VentanaMatch venMatch;
 
 	public ViewFacade() {
 
@@ -23,6 +24,7 @@ public class ViewFacade {
 		venRegistroAdmin = new VentanaRegistroAdministrador();
 		venInicioSesionAdmin = new VentanaInicioSesionAdmin();
 		venPerfil = new VentanaPerfil();
+		venMatch = new VentanaMatch();
 
 	}
 
@@ -97,6 +99,13 @@ public class ViewFacade {
 	public void setVenPerfil(VentanaPerfil venPerfil) {
 		this.venPerfil = venPerfil;
 	}
-	
-	
+
+	public VentanaMatch getVenMatch() {
+		return venMatch;
+	}
+
+	public void setVenMatch(VentanaMatch venMatch) {
+		this.venMatch = venMatch;
+	}
+
 }

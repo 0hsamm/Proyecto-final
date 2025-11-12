@@ -11,9 +11,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class VentanaPerfil extends JFrame {
+public class VentanaMatch extends JFrame {
 
-	private JLabel fondoCRUD;
+	private JLabel fondoMatch;
 	private ImageIcon fondo;
 	private Image escalar;
 
@@ -23,37 +23,32 @@ public class VentanaPerfil extends JFrame {
 
 	private JButton btnVolver;
 
-	private JButton btnCuentaInvisible;
-	private JButton btnEliminar;
-	private JButton btnActualizar;
-	private JButton btnMatch;
-
 	private JButton btnOscuro;
 	private JButton btnClaro;
 
 	private Properties prop;
 
-	public VentanaPerfil() {
+	public VentanaMatch() {
 
 	}
 
 	public void inicializarComponentes() {
 
-		this.setTitle("Ventana perfil usuario");
+		this.setTitle("Ventana match");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 
-		fondo = new ImageIcon("src/co/edu/unbosque/view/VentanaPerfilOscuro.PNG");
+		fondo = new ImageIcon("src/co/edu/unbosque/view/VentanaMatchOscuro.PNG");
 		escalar = fondo.getImage().getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
-		fondoCRUD = new JLabel(new ImageIcon(escalar));
-		fondoCRUD.setLayout(null);
-		fondoCRUD.setPreferredSize(new java.awt.Dimension(1200, 675));
-		this.setContentPane(fondoCRUD);
+		fondoMatch = new JLabel(new ImageIcon(escalar));
+		fondoMatch.setLayout(null);
+		fondoMatch.setPreferredSize(new java.awt.Dimension(1200, 675));
+		this.setContentPane(fondoMatch);
 		this.pack();
 		this.setLocationRelativeTo(null);
 
-		lblTitulo = new JLabel(prop.getProperty("bostinder.ventanaperfil.lbltitulo"));
+		lblTitulo = new JLabel(prop.getProperty("bostinder.ventanamatch.lbltitulo"));
 		lblTitulo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 60));
 		lblTitulo.setBounds(220, 20, 1200, 70);
 		lblTitulo.setForeground(Color.WHITE);
@@ -69,7 +64,7 @@ public class VentanaPerfil extends JFrame {
 		btnClaro.setBorderPainted(false);
 		btnClaro.setContentAreaFilled(false);
 		this.add(btnClaro);
-
+		
 		btnOscuro = new JButton("");
 		btnOscuro.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
 		btnOscuro.setBounds(1071, 20, 110, 40);
@@ -80,50 +75,6 @@ public class VentanaPerfil extends JFrame {
 		btnOscuro.setBorderPainted(false);
 		btnOscuro.setContentAreaFilled(false);
 		this.add(btnOscuro);
-
-		btnCuentaInvisible = new JButton(prop.getProperty("bostinder.ventanaperfil.btnCuentaInvisible"));
-		btnCuentaInvisible.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 30));
-		btnCuentaInvisible.setBounds(120, 236, 300, 50);
-		btnCuentaInvisible.setForeground(Color.BLACK);
-		btnCuentaInvisible.setFocusPainted(true);
-		btnCuentaInvisible.setBorder(null);
-		btnCuentaInvisible.setContentAreaFilled(false);
-		btnCuentaInvisible.setBorderPainted(false);
-		btnCuentaInvisible.setOpaque(false);
-		fondoCRUD.add(btnCuentaInvisible);
-
-		btnActualizar = new JButton(prop.getProperty("bostinder.ventanaperfil.btnActualizar"));
-		btnActualizar.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 30));
-		btnActualizar.setBounds(120, 340, 300, 50);
-		btnActualizar.setForeground(Color.BLACK);
-		btnActualizar.setFocusPainted(true);
-		btnActualizar.setBorder(null);
-		btnActualizar.setContentAreaFilled(false);
-		btnActualizar.setBorderPainted(false);
-		btnActualizar.setOpaque(false);
-		fondoCRUD.add(btnActualizar);
-
-		btnEliminar = new JButton(prop.getProperty("bostinder.ventanaperfil.btnEliminar"));
-		btnEliminar.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 30));
-		btnEliminar.setBounds(120, 450, 300, 50);
-		btnEliminar.setForeground(Color.BLACK);
-		btnEliminar.setFocusPainted(true);
-		btnEliminar.setBorder(null);
-		btnEliminar.setContentAreaFilled(false);
-		btnEliminar.setBorderPainted(false);
-		btnEliminar.setOpaque(false);
-		fondoCRUD.add(btnEliminar);
-
-		btnMatch = new JButton(prop.getProperty("bostinder.ventanaperfil.btnMatch"));
-		btnMatch.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 30));
-		btnMatch.setBounds(120, 560, 300, 50);
-		btnMatch.setForeground(Color.BLACK);
-		btnMatch.setFocusPainted(true);
-		btnMatch.setBorder(null);
-		btnMatch.setOpaque(true);
-		btnMatch.setBorderPainted(false);
-		btnMatch.setContentAreaFilled(false);
-		this.add(btnMatch);
 
 		btnVolver = new JButton("");
 		btnVolver.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
@@ -141,17 +92,17 @@ public class VentanaPerfil extends JFrame {
 		ImageIcon cambio = new ImageIcon(url);
 		Image escalar = cambio.getImage().getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
 
-		fondoCRUD.setIcon(new ImageIcon(escalar));
-		fondoCRUD.repaint();
-		fondoCRUD.revalidate();
+		fondoMatch.setIcon(new ImageIcon(escalar));
+		fondoMatch.repaint();
+		fondoMatch.revalidate();
 	}
 
 	public JLabel getFondoCRUD() {
-		return fondoCRUD;
+		return fondoMatch;
 	}
 
 	public void setFondoCRUD(JLabel fondoCRUD) {
-		this.fondoCRUD = fondoCRUD;
+		this.fondoMatch = fondoCRUD;
 	}
 
 	public ImageIcon getFondo() {
@@ -186,22 +137,6 @@ public class VentanaPerfil extends JFrame {
 		this.btnVolver = btnVolver;
 	}
 
-	public JButton getBtnEliminar() {
-		return btnEliminar;
-	}
-
-	public void setBtnEliminar(JButton btnEliminar) {
-		this.btnEliminar = btnEliminar;
-	}
-
-	public JButton getBtnActualizar() {
-		return btnActualizar;
-	}
-
-	public void setBtnActualizar(JButton btnActualizar) {
-		this.btnActualizar = btnActualizar;
-	}
-
 	public Properties getProp() {
 		return prop;
 	}
@@ -209,22 +144,6 @@ public class VentanaPerfil extends JFrame {
 	public void setProp(Properties prop) {
 		this.prop = prop;
 		inicializarComponentes();
-	}
-
-	public JButton getBtnCuentaInvisible() {
-		return btnCuentaInvisible;
-	}
-
-	public void setBtnCuentaInvisible(JButton btnCuentaInvisible) {
-		this.btnCuentaInvisible = btnCuentaInvisible;
-	}
-
-	public JButton getBtnMatch() {
-		return btnMatch;
-	}
-
-	public void setBtnMatch(JButton btnMatch) {
-		this.btnMatch = btnMatch;
 	}
 
 	public JButton getBtnOscuro() {

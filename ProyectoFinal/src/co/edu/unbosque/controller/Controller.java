@@ -94,6 +94,7 @@ public class Controller implements ActionListener {
 			vf.getVenRegistroAdmin().setProp(prop);
 			vf.getVenInicioSesionAdmin().setProp(prop);
 			vf.getVenPerfil().setProp(prop);
+			vf.getVenMatch().setProp(prop);
 			vf.getVenMenu().setVisible(true);
 			//vf.getVenPrincipal().setVisible(true);
 			//vf.getVenCRUD().setVisible(true);
@@ -228,8 +229,8 @@ public class Controller implements ActionListener {
 		vf.getVenPrincipal().getBtnOscuro().setActionCommand("OSCURO_PRINCIPAL");
 
 		// VENTANA PERFIL 1
-		vf.getVenPerfil().getBtnCerrarSesion().addActionListener(this);
-		vf.getVenPerfil().getBtnCerrarSesion().setActionCommand("CERRAR_SESION");
+		vf.getVenPerfil().getBtnMatch().addActionListener(this);
+		vf.getVenPerfil().getBtnMatch().setActionCommand("MATCHES");
 
 		vf.getVenPerfil().getBtnVolver().addActionListener(this);
 		vf.getVenPerfil().getBtnVolver().setActionCommand("VOLVER_DESDE_PERFIL");
@@ -239,6 +240,16 @@ public class Controller implements ActionListener {
 
 		vf.getVenPerfil().getBtnOscuro().addActionListener(this);
 		vf.getVenPerfil().getBtnOscuro().setActionCommand("OSCURO_PERFIL");
+		
+		// VENTANA MATCH
+		vf.getVenMatch().getBtnVolver().addActionListener(this);
+		vf.getVenMatch().getBtnVolver().setActionCommand("VOLVER_DESDE_MATCH");
+		
+		vf.getVenMatch().getBtnClaro().addActionListener(this);
+		vf.getVenMatch().getBtnClaro().setActionCommand("CLARO_MATCH");
+
+		vf.getVenMatch().getBtnOscuro().addActionListener(this);
+		vf.getVenMatch().getBtnOscuro().setActionCommand("OSCURO_MATCH");
 
 	}
 
@@ -1044,9 +1055,9 @@ public class Controller implements ActionListener {
 		}
 
 		// VENTANA PERFIL
-		case "CERRAR_SESION": {
+		case "MATCHES": {
 			vf.getVenPerfil().setVisible(false);
-			vf.getVenMenu().setVisible(true);
+			vf.getVenMatch().setVisible(true);
 			break;
 		}
 
@@ -1067,7 +1078,26 @@ public class Controller implements ActionListener {
 
 			break;
 		}
+		
+		//VENTANA MATCH
+		
+		case "VOLVER_DESDE_MATCH": {
+			vf.getVenMatch().setVisible(false);
+			vf.getVenPerfil().setVisible(true);
+			break;
+		}
+		
+		case "CLARO_MATCH": {
+			vf.getVenMatch().cambiarFondo("src/co/edu/unbosque/view/VentanaMatchClaro.PNG");
 
+			break;
+		}
+
+		case "OSCURO_MATCH": {
+			vf.getVenMatch().cambiarFondo("src/co/edu/unbosque/view/VentanaMatchOscuro.PNG");
+
+			break;
+		}
 		}
 	}
 }

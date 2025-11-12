@@ -42,7 +42,7 @@ public class VentanaMenuPrincipal extends JFrame {
 	}
 
 	public void inicializarComponentes() {
-		this.setTitle("Menu Principall");
+		this.setTitle("Menu Principal");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
