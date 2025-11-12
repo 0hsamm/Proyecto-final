@@ -49,6 +49,16 @@ public class Controller implements ActionListener {
 		prop = new Properties();
 		
 	}
+	
+	public void run() {
+		
+	    mf.getHombreDAO().mostrarIngresosMayorAMenor();
+	 
+	    for (Hombre h : mf.getHombreDAO().getListaHombres()) {
+	        System.out.println(h);
+	    }
+	}
+
 
 	public void runGUI() {
 		mainloop: while (true) {
@@ -96,8 +106,8 @@ public class Controller implements ActionListener {
 			vf.getVenInicioSesionAdmin().setProp(prop);
 			vf.getVenPerfil().setProp(prop);
 			vf.getVenMatch().setProp(prop);
-			vf.getVenMenu().setVisible(true);
-			//vf.getVenPrincipal().setVisible(true);
+			//vf.getVenMenu().setVisible(true);
+			vf.getVenPrincipal().setVisible(true);
 			//vf.getVenCRUD().setVisible(true);
 			//vf.getVenGenero().setVisible(true);
 			//vf.getVenRegistroMujer().setVisible(true);
