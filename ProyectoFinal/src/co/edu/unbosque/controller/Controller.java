@@ -51,48 +51,6 @@ public class Controller implements ActionListener {
 		prop = new Properties();
 		
 	}
-	
-	public void run() {
-		
-	    mf.getHombreDAO().mostrarIngresosMayorAMenor();
-	 
-	    for (Hombre h : mf.getHombreDAO().getListaHombres()) {
-	        System.out.println(h);
-	    }
-		 
-	    for (Mujer m : mf.getMujerDAO().getListaMujeres()) {
-	        System.out.println(m);
-	    }
-	    
-	    ArrayList<Usuario> todosLosLikes = new ArrayList<>();
-
-        for (Hombre h : mf.getHombreDAO().getListaHombres()) {
-            todosLosLikes.addAll(h.getLikesRecibidos());
-        }
-
-        for (Mujer m : mf.getMujerDAO().getListaMujeres()) {
-            todosLosLikes.addAll(m.getLikesRecibidos());
-        }
-
-        Usuario[] arrayLikes = todosLosLikes.toArray(new Usuario[0]);
-        
-        //Insertion
-        int n = arrayLikes.length;
-        for (int i = 1; i < n; i++) {
-            Usuario key = arrayLikes[i];
-            int j = i - 1;
-            while (j >= 0 && arrayLikes[j].getLikesRecibidos().size() < key.getLikesRecibidos().size()) {
-                arrayLikes[j + 1] = arrayLikes[j];
-                j--;
-            }
-            arrayLikes[j + 1] = key;
-        }
-
-        System.out.println("Likes (de mayor a menor):");
-        for (Usuario u : arrayLikes) {
-            System.out.println(u.getNombre() + " "+ u.getLikesRecibidos().size() + " likes");
-        }
-    }
 
 
 	public void runGUI() {
