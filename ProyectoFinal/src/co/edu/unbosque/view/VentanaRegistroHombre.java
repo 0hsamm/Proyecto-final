@@ -40,7 +40,7 @@ public class VentanaRegistroHombre extends JFrame {
 	private JLabel lblNombre;
 	private JLabel lblApellido;
 	private JLabel lblCorreo;
-	
+
 	private JLabel lblNacimiento;
 
 	private JLabel lblContrasenia;
@@ -49,30 +49,31 @@ public class VentanaRegistroHombre extends JFrame {
 	private JTextField textNombre;
 	private JTextField textApellido;
 	private JTextField textCorreo;
-		
+
 	private JPasswordField textContrasenia;
 
-	
 	private JTextField textAlias;
-	
+
 	// Hombre
 	private JLabel lblIngreso;
 	private JLabel lblEstatura;
 
 	private JTextField textIngreso;
 	private JTextField textEstatura;
-	
-	// Admin 
+
+	// Admin
 	private JLabel lblRegistro;
 	private JButton btnRegistro;
-	
-	//Otros
+
+	// Otros
 	private JButton btnSubirImagen;
 	private JCalendar calendario;
-	
-	
+
 	private Properties prop;
 	private String rutaFotoPerfil;
+
+	private JButton btnClaro;
+	private JButton btnOscuro;
 
 	public VentanaRegistroHombre() {
 
@@ -93,6 +94,28 @@ public class VentanaRegistroHombre extends JFrame {
 		this.pack();
 		this.setLocationRelativeTo(null);
 
+		btnOscuro = new JButton("");
+		btnOscuro.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
+		btnOscuro.setBounds(1071, 20, 110, 40);
+		btnOscuro.setForeground(Color.BLACK);
+		btnOscuro.setFocusPainted(true);
+		btnOscuro.setBorder(null);
+		btnOscuro.setOpaque(true);
+		btnOscuro.setBorderPainted(false);
+		btnOscuro.setContentAreaFilled(false);
+		this.add(btnOscuro);
+
+		btnClaro = new JButton("");
+		btnClaro.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
+		btnClaro.setBounds(1071, 86, 110, 40);
+		btnClaro.setForeground(Color.BLACK);
+		btnClaro.setFocusPainted(true);
+		btnClaro.setBorder(null);
+		btnClaro.setOpaque(true);
+		btnClaro.setBorderPainted(false);
+		btnClaro.setContentAreaFilled(false);
+		this.add(btnClaro);
+
 		titulo = new JLabel(prop.getProperty("bostinder.ventanaregistro.lbltitulo"));
 		titulo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 45));
 		titulo.setBounds(200, 20, 1200, 70);
@@ -109,7 +132,7 @@ public class VentanaRegistroHombre extends JFrame {
 		textNombre.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
 		textNombre.setBounds(76, 180, 260, 40);
 		textNombre.setForeground(Color.WHITE);
-		textNombre.setBackground(new Color(0,0,0));
+		textNombre.setBackground(new Color(0, 0, 0));
 		textNombre.setOpaque(true);
 		textNombre.setBorder(null);
 		this.add(textNombre);
@@ -124,23 +147,23 @@ public class VentanaRegistroHombre extends JFrame {
 		textCorreo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
 		textCorreo.setBounds(76, 262, 260, 40);
 		textCorreo.setForeground(Color.WHITE);
-		textCorreo.setBackground(new Color(0,0,0));
+		textCorreo.setBackground(new Color(0, 0, 0));
 		textCorreo.setOpaque(true);
 		textCorreo.setBorder(null);
 		this.add(textCorreo);
-		
-		//Fecha nacimiento
-		
+
+		// Fecha nacimiento
+
 		lblNacimiento = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblnacimiento"));
 		lblNacimiento.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
 		lblNacimiento.setBounds(90, 443, 1200, 70);
 		lblNacimiento.setForeground(Color.WHITE);
 		this.add(lblNacimiento);
-		
+
 		calendario = new JCalendar();
 		calendario.setBounds(76, 490, 295, 170);
 		this.add(calendario);
-		
+
 		lblContrasenia = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblcontrasenia"));
 		lblContrasenia.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
 		lblContrasenia.setBounds(90, 362, 1200, 70);
@@ -151,13 +174,13 @@ public class VentanaRegistroHombre extends JFrame {
 		textContrasenia.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
 		textContrasenia.setBounds(76, 420, 260, 40);
 		textContrasenia.setForeground(Color.WHITE);
-		textContrasenia.setBackground(new Color(0,0,0));
+		textContrasenia.setBackground(new Color(0, 0, 0));
 		textContrasenia.setOpaque(true);
 		textContrasenia.setBorder(null);
 		this.add(textContrasenia);
-		
-		//DERECHA
-		
+
+		// DERECHA
+
 		lblApellido = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblApellido"));
 		lblApellido.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
 		lblApellido.setBounds(480, 283, 1200, 70);
@@ -168,11 +191,11 @@ public class VentanaRegistroHombre extends JFrame {
 		textApellido.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
 		textApellido.setBounds(470, 340, 260, 40);
 		textApellido.setForeground(Color.WHITE);
-		textApellido.setBackground(new Color(0,0,0));
+		textApellido.setBackground(new Color(0, 0, 0));
 		textApellido.setOpaque(true);
 		textApellido.setBorder(null);
 		this.add(textApellido);
-		
+
 		lblAlias = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblalias"));
 		lblAlias.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
 		lblAlias.setBounds(90, 283, 1200, 70);
@@ -183,12 +206,12 @@ public class VentanaRegistroHombre extends JFrame {
 		textAlias.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
 		textAlias.setBounds(76, 340, 260, 40);
 		textAlias.setForeground(Color.WHITE);
-		textAlias.setBackground(new Color(0,0,0));
+		textAlias.setBackground(new Color(0, 0, 0));
 		textAlias.setOpaque(true);
 		textAlias.setBorder(null);
 		this.add(textAlias);
-		
-		//HOMBRE
+
+		// HOMBRE
 		lblIngreso = new JLabel(prop.getProperty("bostinder.ventanaregistroHombre.lblingresos"));
 		lblIngreso.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
 		lblIngreso.setBounds(480, 120, 1200, 70);
@@ -199,11 +222,11 @@ public class VentanaRegistroHombre extends JFrame {
 		textIngreso.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
 		textIngreso.setBounds(470, 180, 260, 40);
 		textIngreso.setForeground(Color.WHITE);
-		textIngreso.setBackground(new Color(0,0,0));
+		textIngreso.setBackground(new Color(0, 0, 0));
 		textIngreso.setOpaque(true);
 		textIngreso.setBorder(null);
 		this.add(textIngreso);
-		
+
 		lblEstatura = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblestatura"));
 		lblEstatura.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
 		lblEstatura.setBounds(480, 205, 1200, 70);
@@ -214,13 +237,12 @@ public class VentanaRegistroHombre extends JFrame {
 		textEstatura.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
 		textEstatura.setBounds(470, 263, 260, 40);
 		textEstatura.setForeground(Color.WHITE);
-		textEstatura.setBackground(new Color(0,0,0));
+		textEstatura.setBackground(new Color(0, 0, 0));
 		textEstatura.setOpaque(true);
 		textEstatura.setBorder(null);
 		this.add(textEstatura);
-		
-		
-		//Botones
+
+		// Botones
 		btnCrearCuenta = new JButton(prop.getProperty("bostinder.ventanaregistro.btnCrearCuenta"));
 		btnCrearCuenta.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 30));
 		btnCrearCuenta.setBounds(920, 605, 240, 30);
@@ -231,7 +253,7 @@ public class VentanaRegistroHombre extends JFrame {
 		btnCrearCuenta.setBorderPainted(false);
 		btnCrearCuenta.setContentAreaFilled(false);
 		this.add(btnCrearCuenta);
-		
+
 		btnVolver = new JButton("");
 		btnVolver.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
 		btnVolver.setBounds(26, 50, 135, 40);
@@ -243,8 +265,7 @@ public class VentanaRegistroHombre extends JFrame {
 		btnVolver.setContentAreaFilled(false);
 		btnVolver.setActionCommand("VOLVER_MENU_HOMBRE");
 		this.add(btnVolver);
-	
-		
+
 		btnSubirImagen = new JButton(prop.getProperty("bostinder.ventanaregistro.btnSubirImagen"));
 		btnSubirImagen.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 90));
 		btnSubirImagen.setBounds(1092, 467, 60, 60);
@@ -255,12 +276,12 @@ public class VentanaRegistroHombre extends JFrame {
 		btnSubirImagen.setBorderPainted(false);
 		btnSubirImagen.setContentAreaFilled(false);
 		this.add(btnSubirImagen);
-		
+
 		lblRegistro = new JLabel(prop.getProperty("bostinder.ventanaregistroadministrador.lblregistro"));
 		lblRegistro.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 15));
 		lblRegistro.setBounds(830, 25, 250, 30);
 		this.add(lblRegistro);
-		
+
 		btnRegistro = new JButton(prop.getProperty("bostinder.ventanaregistroadministrador.btnregistro"));
 		btnRegistro.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 13));
 		btnRegistro.setBounds(840, 72, 110, 25);
@@ -270,46 +291,54 @@ public class VentanaRegistroHombre extends JFrame {
 		btnRegistro.setBorder(null);
 		this.add(btnRegistro);
 		btnSubirImagen.addActionListener(e -> subirFotoPerfil());
-		
+
 	}
-	
+
+	public void cambiarFondo(String url) {
+		ImageIcon cambio = new ImageIcon(url);
+		Image escalar = cambio.getImage().getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
+
+		fondoRegistro.setIcon(new ImageIcon(escalar));
+		fondoRegistro.repaint();
+		fondoRegistro.revalidate();
+	}
+
 	public void subirFotoPerfil() {
-	    JFileChooser fileChooser = new JFileChooser();
-	    int resultado = fileChooser.showOpenDialog(this);
+		JFileChooser fileChooser = new JFileChooser();
+		int resultado = fileChooser.showOpenDialog(this);
 
-	    if (resultado == JFileChooser.APPROVE_OPTION) {
-	        File archivoOrigen = fileChooser.getSelectedFile();
+		if (resultado == JFileChooser.APPROVE_OPTION) {
+			File archivoOrigen = fileChooser.getSelectedFile();
 
-	        try {
-	            // Crear carpeta interna "perfiles" si no existe
-	            File carpetaDestino = new File("src/co/edu/unbosque/resources/perfiles/");
-	            if (!carpetaDestino.exists()) {
-	                carpetaDestino.mkdirs();
-	            }
+			try {
+				// Crear carpeta interna "perfiles" si no existe
+				File carpetaDestino = new File("src/co/edu/unbosque/resources/perfiles/");
+				if (!carpetaDestino.exists()) {
+					carpetaDestino.mkdirs();
+				}
 
-	            // Copiar imagen al proyecto con el mismo nombre
-	            File archivoDestino = new File(carpetaDestino, archivoOrigen.getName());
-	            Files.copy(archivoOrigen.toPath(), archivoDestino.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				// Copiar imagen al proyecto con el mismo nombre
+				File archivoDestino = new File(carpetaDestino, archivoOrigen.getName());
+				Files.copy(archivoOrigen.toPath(), archivoDestino.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-	            rutaFotoPerfil = archivoDestino.getPath(); // Guardar la ruta
-	            System.out.println("Imagen copiada en: " + rutaFotoPerfil);
-	            JOptionPane.showMessageDialog(this, "Imagen subida correctamente.");
+				rutaFotoPerfil = archivoDestino.getPath(); // Guardar la ruta
+				System.out.println("Imagen copiada en: " + rutaFotoPerfil);
+				JOptionPane.showMessageDialog(this, "Imagen subida correctamente.");
 
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	            JOptionPane.showMessageDialog(this, "Error al copiar la imagen.");
-	        }
-	    }
+			} catch (IOException e) {
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(this, "Error al copiar la imagen.");
+			}
+		}
 	}
-	
+
 	public Properties getProp() {
 		return prop;
 	}
-	
-	
+
 	public void setProp(Properties prop) {
-	    this.prop = prop;
-	    inicializarComponentes();
+		this.prop = prop;
+		inicializarComponentes();
 	}
 
 	public JButton getBtnVolver() {
@@ -416,8 +445,6 @@ public class VentanaRegistroHombre extends JFrame {
 		this.textCorreo = textCorreo;
 	}
 
-	
-
 	public JPasswordField getTextContrasenia() {
 		return textContrasenia;
 	}
@@ -481,13 +508,13 @@ public class VentanaRegistroHombre extends JFrame {
 	public void setCalendario(JCalendar calendario) {
 		this.calendario = calendario;
 	}
-	
+
 	public LocalDate getFechaSeleccionada() {
-	    Date date = calendario.getDate();
-	    if (date == null) {
-	        return null;
-	    }
-	    return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		Date date = calendario.getDate();
+		if (date == null) {
+			return null;
+		}
+		return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 	}
 
 	public JLabel getLblRegistro() {
@@ -529,8 +556,21 @@ public class VentanaRegistroHombre extends JFrame {
 	public void setRutaFotoPerfil(String rutaFotoPerfil) {
 		this.rutaFotoPerfil = rutaFotoPerfil;
 	}
-	
 
-	
-	
+	public JButton getBtnClaro() {
+		return btnClaro;
+	}
+
+	public void setBtnClaro(JButton btnClaro) {
+		this.btnClaro = btnClaro;
+	}
+
+	public JButton getBtnOscuro() {
+		return btnOscuro;
+	}
+
+	public void setBtnOscuro(JButton btnOscuro) {
+		this.btnOscuro = btnOscuro;
+	}
+
 }

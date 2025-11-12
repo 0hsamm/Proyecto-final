@@ -70,8 +70,11 @@ public class VentanaRegistroMujer extends JFrame {
 	private JCalendar calendario;
 
 	private Properties prop;
-    private String rutaFotoPerfil;
-	
+	private String rutaFotoPerfil;
+
+	private JButton btnClaro;
+	private JButton btnOscuro;
+
 	public VentanaRegistroMujer() {
 
 	}
@@ -90,6 +93,28 @@ public class VentanaRegistroMujer extends JFrame {
 		this.setContentPane(fondoRegistro);
 		this.pack();
 		this.setLocationRelativeTo(null);
+
+		btnOscuro = new JButton("");
+		btnOscuro.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
+		btnOscuro.setBounds(1071, 20, 110, 40);
+		btnOscuro.setForeground(Color.BLACK);
+		btnOscuro.setFocusPainted(true);
+		btnOscuro.setBorder(null);
+		btnOscuro.setOpaque(true);
+		btnOscuro.setBorderPainted(false);
+		btnOscuro.setContentAreaFilled(false);
+		this.add(btnOscuro);
+
+		btnClaro = new JButton("");
+		btnClaro.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
+		btnClaro.setBounds(1071, 86, 110, 40);
+		btnClaro.setForeground(Color.BLACK);
+		btnClaro.setFocusPainted(true);
+		btnClaro.setBorder(null);
+		btnClaro.setOpaque(true);
+		btnClaro.setBorderPainted(false);
+		btnClaro.setContentAreaFilled(false);
+		this.add(btnClaro);
 
 		titulo = new JLabel(prop.getProperty("bostinder.ventanaregistro.lbltitulo"));
 		titulo.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 45));
@@ -155,7 +180,7 @@ public class VentanaRegistroMujer extends JFrame {
 		this.add(textContrasenia);
 
 		// DERECHA
-		
+
 		lblApellido = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblApellido"));
 		lblApellido.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
 		lblApellido.setBounds(480, 283, 1200, 70);
@@ -166,7 +191,7 @@ public class VentanaRegistroMujer extends JFrame {
 		textApellido.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
 		textApellido.setBounds(470, 340, 260, 40);
 		textApellido.setForeground(Color.WHITE);
-		textApellido.setBackground(new Color(0,0,0));
+		textApellido.setBackground(new Color(0, 0, 0));
 		textApellido.setOpaque(true);
 		textApellido.setBorder(null);
 		this.add(textApellido);
@@ -265,37 +290,46 @@ public class VentanaRegistroMujer extends JFrame {
 		btnRegistro.setFocusPainted(false);
 		btnRegistro.setBorder(null);
 		this.add(btnRegistro);
-		
+
 		btnSubirImagen.addActionListener(e -> subirFotoPerfil());
 	}
 
+	public void cambiarFondo(String url) {
+		ImageIcon cambio = new ImageIcon(url);
+		Image escalar = cambio.getImage().getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
+
+		fondoRegistro.setIcon(new ImageIcon(escalar));
+		fondoRegistro.repaint();
+		fondoRegistro.revalidate();
+	}
+
 	public void subirFotoPerfil() {
-	    JFileChooser fileChooser = new JFileChooser();
-	    int resultado = fileChooser.showOpenDialog(this);
+		JFileChooser fileChooser = new JFileChooser();
+		int resultado = fileChooser.showOpenDialog(this);
 
-	    if (resultado == JFileChooser.APPROVE_OPTION) {
-	        File archivoOrigen = fileChooser.getSelectedFile();
+		if (resultado == JFileChooser.APPROVE_OPTION) {
+			File archivoOrigen = fileChooser.getSelectedFile();
 
-	        try {
-	            // Crear carpeta interna "perfiles" si no existe
-	            File carpetaDestino = new File("src/co/edu/unbosque/resources/perfiles/");
-	            if (!carpetaDestino.exists()) {
-	                carpetaDestino.mkdirs();
-	            }
+			try {
+				// Crear carpeta interna "perfiles" si no existe
+				File carpetaDestino = new File("src/co/edu/unbosque/resources/perfiles/");
+				if (!carpetaDestino.exists()) {
+					carpetaDestino.mkdirs();
+				}
 
-	            // Copiar imagen al proyecto con el mismo nombre
-	            File archivoDestino = new File(carpetaDestino, archivoOrigen.getName());
-	            Files.copy(archivoOrigen.toPath(), archivoDestino.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				// Copiar imagen al proyecto con el mismo nombre
+				File archivoDestino = new File(carpetaDestino, archivoOrigen.getName());
+				Files.copy(archivoOrigen.toPath(), archivoDestino.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-	            rutaFotoPerfil = archivoDestino.getPath(); // Guardar la ruta
-	            System.out.println("Imagen copiada en: " + rutaFotoPerfil);
-	            JOptionPane.showMessageDialog(this, "Imagen subida correctamente.");
+				rutaFotoPerfil = archivoDestino.getPath(); // Guardar la ruta
+				System.out.println("Imagen copiada en: " + rutaFotoPerfil);
+				JOptionPane.showMessageDialog(this, "Imagen subida correctamente.");
 
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	            JOptionPane.showMessageDialog(this, "Error al copiar la imagen.");
-	        }
-	    }
+			} catch (IOException e) {
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(this, "Error al copiar la imagen.");
+			}
+		}
 	}
 
 	public Properties getProp() {
@@ -411,7 +445,6 @@ public class VentanaRegistroMujer extends JFrame {
 		this.textCorreo = textCorreo;
 	}
 
-
 	public JPasswordField getTextContrasenia() {
 		return textContrasenia;
 	}
@@ -523,7 +556,21 @@ public class VentanaRegistroMujer extends JFrame {
 	public void setRutaFotoPerfil(String rutaFotoPerfil) {
 		this.rutaFotoPerfil = rutaFotoPerfil;
 	}
-	
-	
+
+	public JButton getBtnClaro() {
+		return btnClaro;
+	}
+
+	public void setBtnClaro(JButton btnClaro) {
+		this.btnClaro = btnClaro;
+	}
+
+	public JButton getBtnOscuro() {
+		return btnOscuro;
+	}
+
+	public void setBtnOscuro(JButton btnOscuro) {
+		this.btnOscuro = btnOscuro;
+	}
 
 }

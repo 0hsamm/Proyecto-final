@@ -18,6 +18,8 @@ public class VentanaMenuPrincipal extends JFrame {
 	private JButton btnConfirmar;
 	private JButton btnRegistro;
 	private JButton btnInicioSesionAdmin;
+	private JButton btnOscuro;
+	private JButton btnClaro;
 
 	private JLabel fondoMenu;
 	private ImageIcon fondo;
@@ -66,6 +68,28 @@ public class VentanaMenuPrincipal extends JFrame {
 		titulo2.setBounds(100, 300, 1200, 70);
 		titulo2.setForeground(Color.WHITE);
 		fondoMenu.add(titulo2);
+		
+		btnClaro = new JButton("");
+		btnClaro.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+		btnClaro.setBounds(928, 20, 110, 40);
+		btnClaro.setForeground(Color.BLACK);
+		btnClaro.setFocusPainted(true);
+		btnClaro.setBorder(null);
+		btnClaro.setOpaque(true);
+		btnClaro.setBorderPainted(false);
+		btnClaro.setContentAreaFilled(false);
+		fondoMenu.add(btnClaro);
+		
+		btnOscuro = new JButton("");
+		btnOscuro.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+		btnOscuro.setBounds(1071, 20, 110, 40);
+		btnOscuro.setForeground(Color.BLACK);
+		btnOscuro.setFocusPainted(true);
+		btnOscuro.setBorder(null);
+		btnOscuro.setOpaque(true);
+		btnOscuro.setBorderPainted(false);
+		btnOscuro.setContentAreaFilled(false);
+		fondoMenu.add(btnOscuro);
 
 		lblAlias = new JLabel(prop.getProperty("bostinder.ventanamenu.lblalias"));
 		lblAlias.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
@@ -130,6 +154,15 @@ public class VentanaMenuPrincipal extends JFrame {
 		btnRegistro.setBorder(null);
 		fondoMenu.add(btnRegistro);
 
+	}
+	
+	public void cambiarFondo (String url) {
+		ImageIcon cambio = new ImageIcon(url);
+		Image escalar = cambio.getImage().getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
+		
+		fondoMenu.setIcon(new ImageIcon(escalar));
+		fondoMenu.repaint();
+		fondoMenu.revalidate();
 	}
 
 	public JButton getBtnSalir() {
@@ -271,4 +304,21 @@ public class VentanaMenuPrincipal extends JFrame {
 		this.lblContrasenia = lblContrasenia;
 	}
 
+	public JButton getBtnOscuro() {
+		return btnOscuro;
+	}
+
+	public void setBtnOscuro(JButton btnOscuro) {
+		this.btnOscuro = btnOscuro;
+	}
+
+	public JButton getBtnClaro() {
+		return btnClaro;
+	}
+
+	public void setBtnClaro(JButton btnClaro) {
+		this.btnClaro = btnClaro;
+	}
+	
+	
 }
