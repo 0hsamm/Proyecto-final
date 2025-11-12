@@ -1186,6 +1186,7 @@ public class Controller implements ActionListener {
 	                super.setValue(value);
 	            }
 	        }
+	        
 	    });
 	}
 }

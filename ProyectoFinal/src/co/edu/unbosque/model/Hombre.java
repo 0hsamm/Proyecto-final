@@ -75,6 +75,8 @@ public class Hombre extends Usuario implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
+	
+	
 
 	public int getPromedioIngMensual() {
 		return promedioIngMensual;
