@@ -84,8 +84,8 @@ public class LanzadorDeExcepcion {
     }
     
     public static void verificarFoto(String url) throws InvalidPhotoException {
-    	/*
-    	if(url == null || url.trim().isEmpty()) {
+    	
+    	/*if(url == null || url.trim().isEmpty()) {
     		throw new InvalidPhotoException();
     	}
     */}
