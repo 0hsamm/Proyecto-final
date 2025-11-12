@@ -14,10 +14,20 @@ public class HombreDAO implements DAO<HombreDTO>{
 	private final String SERIAL_FILE_NAME = "Hombre.bin";
 	
 	public HombreDAO() {
-		listaHombres = new ArrayList<Hombre>();
-		cargarDesdeArchivoSerializado();
-		leerDesdeArchivoDeTexto(FILE_NAME);
-		
+	    listaHombres = new ArrayList<>();
+	    cargarDesdeArchivoSerializado();
+
+	    // Fallback si vinieron nulos desde el .bin
+	    boolean camposNulos = listaHombres.stream()
+	        .anyMatch(h -> h == null || h.getAlias() == null || h.getContrasena() == null);
+
+	    if (listaHombres.isEmpty() || camposNulos) {
+	        System.out.println("[WARN] BIN inválido o con campos nulos. Cargando desde CSV...");
+	        listaHombres.clear();
+	        leerDesdeArchivoDeTexto(FILE_NAME);       // <-- tu método existente
+	        escribirEnArchivoSerializado();           // <-- re-serializa con el modelo actual
+	        System.out.println("[INFO] Rehidratación OK: " + listaHombres.size() + " hombres.");
+	    }
 	}
 	
 	@Override
@@ -77,63 +87,128 @@ public class HombreDAO implements DAO<HombreDTO>{
 
 	@Override
 	public void leerDesdeArchivoDeTexto(String url) {
-		String contenido = FileHandler.leerDesdeArchivoDeTexto(url);
-		if(contenido == null || contenido.isBlank()) {
-			System.out.println("archivo vacio");
-			return;
-		}else {
-			String[] filas = contenido.split("\n");
-			for (int i = 0; i < filas.length; i++) {
-				if(filas[i].trim().isEmpty()) continue;
-				
-				String[] columna = filas[i].split(";");
-				if(columna.length < 14) {
-					System.out.println("Línea inválida en archivo de Hombres: " + filas[i]);
-					continue;
-				}
-				Hombre temp = new Hombre();
-				temp.setNombre(columna[0]);
-				temp.setApellido(columna[1]);;
-				temp.setEmail(columna[2]);
-				temp.setContrasena(columna[3]);
-				temp.setFechaNacimiento(LocalDate.parse(columna[4]));
-				temp.setGenero(columna[5]);
-				temp.setEsAdministrador(Boolean.parseBoolean(columna[6]));
-				temp.setEstaDisponible(Boolean.parseBoolean(columna[7]));
-				temp.setAlias(columna[8]);
-				temp.setURLFoto(columna[9]);
-				temp.setEsIncognito(Boolean.parseBoolean(columna[10]));
-				temp.setNumLikes(Integer.parseInt(columna[11]));
-				temp.setPromedioIngMensual(Integer.parseInt(columna[12]));
-				temp.setEstatura(Double.parseDouble(columna[13]));
-				
-				listaHombres.add(temp);
-			}
-		}
-		
+	    String contenido = FileHandler.leerDesdeArchivoDeTexto(url);
+
+	    if (contenido == null || contenido.isBlank()) {
+	        System.out.println("[INFO] Archivo de Hombres vacío o inexistente.");
+	        return;
+	    }
+
+	    String[] filas = contenido.split("\n");
+	    int linea = 0;
+
+	    for (String fila : filas) {
+	        linea++;
+	        if (fila.trim().isEmpty()) continue; // Salta líneas vacías
+
+	        try {
+	            // Mantiene campos vacíos con split -1
+	            String[] columna = fila.split(";", -1);
+	            if (columna.length < 14) {
+	                System.err.println("[WARN] Línea " + linea + " inválida (faltan columnas): " + fila);
+	                continue;
+	            }
+
+	            // Validar campos básicos
+	            String nombre = columna[0].trim();
+	            String apellido = columna[1].trim();
+	            String email = columna[2].trim();
+	            String contrasena = columna[3] == null ? "" : columna[3].trim();
+
+	            //  Si la contraseña no cumple, salta la fila
+	            if (contrasena.isEmpty() || contrasena.length() < 6) {
+	                System.err.println("[WARN] Línea " + linea + " omitida (contraseña inválida): " + contrasena);
+	                continue;
+	            }
+
+	            Hombre temp = new Hombre();
+	            temp.setNombre(nombre);
+	            temp.setApellido(apellido);
+	            temp.setEmail(email);
+	            temp.setContrasena(contrasena);
+
+	            try {
+	                temp.setFechaNacimiento(LocalDate.parse(columna[4].trim()));
+	            } catch (Exception e) {
+	                System.err.println("[WARN] Línea " + linea + " - Fecha inválida, usando fecha actual.");
+	                temp.setFechaNacimiento(LocalDate.now());
+	            }
+
+	            temp.setGenero(columna[5].trim());
+	            temp.setEsAdministrador(Boolean.parseBoolean(columna[6].trim()));
+	            temp.setEstaDisponible(Boolean.parseBoolean(columna[7].trim()));
+	            temp.setAlias(columna[8].trim());
+
+	            try {
+	                temp.setURLFoto(columna[9].trim());
+	            } catch (Exception e) {
+	                System.err.println("[WARN] Línea " + linea + " - URL foto inválida, se deja vacía.");
+	                temp.setURLFoto("default.jpg");
+	            }
+
+	            temp.setEsIncognito(Boolean.parseBoolean(columna[10].trim()));
+
+	            try {
+	                temp.setNumLikes(Integer.parseInt(columna[11].trim()));
+	            } catch (Exception e) {
+	                temp.setNumLikes(0);
+	            }
+
+	            try {
+	                temp.setPromedioIngMensual(Integer.parseInt(columna[12].trim()));
+	            } catch (Exception e) {
+	                temp.setPromedioIngMensual(0);
+	            }
+
+	            try {
+	                temp.setEstatura(Double.parseDouble(columna[13].trim()));
+	            } catch (Exception e) {
+	                temp.setEstatura(0);
+	            }
+
+	            listaHombres.add(temp);
+
+	        } catch (Exception e) {
+	            System.err.println("[WARN] Error al procesar línea " + linea + ": " + e.getMessage());
+	            // No lanzamos excepción, solo saltamos la línea
+	        }
+	    }
+
+	    System.out.println("[INFO] Archivo de Hombres cargado correctamente. Total: " + listaHombres.size());
 	}
 
 	@Override
 	public void escribirEnArchivoDeTexto() {
-		StringBuilder sb = new StringBuilder();
-		for (Hombre hombre : listaHombres) {
-			sb.append(hombre.getNombre() + ";");
-			sb.append(hombre.getApellido() + ";");
-			sb.append(hombre.getEmail() + ";");
-			sb.append(hombre.getContrasena() + ";");
-			sb.append(hombre.getFechaNacimiento() + ";");
-			sb.append(hombre.getGenero() + ";");
-			sb.append(hombre.isEsAdministrador() + ";");
-			sb.append(hombre.isEstaDisponible() + ";");
-			sb.append(hombre.getAlias() + ";");
-			sb.append(hombre.getURLfoto() + ";");
-			sb.append(hombre.isEsIncognito() + ";");
-			sb.append(hombre.getNumLikes() + ";");
-			sb.append(hombre.getPromedioIngMensual() + ";");
-			sb.append(hombre.getEstatura() + "\n");
-		}
-		FileHandler.escribirEnArchivoDeTexto(FILE_NAME, sb.toString());
-		
+	    StringBuilder sb = new StringBuilder();
+
+	    for (Hombre h : listaHombres) {
+	        String pass = (h.getContrasena() == null) ? "" : h.getContrasena();
+	        String fecha = (h.getFechaNacimiento() == null) ? "" : h.getFechaNacimiento().toString();
+
+	        String nombre   = (h.getNombre() == null) ? "" : h.getNombre();
+	        String apellido = (h.getApellido() == null) ? "" : h.getApellido();
+	        String email    = (h.getEmail() == null) ? "" : h.getEmail();
+	        String genero   = (h.getGenero() == null) ? "" : h.getGenero();
+	        String alias    = (h.getAlias() == null) ? "" : h.getAlias();
+	        String urlFoto  = (h.getURLfoto() == null) ? "" : h.getURLfoto();
+
+	        sb.append(nombre).append(';');
+	        sb.append(apellido).append(';');
+	        sb.append(email).append(';');
+	        sb.append(pass).append(';');
+	        sb.append(fecha).append(';');
+	        sb.append(genero).append(';');
+	        sb.append(h.isEsAdministrador()).append(';');
+	        sb.append(h.isEstaDisponible()).append(';');
+	        sb.append(alias).append(';');
+	        sb.append(urlFoto).append(';');
+	        sb.append(h.isEsIncognito()).append(';');
+	        sb.append(h.getNumLikes()).append(';');
+	        sb.append(h.getPromedioIngMensual()).append(';');
+	        sb.append(h.getEstatura()).append('\n');
+	    }
+
+	    FileHandler.escribirEnArchivoDeTexto(FILE_NAME, sb.toString());
 	}
 
 	 @SuppressWarnings("unchecked")

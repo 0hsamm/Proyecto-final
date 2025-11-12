@@ -47,6 +47,7 @@ public class Controller implements ActionListener {
 		vf = new ViewFacade();
 		mf = new ModelFacade();
 		prop = new Properties();
+		
 	}
 
 	public void runGUI() {
@@ -227,6 +228,9 @@ public class Controller implements ActionListener {
 
 		vf.getVenPrincipal().getBtnOscuro().addActionListener(this);
 		vf.getVenPrincipal().getBtnOscuro().setActionCommand("OSCURO_PRINCIPAL");
+		
+		vf.getVenPrincipal().getBtnLike().addActionListener(this);
+		vf.getVenPrincipal().getBtnDislike().addActionListener(this);
 
 		// VENTANA PERFIL 1
 		vf.getVenPerfil().getBtnMatch().addActionListener(this);
@@ -282,133 +286,74 @@ public class Controller implements ActionListener {
 				boolean encontrado = false;
 
 				// LOGIN HOMBRE
+				System.out.println("Hombres cargados: " + mf.getHombreDAO().getListaHombres().size());
+				System.out.println("Mujeres cargadas: " + mf.getMujerDAO().getListaMujeres().size());
+				// LOGIN HOMBRE
 				for (Hombre h : mf.getHombreDAO().getListaHombres()) {
-					if (h == null)
-						continue;
+				    if (h == null) continue;
 
-					if (h.getAlias() != null && h.getContrasena() != null && h.getAlias().equalsIgnoreCase(alias)
-							&& h.getContrasena().equals(contrasena)) {
+				    String aliasDB = (h.getAlias() == null) ? null : h.getAlias().trim();
+				    String passDB  = (h.getContrasena() == null) ? null : h.getContrasena().trim();
 
-						JOptionPane.showMessageDialog(null, "Bienvenido " + h.getNombre());
-						mf.setUsuarioActual(h);
+				    // DIAGNÓSTICO (temporal): ver exactamente qué comparamos
+				    System.out.println("[DEBUG] Hombre-> aliasDB='" + aliasDB + "', passLen=" + (passDB==null? -1 : passDB.length()));
 
-						vf.getVenMenu().setVisible(false);
-						vf.getVenPrincipal().setVisible(true);
-						vf.getVenPrincipal().setLocationRelativeTo(null);
+				    boolean aliasOK = (aliasDB != null) && aliasDB.equalsIgnoreCase(alias);
+				    boolean passOK  = (passDB  != null) && passDB.equals(contrasena);
 
-						// Tabla: mostrar solo mujeres
-						DefaultTableModel modelo = (DefaultTableModel) vf.getVenPrincipal().getTablaUsuarios()
-								.getModel();
-						String[] columnas = { "Foto", "Nombre", "Alias", "Correo", "Edad", "Estatura (cm)",
-								"Divorciada", "Likes" };
-						modelo.setColumnIdentifiers(columnas);
-						modelo.setRowCount(0);
+				    if (aliasOK && passOK) {
+				        JOptionPane.showMessageDialog(null, "Bienvenido " + h.getNombre());
+				        mf.setUsuarioActual(h);
 
-						for (Mujer mu : mf.getMujerDAO().getListaMujeres()) {
-							if (mu == null || mu.getAlias() == null)
-								continue;
+				        vf.getVenMenu().setVisible(false);
+				        vf.getVenPrincipal().setVisible(true);
+				        vf.getVenPrincipal().setLocationRelativeTo(null);
 
-							// Evitar mostrar el propio perfil
-							if (mu.getAlias().equalsIgnoreCase(h.getAlias()))
-								continue;
+				        // centraliza el llenado del feed (recomendado)
+				        cargarFeedPara(mf.getUsuarioActual());
 
-							ImageIcon icon;
-							try {
-								Image img = new ImageIcon(mu.getURLfoto()).getImage().getScaledInstance(60, 60,
-										Image.SCALE_SMOOTH);
-								icon = new ImageIcon(img);
-							} catch (Exception e1) {
-								icon = new ImageIcon(new BufferedImage(60, 60, BufferedImage.TYPE_INT_ARGB));
-							}
-
-							modelo.addRow(new Object[] { icon, mu.getNombre() + " " + mu.getApellido(), mu.getAlias(),
-									mu.getEmail(), Period.between(mu.getFechaNacimiento(), LocalDate.now()).getYears(),
-									mu.getEstatura(), mu.isEsDivorciada() ? "Sí" : "No", mu.getNumLikes() });
-						}
-
-						vf.getVenPrincipal().getTablaUsuarios().setRowHeight(60);
-						vf.getVenPrincipal().getTablaUsuarios().getColumnModel().getColumn(0)
-								.setCellRenderer(new DefaultTableCellRenderer() {
-									@Override
-									public void setValue(Object value) {
-										if (value instanceof ImageIcon) {
-											setIcon((ImageIcon) value);
-											setText("");
-										} else {
-											super.setValue(value);
-										}
-									}
-								});
-
-						encontrado = true;
-						break;
-					}
+				        encontrado = true;
+				        break;
+				    } else {
+				        // MÁS DIAGNÓSTICO (temporal)
+				        if (!aliasOK) System.out.println("[DEBUG] Alias no coincide (input='" + alias + "')");
+				        if (!passOK)  System.out.println("[DEBUG] Contraseña no coincide (inputLen=" + contrasena.length() + ")");
+				    }
 				}
 
 				// LOGIN MUJER
 				if (!encontrado) {
-					for (Mujer m : mf.getMujerDAO().getListaMujeres()) {
-						if (m == null)
-							continue;
+				    for (Mujer m : mf.getMujerDAO().getListaMujeres()) {
+				        if (m == null) continue;
 
-						if (m.getAlias() != null && m.getContrasena() != null && m.getAlias().equalsIgnoreCase(alias)
-								&& m.getContrasena().equals(contrasena)) {
+				        String aliasDB = (m.getAlias() == null) ? null : m.getAlias().trim();
+				        String passDB  = (m.getContrasena() == null) ? null : m.getContrasena().trim();
 
-							JOptionPane.showMessageDialog(null, "Bienvenida " + m.getNombre());
-							mf.setUsuarioActual(m);
+				        // DIAGNÓSTICO (temporal)
+				        System.out.println("[DEBUG] Mujer-> aliasDB='" + aliasDB + "', passLen=" + (passDB==null? -1 : passDB.length()));
 
-							vf.getVenMenu().setVisible(false);
-							vf.getVenPrincipal().setVisible(true);
-							vf.getVenPrincipal().setLocationRelativeTo(null);
+				        boolean aliasOK = (aliasDB != null) && aliasDB.equalsIgnoreCase(alias);
+				        boolean passOK  = (passDB  != null) && passDB.equals(contrasena);
 
-							// Tabla: mostrar solo hombres
-							DefaultTableModel modelo = (DefaultTableModel) vf.getVenPrincipal().getTablaUsuarios()
-									.getModel();
-							String[] columnas = { "Foto", "Nombre", "Alias", "Correo", "Edad", "Estatura (cm)",
-									"Ingresos", "Likes" };
-							modelo.setColumnIdentifiers(columnas);
-							modelo.setRowCount(0);
+				        if (aliasOK && passOK) {
+				            JOptionPane.showMessageDialog(null, "Bienvenida " + m.getNombre());
+				            mf.setUsuarioActual(m);
 
-							for (Hombre ho : mf.getHombreDAO().getListaHombres()) {
-								if (ho == null || ho.getAlias() == null)
-									continue;
-								if (ho.getAlias().equalsIgnoreCase(m.getAlias()))
-									continue;
+				            vf.getVenMenu().setVisible(false);
+				            vf.getVenPrincipal().setVisible(true);
+				            vf.getVenPrincipal().setLocationRelativeTo(null);
 
-								ImageIcon icon;
-								try {
-									Image img = new ImageIcon(ho.getURLfoto()).getImage().getScaledInstance(60, 60,
-											Image.SCALE_SMOOTH);
-									icon = new ImageIcon(img);
-								} catch (Exception e1) {
-									icon = new ImageIcon(new BufferedImage(60, 60, BufferedImage.TYPE_INT_ARGB));
-								}
+				            cargarFeedPara(mf.getUsuarioActual());
 
-								modelo.addRow(new Object[] { icon, ho.getNombre() + " " + ho.getApellido(),
-										ho.getAlias(), ho.getEmail(),
-										Period.between(ho.getFechaNacimiento(), LocalDate.now()).getYears(),
-										ho.getEstatura(), ho.getPromedioIngMensual(), ho.getNumLikes() });
-							}
-
-							vf.getVenPrincipal().getTablaUsuarios().setRowHeight(60);
-							vf.getVenPrincipal().getTablaUsuarios().getColumnModel().getColumn(0)
-									.setCellRenderer(new DefaultTableCellRenderer() {
-										@Override
-										public void setValue(Object value) {
-											if (value instanceof ImageIcon) {
-												setIcon((ImageIcon) value);
-												setText("");
-											} else {
-												super.setValue(value);
-											}
-										}
-									});
-
-							encontrado = true;
-							break;
-						}
-					}
+				            encontrado = true;
+				            break;
+				        } else {
+				            if (!aliasOK) System.out.println("[DEBUG] Alias no coincide (input='" + alias + "')");
+				            if (!passOK)  System.out.println("[DEBUG] Contraseña no coincide (inputLen=" + contrasena.length() + ")");
+				        }
+				    }
 				}
+
 
 				if (!encontrado) {
 					JOptionPane.showMessageDialog(null, "Alias o contraseña incorrectos.");
@@ -422,161 +367,128 @@ public class Controller implements ActionListener {
 		}
 
 		case "DAR_LIKE": {
-			try {
-				Usuario usuarioActual = mf.getUsuarioActual();
+		    try {
+		        Usuario usuarioActual = mf.getUsuarioActual();
+		        if (usuarioActual == null) {
+		            JOptionPane.showMessageDialog(null, "Debe iniciar sesión antes de dar like.");
+		            break;
+		        }
 
-				if (usuarioActual == null) {
-					JOptionPane.showMessageDialog(null, "Debe iniciar sesión antes de dar like.");
-					break;
-				}
+		        int fila = vf.getVenPrincipal().getTablaUsuarios().getSelectedRow();
+		        if (fila == -1) {
+		            JOptionPane.showMessageDialog(null, "Seleccione una persona de la tabla para dar like ❤️");
+		            break;
+		        }
 
-				int filaSeleccionada = vf.getVenPrincipal().getTablaUsuarios().getSelectedRow();
+		        // Columna 2 = Alias (según tu tabla)
+		        String aliasSeleccionado = (String) vf.getVenPrincipal()
+		                .getTablaUsuarios().getValueAt(fila, 2);
 
-				if (filaSeleccionada == -1) {
-					JOptionPane.showMessageDialog(null, "Seleccione una persona de la tabla para dar like ❤️");
-					break;
-				}
+		        // Evitar auto-like
+		        if (usuarioActual.getAlias() != null &&
+		            usuarioActual.getAlias().equalsIgnoreCase(aliasSeleccionado)) {
+		            JOptionPane.showMessageDialog(null, "No puedes darte like a ti mismo.");
+		            break;
+		        }
 
-				String aliasSeleccionado = (String) vf.getVenPrincipal().getTablaUsuarios().getValueAt(filaSeleccionada,
-						2);
-				Usuario receptor = null;
+		        Usuario receptor = buscarUsuarioPorAlias(aliasSeleccionado);
+		        if (receptor == null) {
+		            JOptionPane.showMessageDialog(null, "No se encontró el usuario seleccionado.");
+		            break;
+		        }
 
-				// Buscar si es hombre
-				for (Hombre h : mf.getHombreDAO().getListaHombres()) {
-					if (h.getAlias().equalsIgnoreCase(aliasSeleccionado)) {
-						receptor = h;
-						break;
-					}
-				}
+		        // Evitar likes repetidos (con equals/hashCode por alias ya funciona bien)
+		        if (usuarioActual.getLikesDados() != null && usuarioActual.getLikesDados().contains(receptor)) {
+		            JOptionPane.showMessageDialog(null, "Ya le has dado like a " + receptor.getNombre());
+		            break;
+		        }
 
-				// Buscar si es mujer
-				if (receptor == null) {
-					for (Mujer m : mf.getMujerDAO().getListaMujeres()) {
-						if (m.getAlias().equalsIgnoreCase(aliasSeleccionado)) {
-							receptor = m;
-							break;
-						}
-					}
-				}
+		        // LÓGICA: delega en Usuario (ahora devuelve true si hay MATCH)
+		        boolean huboMatch = usuarioActual.darLike(receptor);
 
-				if (receptor == null) {
-					JOptionPane.showMessageDialog(null, "No se encontró el usuario seleccionado.");
-					break;
-				}
+		        // Persistir emisor y receptor (pueden estar en DAOs distintos)
+		        persistirUsuario(usuarioActual);
+		        persistirUsuario(receptor);
 
-				// Evitar likes repetidos
-				if (usuarioActual.getLikesDados().contains(receptor)) {
-					JOptionPane.showMessageDialog(null, "Ya le has dado like a " + receptor.getNombre());
-					break;
-				}
+		        if (huboMatch) {
+		            JOptionPane.showMessageDialog(null, "¡Es un match con " + receptor.getAlias() + "! 🎉");
+		            // TODO: opcional abrir chat o marcar badge de match
+		        } else {
+		            JOptionPane.showMessageDialog(null, "Le diste like a " + receptor.getNombre() + " 💘");
+		        }
 
-				// Registrar like
-				usuarioActual.getLikesDados().add(receptor);
-				receptor.getLikesRecibidos().add(usuarioActual);
+		        // Refrescar columna de likes (última columna)
+		        DefaultTableModel modelo = (DefaultTableModel) vf.getVenPrincipal().getTablaUsuarios().getModel();
+		        modelo.setValueAt(receptor.getNumLikes(), fila, modelo.getColumnCount() - 1);
+		        modelo.fireTableDataChanged();
 
-				// Aumentar contador
-				receptor.setNumLikes(receptor.getNumLikes() + 1);
-				System.out.println("likes ahora: " + receptor.getNumLikes());
-				JOptionPane.showMessageDialog(null, "Le diste like a " + receptor.getNombre() + " 💘");
+		        // Opcional: refrescarFeed(); // para ocultar ya-likeados o matches
 
-				// Guardar en DAO correspondiente usando DTO
-				if (receptor instanceof Hombre) {
-					Hombre h = (Hombre) receptor;
-					int index = mf.getHombreDAO().getListaHombres().indexOf(h);
-					if (index >= 0) {
-						HombreDTO dto = DataMapper.convertirHombreAHombreDTO(h);
-						mf.getHombreDAO().update(index, dto);
-					}
-				} else if (receptor instanceof Mujer) {
-					Mujer m = (Mujer) receptor;
-					int index = mf.getMujerDAO().getListaMujeres().indexOf(m);
-					if (index >= 0) {
-						MujerDTO dto = DataMapper.convertirMujerAMujerDTO(m);
-						mf.getMujerDAO().update(index, dto);
-					}
-				}
-
-				// Refrescar tabla
-				DefaultTableModel modelo = (DefaultTableModel) vf.getVenPrincipal().getTablaUsuarios().getModel();
-				modelo.setValueAt(receptor.getNumLikes(), filaSeleccionada, modelo.getColumnCount() - 1);
-				modelo.fireTableDataChanged();
-
-			} catch (Exception e1) {
-				e1.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Error al dar like: " + e1.getMessage());
-			}
-			break;
+		    } catch (Exception e1) {
+		        e1.printStackTrace();
+		        JOptionPane.showMessageDialog(null, "Error al dar like: " + e1.getMessage());
+		    }
+		    break;
 		}
 
 		case "DAR_DISLIKE": {
-			try {
-				Usuario usuarioActual = mf.getUsuarioActual();
+		    try {
+		        Usuario usuarioActual = mf.getUsuarioActual();
+		        if (usuarioActual == null) {
+		            JOptionPane.showMessageDialog(null, "Debe iniciar sesión antes de dar dislike.");
+		            break;
+		        }
 
-				if (usuarioActual == null) {
-					JOptionPane.showMessageDialog(null, "Debe iniciar sesión antes de dar dislike.");
-					break;
-				}
+		        int fila = vf.getVenPrincipal().getTablaUsuarios().getSelectedRow();
+		        if (fila == -1) {
+		            JOptionPane.showMessageDialog(null, "Seleccione una persona de la tabla para quitar like");
+		            break;
+		        }
 
-				int filaSeleccionada = vf.getVenPrincipal().getTablaUsuarios().getSelectedRow();
+		        String aliasSeleccionado = (String) vf.getVenPrincipal()
+		                .getTablaUsuarios().getValueAt(fila, 2);
 
-				if (filaSeleccionada == -1) {
-					JOptionPane.showMessageDialog(null, "Seleccione una persona de la tabla para quitar like");
-					break;
-				}
+		        // Evitar auto-dislike
+		        if (usuarioActual.getAlias() != null &&
+		            usuarioActual.getAlias().equalsIgnoreCase(aliasSeleccionado)) {
+		            JOptionPane.showMessageDialog(null, "No puedes darte dislike a ti mismo.");
+		            break;
+		        }
 
-				// Obtener alias del usuario seleccionado (columna 2 = Alias)
-				String aliasSeleccionado = (String) vf.getVenPrincipal().getTablaUsuarios().getValueAt(filaSeleccionada,
-						2);
+		        Usuario receptor = buscarUsuarioPorAlias(aliasSeleccionado);
+		        if (receptor == null) {
+		            JOptionPane.showMessageDialog(null, "No se encontró el usuario seleccionado");
+		            break;
+		        }
 
-				Usuario receptor = null;
+		        // Si no le habías dado like, no hay nada que quitar
+		        if (usuarioActual.getLikesDados() == null || !usuarioActual.getLikesDados().contains(receptor)) {
+		            JOptionPane.showMessageDialog(null, "No le habías dado like a " + receptor.getNombre());
+		            break;
+		        }
 
-				// Buscar entre hombres
-				for (Hombre h : mf.getHombreDAO().getListaHombres()) {
-					if (h.getAlias().equalsIgnoreCase(aliasSeleccionado)) {
-						receptor = h;
-						break;
-					}
-				}
+		        // LÓGICA: dislike (quita like y rompe match si existía)
+		        usuarioActual.darDislike(receptor);
 
-				// Si no está en hombres, buscar entre mujeres
-				if (receptor == null) {
-					for (Mujer m : mf.getMujerDAO().getListaMujeres()) {
-						if (m.getAlias().equalsIgnoreCase(aliasSeleccionado)) {
-							receptor = m;
-							break;
-						}
-					}
-				}
+		        // Persistir ambos
+		        persistirUsuario(usuarioActual);
+		        persistirUsuario(receptor);
 
-				if (receptor == null) {
-					JOptionPane.showMessageDialog(null, "No se encontró el usuario seleccionado");
-					break;
-				}
+		        JOptionPane.showMessageDialog(null, "Le quitaste el like a " + receptor.getNombre());
 
-				// Verificar si el usuario actual ya le había dado like
-				if (!usuarioActual.getLikesDados().contains(receptor)) {
-					JOptionPane.showMessageDialog(null, "No le habías dado like a " + receptor.getNombre());
-					break;
-				}
+		        // Actualizar columna de likes
+		        DefaultTableModel modelo = (DefaultTableModel) vf.getVenPrincipal().getTablaUsuarios().getModel();
+		        modelo.setValueAt(receptor.getNumLikes(), fila, modelo.getColumnCount() - 1);
+		        modelo.fireTableDataChanged();
 
-				// Quitar el like
-				usuarioActual.getLikesDados().remove(receptor);
-				receptor.getLikesRecibidos().remove(usuarioActual);
+		        // Opcional UX: remover fila del feed si no quieres volverlo a ver
+		        // ((DefaultTableModel) vf.getVenPrincipal().getTablaUsuarios().getModel()).removeRow(fila);
 
-				// Disminuir contador de likes, evitando valores negativos
-				receptor.setNumLikes(Math.max(0, receptor.getNumLikes() - 1));
-
-				JOptionPane.showMessageDialog(null, "Le quitaste el like a " + receptor.getNombre());
-
-				// Refrescar valor de la columna de likes en la tabla
-				DefaultTableModel modelo = (DefaultTableModel) vf.getVenPrincipal().getTablaUsuarios().getModel();
-				modelo.setValueAt(receptor.getNumLikes(), filaSeleccionada, modelo.getColumnCount() - 1);
-
-			} catch (Exception e1) {
-				e1.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Error al quitar like: " + e1.getMessage());
-			}
-			break;
+		    } catch (Exception e1) {
+		        e1.printStackTrace();
+		        JOptionPane.showMessageDialog(null, "Error al quitar like: " + e1.getMessage());
+		    }
+		    break;
 		}
 
 		case "REGISTRATE_AQUI": {
@@ -1099,5 +1011,163 @@ public class Controller implements ActionListener {
 			break;
 		}
 		}
+	}
+	//metodos auxiliares
+	// Busca un usuario por alias revisando primero hombres y luego mujeres
+	private Usuario buscarUsuarioPorAlias(String alias) {
+	    if (alias == null) return null;
+	    for (Hombre h : mf.getHombreDAO().getListaHombres()) {
+	        if (h.getAlias() != null && h.getAlias().equalsIgnoreCase(alias)) return h;
+	    }
+	    for (Mujer m : mf.getMujerDAO().getListaMujeres()) {
+	        if (m.getAlias() != null && m.getAlias().equalsIgnoreCase(alias)) return m;
+	    }
+	    return null;
+	}
+
+	// Persiste un usuario en su DAO correspondiente (actualiza + serializa)
+	private void persistirUsuario(Usuario u) {
+	    if (u instanceof Hombre) {
+	        Hombre h = (Hombre) u;
+	        int idx = mf.getHombreDAO().getListaHombres().indexOf(h);
+	        if (idx >= 0) {
+	            HombreDTO dto = DataMapper.convertirHombreAHombreDTO(h);
+	            mf.getHombreDAO().update(idx, dto);
+	        }
+	        mf.getHombreDAO().escribirEnArchivoSerializado(); // SOLO BIN
+	    } else if (u instanceof Mujer) {
+	        Mujer m = (Mujer) u;
+	        int idx = mf.getMujerDAO().getListaMujeres().indexOf(m);
+	        if (idx >= 0) {
+	            MujerDTO dto = DataMapper.convertirMujerAMujerDTO(m);
+	            mf.getMujerDAO().update(idx, dto);
+	        }
+	        mf.getMujerDAO().escribirEnArchivoSerializado();  // SOLO BIN
+	    }
+	}
+	
+	
+	private boolean resetearContrasena(String aliasOEmail, String nuevaClave) {
+	    if (aliasOEmail == null || nuevaClave == null || nuevaClave.trim().length() < 6) return false;
+	    String key = aliasOEmail.trim();
+
+	    // Buscar en Hombres
+	    for (Hombre h : mf.getHombreDAO().getListaHombres()) {
+	        if ((h.getAlias() != null && h.getAlias().equalsIgnoreCase(key)) ||
+	            (h.getEmail() != null && h.getEmail().equalsIgnoreCase(key))) {
+	            h.setContrasena(nuevaClave.trim());
+	            int idx = mf.getHombreDAO().getListaHombres().indexOf(h);
+	            if (idx >= 0) {
+	                HombreDTO dto = DataMapper.convertirHombreAHombreDTO(h);
+	                mf.getHombreDAO().update(idx, dto);
+	            }
+	            mf.getHombreDAO().escribirEnArchivoSerializado();
+	            return true;
+	        }
+	    }
+	    // Buscar en Mujeres
+	    for (Mujer m : mf.getMujerDAO().getListaMujeres()) {
+	        if ((m.getAlias() != null && m.getAlias().equalsIgnoreCase(key)) ||
+	            (m.getEmail() != null && m.getEmail().equalsIgnoreCase(key))) {
+	            m.setContrasena(nuevaClave.trim());
+	            int idx = mf.getMujerDAO().getListaMujeres().indexOf(m);
+	            if (idx >= 0) {
+	                MujerDTO dto = DataMapper.convertirMujerAMujerDTO(m);
+	                mf.getMujerDAO().update(idx, dto);
+	            }
+	            mf.getMujerDAO().escribirEnArchivoSerializado();
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	
+	private boolean debeMostrarseEnFeed(Usuario actual, Usuario candidato) {
+	    if (candidato == null) return false;
+	    if (candidato.getAlias() == null) return false;
+	    if (actual.getAlias() != null && candidato.getAlias().equalsIgnoreCase(actual.getAlias())) return false;
+	    if (candidato.isEsIncognito()) return false;
+	    if (!candidato.isEstaDisponible()) return false;
+
+	    if (actual.getLikesDados().contains(candidato)) return false;
+	    if (actual.getMatches().contains(candidato)) return false;
+
+	    return true;
+	}
+
+	// Carga la tabla de VenPrincipal según el tipo del usuario logueado (Hombre -> lista Mujeres; Mujer -> lista Hombres)
+	private void cargarFeedPara(Usuario actual) {
+	    javax.swing.JTable tabla = vf.getVenPrincipal().getTablaUsuarios();
+	    javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tabla.getModel();
+	    modelo.setRowCount(0);
+
+	    if (actual instanceof Hombre) {
+	        String[] columnas = { "Foto", "Nombre", "Alias", "Correo", "Edad", "Estatura (cm)", "Divorciada", "Likes" };
+	        modelo.setColumnIdentifiers(columnas);
+
+	        for (Mujer mu : mf.getMujerDAO().getListaMujeres()) {
+	            if (!debeMostrarseEnFeed(actual, mu)) continue;
+
+	            javax.swing.ImageIcon icon;
+	            try {
+	                java.awt.Image img = new javax.swing.ImageIcon(mu.getURLfoto())
+	                        .getImage().getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH);
+	                icon = new javax.swing.ImageIcon(img);
+	            } catch (Exception e1) {
+	                icon = new javax.swing.ImageIcon(new java.awt.image.BufferedImage(60, 60, java.awt.image.BufferedImage.TYPE_INT_ARGB));
+	            }
+
+	            modelo.addRow(new Object[] {
+	                icon,
+	                mu.getNombre() + " " + mu.getApellido(),
+	                mu.getAlias(),
+	                mu.getEmail(),
+	                java.time.Period.between(mu.getFechaNacimiento(), java.time.LocalDate.now()).getYears(),
+	                mu.getEstatura(),
+	                mu.isEsDivorciada() ? "Sí" : "No",
+	                mu.getNumLikes()
+	            });
+	        }
+	    } else if (actual instanceof Mujer) {
+	        String[] columnas = { "Foto", "Nombre", "Alias", "Correo", "Edad", "Estatura (cm)", "Ingresos", "Likes" };
+	        modelo.setColumnIdentifiers(columnas);
+
+	        for (Hombre ho : mf.getHombreDAO().getListaHombres()) {
+	            if (!debeMostrarseEnFeed(actual, ho)) continue;
+
+	            javax.swing.ImageIcon icon;
+	            try {
+	                java.awt.Image img = new javax.swing.ImageIcon(ho.getURLfoto())
+	                        .getImage().getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH);
+	                icon = new javax.swing.ImageIcon(img);
+	            } catch (Exception e1) {
+	                icon = new javax.swing.ImageIcon(new java.awt.image.BufferedImage(60, 60, java.awt.image.BufferedImage.TYPE_INT_ARGB));
+	            }
+
+	            modelo.addRow(new Object[] {
+	                icon,
+	                ho.getNombre() + " " + ho.getApellido(),
+	                ho.getAlias(),
+	                ho.getEmail(),
+	                java.time.Period.between(ho.getFechaNacimiento(), java.time.LocalDate.now()).getYears(),
+	                ho.getEstatura(),
+	                ho.getPromedioIngMensual(),
+	                ho.getNumLikes()
+	            });
+	        }
+	    }
+
+	    tabla.setRowHeight(60);
+	    tabla.getColumnModel().getColumn(0).setCellRenderer(new javax.swing.table.DefaultTableCellRenderer() {
+	        @Override
+	        public void setValue(Object value) {
+	            if (value instanceof javax.swing.ImageIcon) {
+	                setIcon((javax.swing.ImageIcon) value);
+	                setText("");
+	            } else {
+	                super.setValue(value);
+	            }
+	        }
+	    });
 	}
 }

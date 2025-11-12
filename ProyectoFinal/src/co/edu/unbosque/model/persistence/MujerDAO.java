@@ -14,10 +14,19 @@ public class MujerDAO implements DAO<MujerDTO>{
 	private final String SERIAL_FILE_NAME = "Mujer.bin";
 	
 	public MujerDAO() {
-		listaMujeres = new ArrayList<Mujer>();
-		cargarDesdeArchivoSerializado();
-		leerDesdeArchivoDeTexto(FILE_NAME);
-	
+	    listaMujeres = new ArrayList<>();
+	    cargarDesdeArchivoSerializado();
+
+	    boolean camposNulos = listaMujeres.stream()
+	        .anyMatch(m -> m == null || m.getAlias() == null || m.getContrasena() == null);
+
+	    if (listaMujeres.isEmpty() || camposNulos) {
+	        System.out.println("[WARN] BIN inválido o con campos nulos. Cargando desde CSV...");
+	        listaMujeres.clear();
+	        leerDesdeArchivoDeTexto(FILE_NAME);
+	        escribirEnArchivoSerializado();
+	        System.out.println("[INFO] Rehidratación OK: " + listaMujeres.size() + " mujeres.");
+	    }
 	}
 	
 	@Override
@@ -76,64 +85,133 @@ public class MujerDAO implements DAO<MujerDTO>{
 
 	@Override
 	public void leerDesdeArchivoDeTexto(String url) {
-		String contenido = FileHandler.leerDesdeArchivoDeTexto(url);
-		if(contenido == null || contenido.isBlank()) {
-			return;
-		}else {
-			String[] filas = contenido.split("\n");
-			for (int i = 0; i < filas.length; i++) {
-				if(filas[i].trim().isEmpty()) continue;
-				
-				String[] columna = filas[i].split(";");
-				if(columna.length < 14) {
-					System.out.println("Línea inválida en archivo de Mujeres: " + filas[i]);
-					continue;
-				}
-				Mujer temp = new Mujer();
-				temp.setNombre(columna[0]);
-				temp.setApellido(columna[1]);;
-				temp.setEmail(columna[2]);
-				temp.setContrasena(columna[3]);
-				temp.setFechaNacimiento(LocalDate.parse(columna[4]));
-				temp.setGenero(columna[5]);
-				temp.setEstaDisponible(Boolean.parseBoolean(columna[6]));
-				temp.setEsAdministrador(Boolean.parseBoolean(columna[7]));
-				temp.setAlias(columna[8]);
-				temp.setURLFoto(columna[9]);
-				temp.setEsIncognito(Boolean.parseBoolean(columna[10]));
-				temp.setNumLikes(Integer.parseInt(columna[11]));
-				temp.setEstatura(Double.parseDouble(columna[12]));
-				temp.setEsDivorciada(Boolean.parseBoolean(columna[13]));
-				
-				listaMujeres.add(temp);
-			}
-		}
-		
+	    String contenido = FileHandler.leerDesdeArchivoDeTexto(url);
+	    if (contenido == null || contenido.isBlank()) {
+	        System.out.println("[INFO] Archivo de Mujeres vacío o inexistente.");
+	        return;
+	    }
+
+	    String[] filas = contenido.split("\n");
+	    int linea = 0;
+
+	    for (String fila : filas) {
+	        linea++;
+	        if (fila.trim().isEmpty()) continue;
+
+	        try {
+	            // Usa -1 para conservar campos vacíos al final
+	            String[] c = fila.split(";", -1);
+	            if (c.length < 14) {
+	                System.err.println("[WARN] Línea " + linea + " inválida (faltan columnas): " + fila);
+	                continue;
+	            }
+
+	            // Orden de columnas según tu código actual:
+	            // 0 nombre, 1 apellido, 2 email, 3 contrasena, 4 fechaNac, 5 genero,
+	            // 6 estaDisponible, 7 esAdministrador, 8 alias, 9 urlFoto,
+	            // 10 esIncognito, 11 numLikes, 12 estatura, 13 esDivorciada
+
+	            String nombre       = c[0].trim();
+	            String apellido     = c[1].trim();
+	            String email        = c[2].trim();
+	            String contrasena   = c[3] == null ? "" : c[3].trim();
+
+	            // Validación dura de contraseña
+	            if (contrasena.isEmpty() || contrasena.length() < 6) {
+	                System.err.println("[WARN] Línea " + linea + " omitida (contraseña inválida).");
+	                continue;
+	            }
+
+	            Mujer temp = new Mujer();
+	            temp.setNombre(nombre);
+	            temp.setApellido(apellido);
+	            temp.setEmail(email);
+	            temp.setContrasena(contrasena);
+
+	            // Fecha de nacimiento
+	            try {
+	                temp.setFechaNacimiento(LocalDate.parse(c[4].trim())); // formato ISO yyyy-MM-dd
+	            } catch (Exception e) {
+	                System.err.println("[WARN] Línea " + linea + " - Fecha inválida, usando fecha actual.");
+	                temp.setFechaNacimiento(LocalDate.now());
+	            }
+
+	            temp.setGenero(c[5].trim());
+
+	            // Booleans con fallback
+	            try { temp.setEstaDisponible(Boolean.parseBoolean(c[6].trim())); }
+	            catch (Exception e) { temp.setEstaDisponible(false); }
+
+	            try { temp.setEsAdministrador(Boolean.parseBoolean(c[7].trim())); }
+	            catch (Exception e) { temp.setEsAdministrador(false); }
+
+	            temp.setAlias(c[8].trim());
+
+	            // URL foto (si no cumple tu validación, deja un placeholder)
+	            try {
+	                String urlFoto = c[9].trim();
+	                temp.setURLFoto(urlFoto.isEmpty() ? "default.jpg" : urlFoto);
+	            } catch (Exception e) {
+	                System.err.println("[WARN] Línea " + linea + " - URL foto inválida, se asigna default.");
+	                temp.setURLFoto("default.jpg");
+	            }
+
+	            try { temp.setEsIncognito(Boolean.parseBoolean(c[10].trim())); }
+	            catch (Exception e) { temp.setEsIncognito(false); }
+
+	            // Números con fallback
+	            try { temp.setNumLikes(Integer.parseInt(c[11].trim())); }
+	            catch (Exception e) { temp.setNumLikes(0); }
+
+	            try { temp.setEstatura(Double.parseDouble(c[12].trim())); }
+	            catch (Exception e) { temp.setEstatura(0.0); }
+
+	            try { temp.setEsDivorciada(Boolean.parseBoolean(c[13].trim())); }
+	            catch (Exception e) { temp.setEsDivorciada(false); }
+
+	            listaMujeres.add(temp);
+
+	        } catch (Exception e) {
+	            System.err.println("[WARN] Error al procesar línea " + linea + ": " + e.getMessage());
+	            // sigue con la siguiente
+	        }
+	    }
+
+	    System.out.println("[INFO] Archivo de Mujeres cargado. Total: " + listaMujeres.size());
 	}
 
 	@Override
 	public void escribirEnArchivoDeTexto() {
-		StringBuilder sb = new StringBuilder();
-		for (Mujer mujer : listaMujeres) {
-			sb.append(mujer.getNombre() + ";");
-			sb.append(mujer.getApellido() + ";");
-			sb.append(mujer.getEmail() + ";");
-			sb.append(mujer.getContrasena() + ";");
-			sb.append(mujer.getFechaNacimiento() + ";");
-			sb.append(mujer.getGenero() + ";");
-			sb.append(mujer.isEsAdministrador() + ";");
-			sb.append(mujer.isEstaDisponible() + ";");
-			sb.append(mujer.getAlias() + ";");
-			sb.append(mujer.getURLfoto() + ";");
-			sb.append(mujer.isEsIncognito() + ";");
-			sb.append(mujer.getNumLikes() + ";");
-			sb.append(mujer.getEstatura() + ";");
-			sb.append(mujer.isEsDivorciada() + "\n");
-			
-			
-		}
-		FileHandler.escribirEnArchivoDeTexto(FILE_NAME, sb.toString());
-		
+	    StringBuilder sb = new StringBuilder();
+
+	    for (Mujer m : listaMujeres) {
+	        String pass = (m.getContrasena() == null) ? "" : m.getContrasena();
+	        String fecha = (m.getFechaNacimiento() == null) ? "" : m.getFechaNacimiento().toString();
+
+	        String nombre   = (m.getNombre() == null) ? "" : m.getNombre();
+	        String apellido = (m.getApellido() == null) ? "" : m.getApellido();
+	        String email    = (m.getEmail() == null) ? "" : m.getEmail();
+	        String genero   = (m.getGenero() == null) ? "" : m.getGenero();
+	        String alias    = (m.getAlias() == null) ? "" : m.getAlias();
+	        String urlFoto  = (m.getURLfoto() == null) ? "" : m.getURLfoto();
+
+	        sb.append(nombre).append(';');
+	        sb.append(apellido).append(';');
+	        sb.append(email).append(';');
+	        sb.append(pass).append(';');
+	        sb.append(fecha).append(';');
+	        sb.append(genero).append(';');
+	        sb.append(m.isEstaDisponible()).append(';');
+	        sb.append(m.isEsAdministrador()).append(';');
+	        sb.append(alias).append(';');
+	        sb.append(urlFoto).append(';');
+	        sb.append(m.isEsIncognito()).append(';');
+	        sb.append(m.getNumLikes()).append(';');
+	        sb.append(m.getEstatura()).append(';');
+	        sb.append(m.isEsDivorciada()).append('\n');
+	    }
+
+	    FileHandler.escribirEnArchivoDeTexto(FILE_NAME, sb.toString());
 	}
 
 	 @SuppressWarnings("unchecked")

@@ -2,143 +2,236 @@ package co.edu.unbosque.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public abstract class Usuario extends Persona {
 
-	private boolean estaDisponible;
-	private String alias;
-	private String UrlFoto;
-	private boolean esIncognito;
-	private int numLikes;
+    private boolean estaDisponible;
+    private String alias;
+    private String UrlFoto;
+    private boolean esIncognito;
+    private int numLikes;
 
-	private ArrayList<Usuario> likesDados;
-	private ArrayList<Usuario> likesRecibidos;
-	
-	
-	public Usuario() {
-	}
+    private ArrayList<Usuario> likesDados;
+    private ArrayList<Usuario> likesRecibidos;
+    private ArrayList<Usuario> matches; 
 
-	public Usuario(boolean estaDisponible, String alias, String URLfoto, boolean esIncognito, int numLikes) {
-		super();
-		this.estaDisponible = estaDisponible;
-		this.alias = alias;
-		this.UrlFoto = URLfoto;
-		this.esIncognito = esIncognito;
-		this.numLikes = numLikes;
-	}
+   
 
-	public Usuario(String nombre, String apellido, String email, String contrasena, LocalDate fechaNacimiento,
-			String genero, boolean esAdministrador, boolean estaDisponible, String alias, String uRLfoto,
-			boolean esIncognito, int numLikes) {
-		super(nombre, apellido, email, contrasena, fechaNacimiento, genero, esAdministrador);
-		this.estaDisponible = estaDisponible;
-		this.alias = alias;
-		UrlFoto = uRLfoto;
-		this.esIncognito = esIncognito;
-		this.numLikes = numLikes;
-	}
+    public Usuario() {
+    }
 
-	public Usuario(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
-			boolean esAdministrador) {
-		super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador);
-		// TODO Auto-generated constructor stub
-	}
+    public Usuario(boolean estaDisponible, String alias, String URLfoto, boolean esIncognito, int numLikes) {
+        super();
+        this.estaDisponible = estaDisponible;
+        this.alias = alias;
+        this.UrlFoto = URLfoto;
+        this.esIncognito = esIncognito;
+        this.numLikes = numLikes;
+    }
 
-	public void darLike(Usuario receptor) {
-	    if (receptor == null || receptor == this) return; 
-	    if (likesDados == null) likesDados = new ArrayList<>();
-	    if (likesRecibidos == null) likesRecibidos = new ArrayList<>();
-	    if (receptor.likesRecibidos == null) receptor.likesRecibidos = new ArrayList<>();
-	    if (receptor.likesDados == null) receptor.likesDados = new ArrayList<>();
+    public Usuario(String nombre, String apellido, String email, String contrasena, LocalDate fechaNacimiento,
+            String genero, boolean esAdministrador, boolean estaDisponible, String alias, String uRLfoto,
+            boolean esIncognito, int numLikes) {
+        super(nombre, apellido, email, contrasena, fechaNacimiento, genero, esAdministrador);
+        this.estaDisponible = estaDisponible;
+        this.alias = alias;
+        UrlFoto = uRLfoto;
+        this.esIncognito = esIncognito;
+        this.numLikes = numLikes;
+    }
 
-	    // Evita duplicados
-	    if (!likesDados.contains(receptor)) {
-	        likesDados.add(receptor);
-	        receptor.likesRecibidos.add(this);
+    public Usuario(String nombre, String apellido, String email, String contrasena, LocalDate fecha, String genero,
+            boolean esAdministrador) {
+        super(nombre, apellido, email, contrasena, fecha, genero, esAdministrador);
+    }
 
-	        
-	        receptor.setNumLikes(receptor.getNumLikes() + 1);
-	    }
-	}
+    
+    // Helpers internos
+   
 
-	public boolean haDadoLikeA(Usuario u) {
-	    return likesDados != null && likesDados.contains(u);
-	}
+    private void ensureCollections() {
+        if (likesDados == null) likesDados = new ArrayList<>();
+        if (likesRecibidos == null) likesRecibidos = new ArrayList<>();
+        if (matches == null) matches = new ArrayList<>();
+    }
 
-	
-	
-	
-	public boolean isEstaDisponible() {
-		return estaDisponible;
-	}
+    private static String safeAlias(Usuario u) {
+        return (u == null || u.getAlias() == null) ? null : u.getAlias().trim().toLowerCase();
+    }
 
-	public void setEstaDisponible(Boolean estaDisponible) {
-		this.estaDisponible = estaDisponible;
-	}
+ 
+    // Lógica social: Like / Dislike / Match
+  
 
-	public String getAlias() {
-		return alias;
-	}
+    /** 
+     * Da like a 'receptor'. 
+     * @return true si se genera MATCH mutuo 
+     */
+    public synchronized boolean darLike(Usuario receptor) {
+        if (receptor == null || receptor == this) return false;
 
-	public void setAlias(String alias) {
-		if (alias == null || alias.isBlank()) {
-			throw new IllegalArgumentException("El alias no puede estar vacío.");
-		}
-		this.alias = alias.trim();
-	}
+        this.ensureCollections();
+        receptor.ensureCollections();
 
-	public String getURLfoto() {
-		return UrlFoto;
-	}
+        // Evitar duplicado
+        if (!likesDados.contains(receptor)) {
+            likesDados.add(receptor);
+            receptor.likesRecibidos.add(this);
+            receptor.setNumLikes(receptor.getNumLikes() + 1);
+        }
 
-	public void setURLFoto(String urlFoto) {
-		 if (urlFoto == null || urlFoto.trim().isEmpty()) {
-		        throw new IllegalArgumentException("Debe seleccionar una foto");
-		    }
-		 if (!(urlFoto.toLowerCase().endsWith(".jpg") || urlFoto.toLowerCase().endsWith(".jpeg") || urlFoto.toLowerCase().endsWith(".png"))) {
-		        throw new IllegalArgumentException("La foto debe ser un archivo con formato .jpg, .jpeg o .png");
-		    }
-		this.UrlFoto = urlFoto.trim();
-	}
+        // ¿Mutuo?
+        boolean receptorMeDioLike = receptor.likesDados.contains(this);
+        if (receptorMeDioLike) {
+            if (!this.matches.contains(receptor)) this.matches.add(receptor);
+            if (!receptor.matches.contains(this)) receptor.matches.add(this);
+            return true; // MATCH
+        }
+        return false; // Like unilateral
+    }
 
-	public boolean isEsIncognito() {
-		return esIncognito;
-	}
+    /** 
+     * Marca dislike sobre 'receptor'. 
+     * Elimina like previo y rompe match si existía. 
+     */
+    public synchronized void darDislike(Usuario receptor) {
+        if (receptor == null || receptor == this) return;
 
-	public void setEsIncognito(boolean esIncognito) {
-		this.esIncognito = esIncognito;
-	}
+        this.ensureCollections();
+        receptor.ensureCollections();
 
-	public int getNumLikes() {
-		return numLikes;
-	}
+        // Si yo le había dado like, retirarlo y ajustar contador
+        if (likesDados.remove(receptor)) {
+            receptor.likesRecibidos.remove(this);
+            receptor.setNumLikes(Math.max(0, receptor.getNumLikes() - 1));
+        }
 
-	public void setNumLikes(int numLikes) {
-		this.numLikes = numLikes;
-	}
-	
+        // Si había match, romperlo en ambos lados
+        if (this.matches.remove(receptor)) {
+            receptor.matches.remove(this);
+        }
 
-	public ArrayList<Usuario> getLikesDados() {
-		return likesDados;
-	}
+        // (Opcional futuro) Si deseas registrar dislikes explícitos, crea ArrayList<Usuario> dislikesDados.
+    }
 
-	public void setLikesDados(ArrayList<Usuario> likesDados) {
-		this.likesDados = likesDados;
-	}
+    /** 
+     * Verifica si hay match mutuo con otro usuario 
+     */
+    public boolean tieneMatchCon(Usuario otro) {
+        this.ensureCollections();
+        return matches.contains(otro);
+    }
 
-	public ArrayList<Usuario> getLikesRecibidos() {
-		return likesRecibidos;
-	}
+    public boolean haDadoLikeA(Usuario u) {
+        this.ensureCollections();
+        return likesDados.contains(u);
+    }
 
-	public void setLikesRecibidos(ArrayList<Usuario> likesRecibidos) {
-		this.likesRecibidos = likesRecibidos;
-	}
 
-	@Override
-	public String toString() {
-		return super.toString() + "\nEstá disponible?: " + estaDisponible + "\nAlias: " + alias + "\nFoto: " + UrlFoto
-				+ "\nModo incognito?: " + esIncognito + "\nNúmero de likes: " + numLikes;
-	}
-	
+    // Getters / Setters
 
+
+    public boolean isEstaDisponible() {
+        return estaDisponible;
+    }
+
+    public void setEstaDisponible(Boolean estaDisponible) {
+        this.estaDisponible = estaDisponible;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        if (alias == null || alias.isBlank()) {
+            throw new IllegalArgumentException("El alias no puede estar vacío.");
+        }
+        this.alias = alias.trim();
+    }
+
+    public String getURLfoto() {
+        return UrlFoto;
+    }
+
+    public void setURLFoto(String urlFoto) {
+        if (urlFoto == null || urlFoto.trim().isEmpty()) {
+            throw new IllegalArgumentException("Debe seleccionar una foto");
+        }
+
+       
+        if (!(urlFoto.toLowerCase().endsWith(".jpg")
+                || urlFoto.toLowerCase().endsWith(".jpeg")
+                || urlFoto.toLowerCase().endsWith(".png"))) {
+            throw new IllegalArgumentException("La foto debe ser un archivo con formato .jpg, .jpeg o .png");
+        }
+        this.UrlFoto = urlFoto.trim();
+    }
+
+    public boolean isEsIncognito() {
+        return esIncognito;
+    }
+
+    public void setEsIncognito(boolean esIncognito) {
+        this.esIncognito = esIncognito;
+    }
+
+    public int getNumLikes() {
+        return numLikes;
+    }
+
+    public void setNumLikes(int numLikes) {
+        this.numLikes = numLikes;
+    }
+
+    public ArrayList<Usuario> getLikesDados() {
+        this.ensureCollections();
+        return likesDados;
+    }
+
+    public void setLikesDados(ArrayList<Usuario> likesDados) {
+        this.likesDados = likesDados;
+    }
+
+    public ArrayList<Usuario> getLikesRecibidos() {
+        this.ensureCollections();
+        return likesRecibidos;
+    }
+
+    public void setLikesRecibidos(ArrayList<Usuario> likesRecibidos) {
+        this.likesRecibidos = likesRecibidos;
+    }
+
+    public ArrayList<Usuario> getMatches() {
+        this.ensureCollections();
+        return matches;
+    }
+
+    public void setMatches(ArrayList<Usuario> matches) {
+        this.matches = matches;
+    }
+
+
+    // Igualdad por alias (clave para contains/remove)
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Usuario)) return false;
+        Usuario that = (Usuario) o;
+        return Objects.equals(safeAlias(this), safeAlias(that));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(safeAlias(this));
+    }
+
+
+    @Override
+    public String toString() {
+        return super.toString() + "\nEstá disponible?: " + estaDisponible + "\nAlias: " + alias + "\nFoto: " + UrlFoto
+                + "\nModo incognito?: " + esIncognito + "\nNúmero de likes: " + numLikes;
+    }
 }

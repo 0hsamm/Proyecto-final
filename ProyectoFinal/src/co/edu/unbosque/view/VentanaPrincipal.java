@@ -241,6 +241,7 @@ public class VentanaPrincipal extends JFrame {
 		btnLike.setFocusPainted(false);
 		btnLike.setBorder(BorderFactory.createEmptyBorder());
 		btnLike.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btnLike.setActionCommand("DAR_LIKE");
 		this.add(btnLike);
 
 		//Boton Dislike
@@ -252,6 +253,7 @@ public class VentanaPrincipal extends JFrame {
 		btnDislike.setFocusPainted(false);
 		btnDislike.setBorder(BorderFactory.createEmptyBorder());
 		btnDislike.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btnDislike.setActionCommand("DAR_DISLIKE");
 		this.add(btnDislike);
 		
 		
