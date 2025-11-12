@@ -37,7 +37,7 @@ public class LanzadorDeExcepcion {
      * @throws InvalidPasswordException si la contraseña es demasiado corta
      */
     public static void verificarTamanoContrasena(String contrasena) throws InvalidPasswordException {
-        if (contrasena.length() < 8) {
+    	if (contrasena.length() < 8) {
             throw new InvalidPasswordException();
         }
     }
@@ -82,4 +82,13 @@ public class LanzadorDeExcepcion {
     	    }
     
     }
+    
+    public static void verificarFoto(String url) throws InvalidPhotoException {
+    	/*
+    	if(url == null || url.trim().isEmpty()) {
+    		throw new InvalidPhotoException();
+    	}
+    */}
+    
+    
 }
