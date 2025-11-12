@@ -8,6 +8,8 @@ import java.awt.image.BufferedImage;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.swing.ImageIcon;
@@ -45,11 +47,12 @@ public class Controller implements ActionListener {
 	private ModelFacade mf;
 	private Properties prop;
 
+
 	public Controller() {
 		vf = new ViewFacade();
 		mf = new ModelFacade();
 		prop = new Properties();
-		
+	
 	}
 
 
@@ -289,8 +292,8 @@ public class Controller implements ActionListener {
 				boolean encontrado = false;
 
 				// LOGIN HOMBRE
-				System.out.println(prop.getProperty("bostinder.controlador.login.hombre ") + mf.getHombreDAO().getListaHombres().size());
-				System.out.println(prop.getProperty("bostinder.controlador.login.mujer ") + mf.getMujerDAO().getListaMujeres().size());
+				System.out.println(prop.getProperty("bostinder.controlador.login.hombre") + mf.getHombreDAO().getListaHombres().size());
+				System.out.println(prop.getProperty("bostinder.controlador.login.mujer") + mf.getMujerDAO().getListaMujeres().size());
 				// LOGIN HOMBRE
 				for (Hombre h : mf.getHombreDAO().getListaHombres()) {
 				    if (h == null) continue;
@@ -305,7 +308,7 @@ public class Controller implements ActionListener {
 				    boolean passOK  = (passDB  != null) && passDB.equals(contrasena);
 
 				    if (aliasOK && passOK) {
-				        JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.bienvenido ") + h.getNombre());
+				        JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.bienvenido")+" " + h.getNombre());
 				        mf.setUsuarioActual(h);
 
 				        vf.getVenMenu().setVisible(false);
@@ -401,7 +404,7 @@ public class Controller implements ActionListener {
 
 		        // Evitar likes repetidos (con equals/hashCode por alias ya funciona bien)
 		        if (usuarioActual.getLikesDados() != null && usuarioActual.getLikesDados().contains(receptor)) {
-		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.like.repetido ") + receptor.getNombre());
+		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.like.repetido")+" " + receptor.getNombre());
 		            break;
 		        }
 
@@ -797,7 +800,7 @@ public class Controller implements ActionListener {
 
 				// Solicitar el código
 				String codigoIngresado = JOptionPane.showInputDialog(null,
-						prop.getProperty("bostinder.controlador.codigo.ingreso "), prop.getProperty("bostinder.controlador.ingreso.verificacion"),
+						prop.getProperty("bostinder.controlador.codigo.ingreso"), prop.getProperty("bostinder.controlador.ingreso.verificacion"),
 						JOptionPane.QUESTION_MESSAGE);
 
 				// Validar el código
@@ -1049,7 +1052,7 @@ public class Controller implements ActionListener {
 	        mf.getMujerDAO().escribirEnArchivoSerializado();  // SOLO BIN
 	    }
 	}
-	
+
 	
 	private boolean resetearContrasena(String aliasOEmail, String nuevaClave) {
 	    if (aliasOEmail == null || nuevaClave == null || nuevaClave.trim().length() < 6) return false;
@@ -1190,6 +1193,9 @@ public class Controller implements ActionListener {
 	        }
 	        
 	    });
+	    
+	
+	    
 	}
 	
 }
