@@ -21,6 +21,7 @@ import co.edu.unbosque.model.ModelFacade;
 import co.edu.unbosque.model.Mujer;
 import co.edu.unbosque.model.MujerDTO;
 import co.edu.unbosque.model.Usuario;
+import co.edu.unbosque.model.persistence.DataMapper;
 import co.edu.unbosque.model.persistence.FileHandler;
 import co.edu.unbosque.util.EmailService;
 import co.edu.unbosque.view.ViewFacade;
@@ -187,10 +188,9 @@ public class Controller implements ActionListener {
 
 		        boolean encontrado = false;
 
-		        //Buscar si es un HOMBRE
+		        //LOGIN HOMBRE
 		        for (Hombre h : mf.getHombreDAO().getListaHombres()) {
 		            if (h == null) continue;
-		            
 
 		            if (h.getAlias() != null && h.getContrasena() != null &&
 		                h.getAlias().equalsIgnoreCase(alias) &&
@@ -198,24 +198,24 @@ public class Controller implements ActionListener {
 
 		                JOptionPane.showMessageDialog(null, "Bienvenido " + h.getNombre() + " 👋");
 		                mf.setUsuarioActual(h);
-		                
+
 		                vf.getVenMenu().setVisible(false);
 		                vf.getVenPrincipal().setVisible(true);
 		                vf.getVenPrincipal().setLocationRelativeTo(null);
 
-		                //tabla: ver solo mujeres
+		                // Tabla: mostrar solo mujeres
 		                DefaultTableModel modelo = (DefaultTableModel) vf.getVenPrincipal().getTablaUsuarios().getModel();
 		                String[] columnas = {"Foto", "Nombre", "Alias", "Correo", "Edad", "Estatura (cm)", "Divorciada", "Likes"};
 		                modelo.setColumnIdentifiers(columnas);
 		                modelo.setRowCount(0);
 
 		                for (Mujer mu : mf.getMujerDAO().getListaMujeres()) {
-		                    if (mu == null) continue;
+		                    if (mu == null || mu.getAlias() == null) continue;
 
-		                    // Evitar mostrar el perfil propio
-		                    if (mu.getAlias().equalsIgnoreCase(mf.getUsuarioActual().getAlias())) continue;
-		                    //imagen del perfil
-		                    ImageIcon icon = null;
+		                    // Evitar mostrar el propio perfil
+		                    if (mu.getAlias().equalsIgnoreCase(h.getAlias())) continue;
+
+		                    ImageIcon icon;
 		                    try {
 		                        Image img = new ImageIcon(mu.getURLfoto()).getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
 		                        icon = new ImageIcon(img);
@@ -235,27 +235,26 @@ public class Controller implements ActionListener {
 		                    });
 		                }
 
-		                //Ajustar renderizado de imágenes
 		                vf.getVenPrincipal().getTablaUsuarios().setRowHeight(60);
 		                vf.getVenPrincipal().getTablaUsuarios().getColumnModel().getColumn(0)
-		                        .setCellRenderer(new DefaultTableCellRenderer() {
-		                            @Override
-		                            public void setValue(Object value) {
-		                                if (value instanceof ImageIcon) {
-		                                    setIcon((ImageIcon) value);
-		                                    setText("");
-		                                } else {
-		                                    super.setValue(value);
-		                                }
+		                    .setCellRenderer(new DefaultTableCellRenderer() {
+		                        @Override
+		                        public void setValue(Object value) {
+		                            if (value instanceof ImageIcon) {
+		                                setIcon((ImageIcon) value);
+		                                setText("");
+		                            } else {
+		                                super.setValue(value);
 		                            }
-		                        });
+		                        }
+		                    });
 
 		                encontrado = true;
 		                break;
 		            }
 		        }
 
-		        //Buscar si es una MUJER
+		        //LOGIN MUJER
 		        if (!encontrado) {
 		            for (Mujer m : mf.getMujerDAO().getListaMujeres()) {
 		                if (m == null) continue;
@@ -267,29 +266,26 @@ public class Controller implements ActionListener {
 		                    JOptionPane.showMessageDialog(null, "Bienvenida " + m.getNombre() + " 💕");
 		                    mf.setUsuarioActual(m);
 
-		                    
 		                    vf.getVenMenu().setVisible(false);
 		                    vf.getVenPrincipal().setVisible(true);
 		                    vf.getVenPrincipal().setLocationRelativeTo(null);
 
-		                    //tabla: ver solo HOMBRES
+		                    // Tabla: mostrar solo hombres
 		                    DefaultTableModel modelo = (DefaultTableModel) vf.getVenPrincipal().getTablaUsuarios().getModel();
 		                    String[] columnas = {"Foto", "Nombre", "Alias", "Correo", "Edad", "Estatura (cm)", "Ingresos", "Likes"};
 		                    modelo.setColumnIdentifiers(columnas);
 		                    modelo.setRowCount(0);
 
 		                    for (Hombre ho : mf.getHombreDAO().getListaHombres()) {
-		                        if (ho == null) continue;
+		                        if (ho == null || ho.getAlias() == null) continue;
+		                        if (ho.getAlias().equalsIgnoreCase(m.getAlias())) continue;
 
-		                        if (ho.getAlias().equalsIgnoreCase(mf.getUsuarioActual().getAlias())) continue;
-
-		                        ImageIcon icon = null;
+		                        ImageIcon icon;
 		                        try {
 		                            Image img = new ImageIcon(ho.getURLfoto()).getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
 		                            icon = new ImageIcon(img);
 		                        } catch (Exception e1) {
-		                        	BufferedImage imgVacia = new BufferedImage(60, 60, BufferedImage.TYPE_INT_ARGB);
-		                        	icon = new ImageIcon((Image) imgVacia);
+		                            icon = new ImageIcon(new BufferedImage(60, 60, BufferedImage.TYPE_INT_ARGB));
 		                        }
 
 		                        modelo.addRow(new Object[]{
@@ -305,17 +301,18 @@ public class Controller implements ActionListener {
 		                    }
 
 		                    vf.getVenPrincipal().getTablaUsuarios().setRowHeight(60);
-		                    vf.getVenPrincipal().getTablaUsuarios().getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
-		                                @Override
-		                                public void setValue(Object value) {
-		                                    if (value instanceof ImageIcon) {
-		                                        setIcon((ImageIcon) value);
-		                                        setText("");
-		                                    } else {
-		                                        super.setValue(value);
-		                                    }
+		                    vf.getVenPrincipal().getTablaUsuarios().getColumnModel().getColumn(0)
+		                        .setCellRenderer(new DefaultTableCellRenderer() {
+		                            @Override
+		                            public void setValue(Object value) {
+		                                if (value instanceof ImageIcon) {
+		                                    setIcon((ImageIcon) value);
+		                                    setText("");
+		                                } else {
+		                                    super.setValue(value);
 		                                }
-		                            });
+		                            }
+		                        });
 
 		                    encontrado = true;
 		                    break;
@@ -324,7 +321,7 @@ public class Controller implements ActionListener {
 		        }
 
 		        if (!encontrado) {
-		            JOptionPane.showMessageDialog(null, "Alias o contraseña incorrectos");
+		            JOptionPane.showMessageDialog(null, "Alias o contraseña incorrectos.");
 		        }
 
 		    } catch (Exception e1) {
@@ -333,6 +330,7 @@ public class Controller implements ActionListener {
 		    }
 		    break;
 		}
+
 		case "DAR_LIKE": {
 		    try {
 		        Usuario usuarioActual = mf.getUsuarioActual();
@@ -349,12 +347,10 @@ public class Controller implements ActionListener {
 		            break;
 		        }
 
-		        // Obtener el alias del usuario seleccionado (columna 2 en tu tabla)
 		        String aliasSeleccionado = (String) vf.getVenPrincipal().getTablaUsuarios().getValueAt(filaSeleccionada, 2);
-
-		        // Verificar si el alias pertenece a una mujer u hombre
 		        Usuario receptor = null;
 
+		        //Buscar si es hombre
 		        for (Hombre h : mf.getHombreDAO().getListaHombres()) {
 		            if (h.getAlias().equalsIgnoreCase(aliasSeleccionado)) {
 		                receptor = h;
@@ -362,6 +358,7 @@ public class Controller implements ActionListener {
 		            }
 		        }
 
+		        //Buscar si es mujer
 		        if (receptor == null) {
 		            for (Mujer m : mf.getMujerDAO().getListaMujeres()) {
 		                if (m.getAlias().equalsIgnoreCase(aliasSeleccionado)) {
@@ -372,28 +369,46 @@ public class Controller implements ActionListener {
 		        }
 
 		        if (receptor == null) {
-		            JOptionPane.showMessageDialog(null, "No se encontró el usuario seleccionado");
+		            JOptionPane.showMessageDialog(null, "No se encontró el usuario seleccionado.");
 		            break;
 		        }
 
-		        // Verificar que no se haya dado like antes
+		        // Evitar likes repetidos
 		        if (usuarioActual.getLikesDados().contains(receptor)) {
-		           JOptionPane.showMessageDialog(null, "Ya le has dado like a " + receptor.getNombre());
+		            JOptionPane.showMessageDialog(null, "Ya le has dado like a " + receptor.getNombre());
+		            break;
 		        }
 
-		        
-		        // Registrar el like
+		        // Registrar like
 		        usuarioActual.getLikesDados().add(receptor);
 		        receptor.getLikesRecibidos().add(usuarioActual);
 
-		        // Actualizar contador de likes
+		        // Aumentar contador
 		        receptor.setNumLikes(receptor.getNumLikes() + 1);
-
+		        System.out.println("likes ahora: "+receptor.getNumLikes());
 		        JOptionPane.showMessageDialog(null, "Le diste like a " + receptor.getNombre() + " 💘");
 
-		        // Refrescar tabla (para mostrar nuevo número de likes)
+		        //Guardar en DAO correspondiente usando DTO
+		        if (receptor instanceof Hombre) {
+		            Hombre h = (Hombre) receptor;
+		            int index = mf.getHombreDAO().getListaHombres().indexOf(h);
+		            if (index >= 0) {
+		                HombreDTO dto = DataMapper.convertirHombreAHombreDTO(h);
+		                mf.getHombreDAO().update(index, dto);
+		            }
+		        } else if (receptor instanceof Mujer) {
+		            Mujer m = (Mujer) receptor;
+		            int index = mf.getMujerDAO().getListaMujeres().indexOf(m);
+		            if (index >= 0) {
+		                MujerDTO dto = DataMapper.convertirMujerAMujerDTO(m);
+		                mf.getMujerDAO().update(index, dto);
+		            }
+		        }
+
+		        //Refrescar tabla
 		        DefaultTableModel modelo = (DefaultTableModel) vf.getVenPrincipal().getTablaUsuarios().getModel();
 		        modelo.setValueAt(receptor.getNumLikes(), filaSeleccionada, modelo.getColumnCount() - 1);
+		        modelo.fireTableDataChanged();
 
 		    } catch (Exception e1) {
 		        e1.printStackTrace();
@@ -670,12 +685,12 @@ public class Controller implements ActionListener {
 		        String apellido = vf.getVenRegistroMujer().getTextApellido().getText();
 		        String alias = vf.getVenRegistroMujer().getTextAlias().getText();
 		        String correo = vf.getVenRegistroMujer().getTextCorreo().getText();
-		        String contrasena = new String(vf.getVenMenu().getTextContrasenia().getPassword()).trim();
+		        String contrasena = new String(vf.getVenRegistroMujer().getTextContrasenia().getPassword()).trim();
 		        LocalDate fechaNacimiento = vf.getVenRegistroMujer().getFechaSeleccionada();
 		        String genero = "Mujer";
 		        boolean esAdministrador = false;
 		        boolean estaDisponible = true;
-		        String urlFoto = vf.getVenRegistroHombre().getRutaFotoPerfil();
+		        String urlFoto = vf.getVenRegistroMujer().getRutaFotoPerfil();
 		        boolean esIncognito = false;
 		        int numLikes = 0;
 		        double estatura = Double.parseDouble(vf.getVenRegistroMujer().getTextEstatura().getText());

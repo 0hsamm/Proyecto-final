@@ -92,9 +92,12 @@ public abstract class Usuario extends Persona {
 	}
 
 	public void setURLFoto(String urlFoto) {
-		if (urlFoto == null || !urlFoto.toLowerCase().endsWith(".jpg")) {
-			throw new IllegalArgumentException("La foto debe ser un archivo con formato .jpg");
-		}
+		 if (urlFoto == null || urlFoto.trim().isEmpty()) {
+		        throw new IllegalArgumentException("Debe seleccionar una foto");
+		    }
+		 if (!(urlFoto.toLowerCase().endsWith(".jpg") || urlFoto.toLowerCase().endsWith(".jpeg") || urlFoto.toLowerCase().endsWith(".png"))) {
+		        throw new IllegalArgumentException("La foto debe ser un archivo con formato .jpg, .jpeg o .png");
+		    }
 		this.UrlFoto = urlFoto.trim();
 	}
 
