@@ -43,11 +43,19 @@ public class LanzadorDeExcepcion {
    
     
 
-    public static void verificarPalabra(String palabra) throws InvalidWordException {
-    	 if (!palabra.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
-    	        throw new InvalidWordException();
+    public static void verificarNombre(String nombre) throws InvalidNameException {
+    	 if (!nombre.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
+    	        throw new InvalidNameException();
     	    }
     }
+    
+    public static void verificarApellido(String apellido) throws InvalidSurNameException {
+    	if (!apellido.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
+	        throw new InvalidSurNameException();
+	    }
+    }
+    
+   
     
     public static void verificarAltura(double altura) throws InvalidHeightException {
     	if(altura < 0) {
