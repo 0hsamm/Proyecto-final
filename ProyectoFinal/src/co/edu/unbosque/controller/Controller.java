@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.swing.ImageIcon;
@@ -49,15 +50,6 @@ public class Controller implements ActionListener {
 		mf = new ModelFacade();
 		prop = new Properties();
 		
-	}
-	
-	public void run() {
-		
-	    mf.getHombreDAO().mostrarIngresosMayorAMenor();
-	 
-	    for (Hombre h : mf.getHombreDAO().getListaHombres()) {
-	        System.out.println(h);
-	    }
 	}
 
 
@@ -107,8 +99,8 @@ public class Controller implements ActionListener {
 			vf.getVenInicioSesionAdmin().setProp(prop);
 			vf.getVenPerfil().setProp(prop);
 			vf.getVenMatch().setProp(prop);
-			//vf.getVenMenu().setVisible(true);
-			vf.getVenPrincipal().setVisible(true);
+			vf.getVenMenu().setVisible(true);
+			//vf.getVenPrincipal().setVisible(true);
 			//vf.getVenCRUD().setVisible(true);
 			//vf.getVenGenero().setVisible(true);
 			//vf.getVenRegistroMujer().setVisible(true);
@@ -1199,4 +1191,5 @@ public class Controller implements ActionListener {
 	        
 	    });
 	}
+	
 }
