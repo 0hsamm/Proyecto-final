@@ -59,7 +59,7 @@ public class VentanaRegistroAdministrador extends JFrame {
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 
-		fondo = new ImageIcon("src/co/edu/unbosque/view/VentanaRegistroAdministrador.PNG");
+		fondo = new ImageIcon("src/co/edu/unbosque/view/VentanaRegistroAdminOscuro.PNG");
 		escalar = fondo.getImage().getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
 		fondoRegistro = new JLabel(new ImageIcon(escalar));
 		fondoRegistro.setLayout(null);

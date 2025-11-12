@@ -41,7 +41,7 @@ public class VentanaPerfil extends JFrame {
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 
-		fondo = new ImageIcon("src/co/edu/unbosque/view/VentanaPerfil.PNG");
+		fondo = new ImageIcon("src/co/edu/unbosque/view/VentanaPerfilOscuro.PNG");
 		escalar = fondo.getImage().getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
 		fondoCRUD = new JLabel(new ImageIcon(escalar));
 		fondoCRUD.setLayout(null);

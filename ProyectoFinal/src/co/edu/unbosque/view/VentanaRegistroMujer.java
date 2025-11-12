@@ -82,7 +82,7 @@ public class VentanaRegistroMujer extends JFrame {
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 
-		fondo = new ImageIcon("src/co/edu/unbosque/view/VentanaRegistroMujer.PNG");
+		fondo = new ImageIcon("src/co/edu/unbosque/view/VentanaRegistroMujerOscuro.PNG");
 		escalar = fondo.getImage().getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
 		fondoRegistro = new JLabel(new ImageIcon(escalar));
 		fondoRegistro.setLayout(null);

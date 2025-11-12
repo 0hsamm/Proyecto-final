@@ -40,7 +40,7 @@ public class VentanaFuncionesAdmin extends JFrame {
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 
-		fondo = new ImageIcon("src/co/edu/unbosque/view/VentanaAdmin.PNG");
+		fondo = new ImageIcon("src/co/edu/unbosque/view/VentanaFuncionesAdminOscuro.PNG");
 		escalar = fondo.getImage().getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
 		fondoCRUD = new JLabel(new ImageIcon(escalar));
 		fondoCRUD.setLayout(null);
