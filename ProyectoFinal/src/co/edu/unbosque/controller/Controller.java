@@ -24,6 +24,7 @@ import co.edu.unbosque.model.Usuario;
 import co.edu.unbosque.model.persistence.DataMapper;
 import co.edu.unbosque.model.persistence.FileHandler;
 import co.edu.unbosque.util.EmailService;
+import co.edu.unbosque.util.exception.InvalidDateException;
 import co.edu.unbosque.util.exception.InvalidDoubleException;
 import co.edu.unbosque.util.exception.InvalidEmailException;
 import co.edu.unbosque.util.exception.InvalidHeightException;
@@ -658,6 +659,7 @@ public class Controller implements ActionListener {
 				String contrasena = new String(vf.getVenMenu().getTextContrasenia().getPassword()).trim();
 				LanzadorDeExcepcion.verificarTamanoContrasena(contrasena);
 				LocalDate fechaNacimiento = vf.getVenRegistroHombre().getFechaSeleccionada();
+				LanzadorDeExcepcion.verificarEdad(fechaNacimiento);
 				String genero = "Hombre";;
 				boolean esAdministrador = false;
 				boolean estaDisponible = true;
@@ -712,7 +714,9 @@ public class Controller implements ActionListener {
 				JOptionPane.showMessageDialog(null, "Error al crear la cuenta o enviar el correo.");												
 			} catch (MessagingException ex) {
 				JOptionPane.showMessageDialog(null, "Error al crear la cuenta o enviar el correo.");															
-			} 
+			}catch (InvalidDateException ex) {
+				JOptionPane.showMessageDialog(null, "Error al crear la cuenta o enviar el correo.");																			
+			}
 			break;
 		}
 		case "CREAR_CUENTA_MUJER": {
@@ -728,6 +732,7 @@ public class Controller implements ActionListener {
 				String contrasena = new String(vf.getVenRegistroMujer().getTextContrasenia().getPassword()).trim();
 				LanzadorDeExcepcion.verificarTamanoContrasena(contrasena);
 				LocalDate fechaNacimiento = vf.getVenRegistroMujer().getFechaSeleccionada();
+				LanzadorDeExcepcion.verificarEdad(fechaNacimiento);
 				String genero = "Mujer";
 				boolean esAdministrador = false;
 				boolean estaDisponible = true;
@@ -782,6 +787,8 @@ public class Controller implements ActionListener {
 				JOptionPane.showMessageDialog(null, "Error al crear la cuenta o enviar el correo.");												
 			} catch (MessagingException ex) {
 				JOptionPane.showMessageDialog(null, "Error al crear la cuenta o enviar el correo.");															
+			}catch (InvalidDateException ex) {
+				JOptionPane.showMessageDialog(null, "Error al crear la cuenta o enviar el correo.");																			
 			}
 			break;
 		}

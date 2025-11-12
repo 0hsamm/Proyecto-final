@@ -1,5 +1,7 @@
 package co.edu.unbosque.util.exception;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -70,5 +72,14 @@ public class LanzadorDeExcepcion {
         }
     }
 
+    public static void verificarEdad(LocalDate edad) throws InvalidDateException {
+
+    	    LocalDate hoy = LocalDate.now();
+    	    Period anio = Period.between(edad, hoy);
+
+    	    if (anio.getYears() < 18) {
+    	        throw new InvalidDateException();
+    	    }
     
+    }
 }
