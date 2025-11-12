@@ -31,6 +31,7 @@ import co.edu.unbosque.util.exception.InvalidEmailException;
 import co.edu.unbosque.util.exception.InvalidHeightException;
 import co.edu.unbosque.util.exception.InvalidNameException;
 import co.edu.unbosque.util.exception.InvalidPasswordException;
+import co.edu.unbosque.util.exception.InvalidPhotoException;
 import co.edu.unbosque.util.exception.InvalidSurNameException;
 import co.edu.unbosque.util.exception.LanzadorDeExcepcion;
 import co.edu.unbosque.view.ViewFacade;
@@ -781,15 +782,15 @@ public class Controller implements ActionListener {
 				String alias = vf.getVenRegistroHombre().getTextAlias().getText();
 				String correo = vf.getVenRegistroHombre().getTextCorreo().getText();
 				LanzadorDeExcepcion.verificarEmail(correo);
-				String contrasena = new String(vf.getVenMenu().getTextContrasenia().getPassword()).trim();
+				String contrasena = new String(vf.getVenRegistroHombre().getTextContrasenia().getPassword()).trim();
 				LanzadorDeExcepcion.verificarTamanoContrasena(contrasena);
 				LocalDate fechaNacimiento = vf.getVenRegistroHombre().getFechaSeleccionada();
 				LanzadorDeExcepcion.verificarEdad(fechaNacimiento);
 				String genero = "Hombre";
-				;
+				String urlFoto = vf.getVenRegistroHombre().getRutaFotoPerfil();
+				LanzadorDeExcepcion.verificarFoto(urlFoto);
 				boolean esAdministrador = false;
 				boolean estaDisponible = true;
-				String urlFoto = vf.getVenRegistroHombre().getRutaFotoPerfil();
 				boolean esIncognito = false;
 				int numLikes = 0;
 				int ingresos = Integer.parseInt(vf.getVenRegistroHombre().getTextIngreso().getText());
@@ -839,6 +840,9 @@ public class Controller implements ActionListener {
 				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.excepcion.mensaje.correo"));
 			} catch (InvalidDateException ex) {
 				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.excepcion.fecha"));
+			}catch (InvalidPhotoException ex) {
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.excepcion.foto"));
+
 			}
 			break;
 		}
