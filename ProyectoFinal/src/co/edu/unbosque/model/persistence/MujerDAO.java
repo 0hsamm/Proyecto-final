@@ -244,7 +244,8 @@ public class MujerDAO implements DAO<MujerDTO>{
 	public String getSERIAL_FILE_NAME() {
 		return SERIAL_FILE_NAME;
 	}
-
+	
+	/*
 	public static int partition(Mujer[] listaMujeres, int low, int high) {
 
 		Mujer pivot = listaMujeres[high];
@@ -295,5 +296,6 @@ public class MujerDAO implements DAO<MujerDTO>{
 
 		}
 	}
+	*/
 
 }
