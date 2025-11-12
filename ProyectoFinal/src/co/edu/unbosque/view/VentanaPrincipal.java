@@ -158,14 +158,14 @@ public class VentanaPrincipal extends JFrame {
 		this.add(cbLike);
 
 		lblNombre = new JLabel(prop.getProperty("bostinder.ventanaprinicipal.lblNombre"));
-		lblNombre.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+		lblNombre.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 15));
 		lblNombre.setBounds(110, 330, 1200, 70);
 		lblNombre.setForeground(Color.BLACK);
 		this.add(lblNombre);
 
 		cbNombre = new JComboBox<>(prop.getProperty("bostinder.ventanaprinicipal.cbNombre").split(","));
-		cbNombre.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-		cbNombre.setBounds(230, 350, 178, 30);
+		cbNombre.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 15));
+		cbNombre.setBounds(295, 350, 140, 30);
 		cbNombre.setBackground(new Color(251, 255, 255));
 		cbNombre.setForeground(Color.BLACK);
 		cbNombre.setBorder(BorderFactory.createEmptyBorder());
