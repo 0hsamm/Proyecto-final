@@ -6,7 +6,7 @@ public class ViewFacade {
 	private VentanaRegistroHombre venRegistroHombre;
 	private VentanaRegistroMujer venRegistroMujer;
 	private VentanaPrincipal venPrincipal;
-	private VentanaCRUD venCRUD;
+	private VentanaFuncionesAdmin venCRUD;
 	private VentanaEscogerGenero venGenero;
 	private VentanaRegistroAdministrador venRegistroAdmin;
 	private VentanaInicioSesionAdmin venInicioSesionAdmin;
@@ -18,7 +18,7 @@ public class ViewFacade {
 		venRegistroHombre = new VentanaRegistroHombre();
 		venRegistroMujer = new VentanaRegistroMujer();
 		venPrincipal = new VentanaPrincipal();
-		venCRUD = new VentanaCRUD();
+		venCRUD = new VentanaFuncionesAdmin();
 		venGenero = new VentanaEscogerGenero();
 		venRegistroAdmin = new VentanaRegistroAdministrador();
 		venInicioSesionAdmin = new VentanaInicioSesionAdmin();
@@ -58,11 +58,11 @@ public class ViewFacade {
 		this.venPrincipal = venPrincipal;
 	}
 
-	public VentanaCRUD getVenCRUD() {
+	public VentanaFuncionesAdmin getVenCRUD() {
 		return venCRUD;
 	}
 
-	public void setVenCRUD(VentanaCRUD venCRUD) {
+	public void setVenCRUD(VentanaFuncionesAdmin venCRUD) {
 		this.venCRUD = venCRUD;
 	}
 

@@ -166,9 +166,15 @@ public class Controller implements ActionListener {
 		vf.getVenPrincipal().getBtnVolver().addActionListener(this);
 		vf.getVenPrincipal().getBtnVolver().setActionCommand("VOLVER_DESDE_VENTANA_PRINCIPAL");
 		
+		vf.getVenPrincipal().getBtnPerfil().addActionListener(this);
+		vf.getVenPrincipal().getBtnPerfil().setActionCommand("ABRIR_PERFIL");
+		
 		//VENTANA PERFIL
 		vf.getVenPerfil().getBtnCerrarSesion().addActionListener(this);
 		vf.getVenPerfil().getBtnCerrarSesion().setActionCommand("CERRAR_SESION");
+		
+		vf.getVenPerfil().getBtnVolver().addActionListener(this);
+		vf.getVenPerfil().getBtnVolver().setActionCommand("VOLVER_DESDE_PERFIL");
 		
 	}
 
@@ -625,6 +631,12 @@ public class Controller implements ActionListener {
 			vf.getVenMenu().setVisible(true);
 			break;
 		}
+		case "ABRIR_PERFIL": {
+			vf.getVenPerfil().setVisible(true);
+		    vf.getVenPrincipal().setVisible(false);
+		    break;
+		}
+		//crear cuentas
 		case "CREAR_CUENTA_HOMBRE": {
 		    try {
 		        
@@ -797,6 +809,12 @@ public class Controller implements ActionListener {
 		case "CERRAR_SESION": {
 			vf.getVenPerfil().setVisible(false);
 		    vf.getVenMenu().setVisible(true);
+		    break;
+		}
+		
+		case "VOLVER_DESDE_PERFIL": {
+			vf.getVenPerfil().setVisible(false);
+		    vf.getVenPrincipal().setVisible(true);
 		    break;
 		}
 
