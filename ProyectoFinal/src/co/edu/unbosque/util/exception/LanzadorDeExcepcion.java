@@ -87,8 +87,8 @@ public class LanzadorDeExcepcion {
     	
     	/*if(url == null || url.trim().isEmpty()) {
     		throw new InvalidPhotoException();
-    	}
-    */}
+    	}*/
+    }
     
     
 }
