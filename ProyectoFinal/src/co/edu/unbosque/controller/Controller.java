@@ -336,7 +336,7 @@ public class Controller implements ActionListener {
 				        boolean passOK  = (passDB  != null) && passDB.equals(contrasena);
 
 				        if (aliasOK && passOK) {
-				            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.bienvenida ")+ m.getNombre());
+				            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.bienvenida")+ " " + m.getNombre());
 				            mf.setUsuarioActual(m);
 
 				            vf.getVenMenu().setVisible(false);
@@ -360,7 +360,7 @@ public class Controller implements ActionListener {
 				}
 
 			} catch (Exception e1) {
-				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.error.inicio.sesion ") + e1.getMessage());
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.error.inicio.sesion") + e1.getMessage());
 			}
 			break;
 		}
@@ -410,10 +410,10 @@ public class Controller implements ActionListener {
 		        persistirUsuario(receptor);
 
 		        if (huboMatch) {
-		            JOptionPane.showMessageDialog(null, "¡" +  prop.getProperty("bostinder.controlador.like.match ") + receptor.getAlias() + "! ");
+		            JOptionPane.showMessageDialog(null, "¡" +  prop.getProperty("bostinder.controlador.like.match") + receptor.getAlias() + "! ");
 		            // TODO: opcional abrir chat o marcar badge de match
 		        } else {
-		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.like ") + receptor.getNombre());
+		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.like") + receptor.getNombre());
 		        }
 
 		        // Refrescar columna de likes (última columna)
@@ -425,7 +425,7 @@ public class Controller implements ActionListener {
 
 		    } catch (Exception e1) {
 		        e1.printStackTrace();
-		        JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.like.error ") + e1.getMessage());
+		        JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.like.error") + e1.getMessage());
 		    }
 		    break;
 		}
@@ -462,7 +462,7 @@ public class Controller implements ActionListener {
 
 		        // Si no le habías dado like, no hay nada que quitar
 		        if (usuarioActual.getLikesDados() == null || !usuarioActual.getLikesDados().contains(receptor)) {
-		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.dislike.like.nulo ") + receptor.getNombre());
+		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.dislike.like.nulo") + receptor.getNombre());
 		            break;
 		        }
 
@@ -473,7 +473,7 @@ public class Controller implements ActionListener {
 		        persistirUsuario(usuarioActual);
 		        persistirUsuario(receptor);
 
-		        JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.dislike ") + receptor.getNombre());
+		        JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.dislike") + receptor.getNombre());
 
 		        // Actualizar columna de likes
 		        DefaultTableModel modelo = (DefaultTableModel) vf.getVenPrincipal().getTablaUsuarios().getModel();
@@ -484,7 +484,7 @@ public class Controller implements ActionListener {
 		        // ((DefaultTableModel) vf.getVenPrincipal().getTablaUsuarios().getModel()).removeRow(fila);
 
 		    } catch (Exception e1) {
-		        JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.dislike.error ") + e1.getMessage());
+		        JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.dislike.error") + e1.getMessage());
 		    }
 		    break;
 		}
@@ -530,7 +530,7 @@ public class Controller implements ActionListener {
 					if (h.getEmail().equalsIgnoreCase(correo) && h.getContrasena().equals(contrasena)
 							&& h.isEsAdministrador()) {
 
-						JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.bienvenido.admin.hombre ") + h.getNombre());
+						JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.bienvenido.admin.hombre") + h.getNombre());
 						vf.getVenInicioSesionAdmin().setVisible(false);
 						vf.getVenPrincipal().setVisible(true);
 						encontrado = true;
@@ -546,7 +546,7 @@ public class Controller implements ActionListener {
 						if (m.getEmail().equalsIgnoreCase(correo) && m.getContrasena().equals(contrasena)
 								&& m.isEsAdministrador()) {
 
-							JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.bienvenido.admin.mujer ") + m.getNombre());
+							JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.bienvenido.admin.mujer") + m.getNombre());
 							vf.getVenInicioSesionAdmin().setVisible(false);
 							vf.getVenPrincipal().setVisible(true);
 							encontrado = true;
@@ -942,7 +942,7 @@ public class Controller implements ActionListener {
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.excepcion.cuenta ") + ex.getMessage());
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.excepcion.cuenta") + ex.getMessage());
 			}
 			break;
 		}
