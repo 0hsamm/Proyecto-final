@@ -82,7 +82,7 @@ public class Controller implements ActionListener {
 				break;
 			}
 			default:
-				JOptionPane.showMessageDialog(null, "Opción inválida. Intente de nuevo.");
+				JOptionPane.showMessageDialog(null, "Invalid option. Try again.");
 				continue mainloop;
 			}
 
@@ -279,15 +279,15 @@ public class Controller implements ActionListener {
 				String contrasena = new String(vf.getVenMenu().getTextContrasenia().getPassword()).trim();
 
 				if (alias.isEmpty() || contrasena.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Por favor ingrese alias y contraseña.");
+					JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.iniciar.sesion"));
 					break;
 				}
 
 				boolean encontrado = false;
 
 				// LOGIN HOMBRE
-				System.out.println("Hombres cargados: " + mf.getHombreDAO().getListaHombres().size());
-				System.out.println("Mujeres cargadas: " + mf.getMujerDAO().getListaMujeres().size());
+				System.out.println(prop.getProperty("bostinder.controlador.login.hombre ") + mf.getHombreDAO().getListaHombres().size());
+				System.out.println(prop.getProperty("bostinder.controlador.login.mujer ") + mf.getMujerDAO().getListaMujeres().size());
 				// LOGIN HOMBRE
 				for (Hombre h : mf.getHombreDAO().getListaHombres()) {
 				    if (h == null) continue;
@@ -296,13 +296,13 @@ public class Controller implements ActionListener {
 				    String passDB  = (h.getContrasena() == null) ? null : h.getContrasena().trim();
 
 				    // DIAGNÓSTICO (temporal): ver exactamente qué comparamos
-				    System.out.println("[DEBUG] Hombre-> aliasDB='" + aliasDB + "', passLen=" + (passDB==null? -1 : passDB.length()));
+				    System.out.println("[DEBUG] Hombre-> aliasDB='" + aliasDB + "', passLen: " + (passDB==null? -1 : passDB.length()));
 
 				    boolean aliasOK = (aliasDB != null) && aliasDB.equalsIgnoreCase(alias);
 				    boolean passOK  = (passDB  != null) && passDB.equals(contrasena);
 
 				    if (aliasOK && passOK) {
-				        JOptionPane.showMessageDialog(null, "Bienvenido " + h.getNombre());
+				        JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.bienvenido ") + h.getNombre());
 				        mf.setUsuarioActual(h);
 
 				        vf.getVenMenu().setVisible(false);
@@ -336,7 +336,7 @@ public class Controller implements ActionListener {
 				        boolean passOK  = (passDB  != null) && passDB.equals(contrasena);
 
 				        if (aliasOK && passOK) {
-				            JOptionPane.showMessageDialog(null, "Bienvenida " + m.getNombre());
+				            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.bienvenida ")+ m.getNombre());
 				            mf.setUsuarioActual(m);
 
 				            vf.getVenMenu().setVisible(false);
@@ -356,12 +356,11 @@ public class Controller implements ActionListener {
 
 
 				if (!encontrado) {
-					JOptionPane.showMessageDialog(null, "Alias o contraseña incorrectos.");
+					JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.error.datos"));
 				}
 
 			} catch (Exception e1) {
-				e1.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Error al iniciar sesión: " + e1.getMessage());
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.error.inicio.sesion ") + e1.getMessage());
 			}
 			break;
 		}
@@ -370,13 +369,13 @@ public class Controller implements ActionListener {
 		    try {
 		        Usuario usuarioActual = mf.getUsuarioActual();
 		        if (usuarioActual == null) {
-		            JOptionPane.showMessageDialog(null, "Debe iniciar sesión antes de dar like.");
+		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.like.inicio.sesion"));
 		            break;
 		        }
 
 		        int fila = vf.getVenPrincipal().getTablaUsuarios().getSelectedRow();
 		        if (fila == -1) {
-		            JOptionPane.showMessageDialog(null, "Seleccione una persona de la tabla para dar like ❤️");
+		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.like.seleccion"));
 		            break;
 		        }
 
@@ -387,19 +386,19 @@ public class Controller implements ActionListener {
 		        // Evitar auto-like
 		        if (usuarioActual.getAlias() != null &&
 		            usuarioActual.getAlias().equalsIgnoreCase(aliasSeleccionado)) {
-		            JOptionPane.showMessageDialog(null, "No puedes darte like a ti mismo.");
+		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.like.yo"));
 		            break;
 		        }
 
 		        Usuario receptor = buscarUsuarioPorAlias(aliasSeleccionado);
 		        if (receptor == null) {
-		            JOptionPane.showMessageDialog(null, "No se encontró el usuario seleccionado.");
+		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.like.seleccion.vacia"));
 		            break;
 		        }
 
 		        // Evitar likes repetidos (con equals/hashCode por alias ya funciona bien)
 		        if (usuarioActual.getLikesDados() != null && usuarioActual.getLikesDados().contains(receptor)) {
-		            JOptionPane.showMessageDialog(null, "Ya le has dado like a " + receptor.getNombre());
+		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.like.repetido ") + receptor.getNombre());
 		            break;
 		        }
 
@@ -411,10 +410,10 @@ public class Controller implements ActionListener {
 		        persistirUsuario(receptor);
 
 		        if (huboMatch) {
-		            JOptionPane.showMessageDialog(null, "¡Es un match con " + receptor.getAlias() + "! 🎉");
+		            JOptionPane.showMessageDialog(null, "¡" +  prop.getProperty("bostinder.controlador.like.match ") + receptor.getAlias() + "! ");
 		            // TODO: opcional abrir chat o marcar badge de match
 		        } else {
-		            JOptionPane.showMessageDialog(null, "Le diste like a " + receptor.getNombre() + " 💘");
+		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.like ") + receptor.getNombre());
 		        }
 
 		        // Refrescar columna de likes (última columna)
@@ -426,7 +425,7 @@ public class Controller implements ActionListener {
 
 		    } catch (Exception e1) {
 		        e1.printStackTrace();
-		        JOptionPane.showMessageDialog(null, "Error al dar like: " + e1.getMessage());
+		        JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.like.error ") + e1.getMessage());
 		    }
 		    break;
 		}
@@ -435,13 +434,13 @@ public class Controller implements ActionListener {
 		    try {
 		        Usuario usuarioActual = mf.getUsuarioActual();
 		        if (usuarioActual == null) {
-		            JOptionPane.showMessageDialog(null, "Debe iniciar sesión antes de dar dislike.");
+		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.dislike.inicio.sesion"));
 		            break;
 		        }
 
 		        int fila = vf.getVenPrincipal().getTablaUsuarios().getSelectedRow();
 		        if (fila == -1) {
-		            JOptionPane.showMessageDialog(null, "Seleccione una persona de la tabla para quitar like");
+		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.dislike.seleccion"));
 		            break;
 		        }
 
@@ -451,19 +450,19 @@ public class Controller implements ActionListener {
 		        // Evitar auto-dislike
 		        if (usuarioActual.getAlias() != null &&
 		            usuarioActual.getAlias().equalsIgnoreCase(aliasSeleccionado)) {
-		            JOptionPane.showMessageDialog(null, "No puedes darte dislike a ti mismo.");
+		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.dislike.yo"));
 		            break;
 		        }
 
 		        Usuario receptor = buscarUsuarioPorAlias(aliasSeleccionado);
 		        if (receptor == null) {
-		            JOptionPane.showMessageDialog(null, "No se encontró el usuario seleccionado");
+		            JOptionPane.showMessageDialog(null,prop.getProperty("bostinder.controlador.dislike.seleccion.vacia"));
 		            break;
 		        }
 
 		        // Si no le habías dado like, no hay nada que quitar
 		        if (usuarioActual.getLikesDados() == null || !usuarioActual.getLikesDados().contains(receptor)) {
-		            JOptionPane.showMessageDialog(null, "No le habías dado like a " + receptor.getNombre());
+		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.dislike.like.nulo ") + receptor.getNombre());
 		            break;
 		        }
 
@@ -474,7 +473,7 @@ public class Controller implements ActionListener {
 		        persistirUsuario(usuarioActual);
 		        persistirUsuario(receptor);
 
-		        JOptionPane.showMessageDialog(null, "Le quitaste el like a " + receptor.getNombre());
+		        JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.dislike ") + receptor.getNombre());
 
 		        // Actualizar columna de likes
 		        DefaultTableModel modelo = (DefaultTableModel) vf.getVenPrincipal().getTablaUsuarios().getModel();
@@ -485,8 +484,7 @@ public class Controller implements ActionListener {
 		        // ((DefaultTableModel) vf.getVenPrincipal().getTablaUsuarios().getModel()).removeRow(fila);
 
 		    } catch (Exception e1) {
-		        e1.printStackTrace();
-		        JOptionPane.showMessageDialog(null, "Error al quitar like: " + e1.getMessage());
+		        JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.dislike.error ") + e1.getMessage());
 		    }
 		    break;
 		}
@@ -520,7 +518,7 @@ public class Controller implements ActionListener {
 			String contrasena = new String(vf.getVenMenu().getTextContrasenia().getPassword()).trim();
 
 			if (correo.isEmpty() || contrasena.isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Por favor ingrese correo y contraseña.");
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.inicio.sesion.admin"));
 				break;
 			}
 
@@ -532,7 +530,7 @@ public class Controller implements ActionListener {
 					if (h.getEmail().equalsIgnoreCase(correo) && h.getContrasena().equals(contrasena)
 							&& h.isEsAdministrador()) {
 
-						JOptionPane.showMessageDialog(null, "Bienvenido Administrador " + h.getNombre());
+						JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.bienvenido.admin.hombre ") + h.getNombre());
 						vf.getVenInicioSesionAdmin().setVisible(false);
 						vf.getVenPrincipal().setVisible(true);
 						encontrado = true;
@@ -548,7 +546,7 @@ public class Controller implements ActionListener {
 						if (m.getEmail().equalsIgnoreCase(correo) && m.getContrasena().equals(contrasena)
 								&& m.isEsAdministrador()) {
 
-							JOptionPane.showMessageDialog(null, "Bienvenida Administradora " + m.getNombre());
+							JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.bienvenido.admin.mujer ") + m.getNombre());
 							vf.getVenInicioSesionAdmin().setVisible(false);
 							vf.getVenPrincipal().setVisible(true);
 							encontrado = true;
@@ -559,7 +557,7 @@ public class Controller implements ActionListener {
 			}
 
 			if (!encontrado) {
-				JOptionPane.showMessageDialog(null, "Credenciales inválidas o el usuario no es administrador");
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.invalido.admin"));
 			}
 
 			break;
@@ -792,17 +790,17 @@ public class Controller implements ActionListener {
 				// Generar y enviar el código de verificación al correo ingresado
 				String codigo = EmailService.generarCodigo();
 				EmailService.enviarCodigo(correo, codigo);
-				JOptionPane.showMessageDialog(null, "Se ha enviado un código de verificación a tu correo electrónico.");
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.codigo.crear"));
 
 				// Solicitar el código
 				String codigoIngresado = JOptionPane.showInputDialog(null,
-						"Ingresa el código de verificación que se envió a tu correo:", "Verificación de correo",
+						prop.getProperty("bostinder.controlador.codigo.ingreso "), prop.getProperty("bostinder.controlador.ingreso.verificacion"),
 						JOptionPane.QUESTION_MESSAGE);
 
 				// Validar el código
 				if (codigoIngresado == null || !codigoIngresado.equals(codigo)) {
 					JOptionPane.showMessageDialog(null,
-							"El código ingresado es incorrecto. No se ha creado la cuenta.");
+							prop.getProperty("bostinder.controlador.codigo.error"));
 					break;
 				}
 
@@ -810,27 +808,27 @@ public class Controller implements ActionListener {
 						esAdministrador, estaDisponible, alias, urlFoto, esIncognito, numLikes, ingresos, estatura);
 
 				mf.getHombreDAO().create(nuevo);
-				JOptionPane.showMessageDialog(null, "¡Cuenta creada exitosamente!");
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.crear.exito"));
 
 				vf.getVenRegistroHombre().setVisible(false);
 				vf.getVenMenu().setVisible(true);
 
 			} catch (InvalidNameException ex) {
-				JOptionPane.showMessageDialog(null, "Error al crear la cuenta o enviar el correo.");
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.excepcion.nombre"));
 			} catch (InvalidSurNameException ex) {
-				JOptionPane.showMessageDialog(null, "Error al crear la cuenta o enviar el correo.");
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.excepcion.apellido"));
 			} catch (InvalidEmailException ex) {
-				JOptionPane.showMessageDialog(null, "Error al crear la cuenta o enviar el correo.");
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.excepcion.correo"));
 			} catch (InvalidPasswordException ex) {
-				JOptionPane.showMessageDialog(null, "Error al crear la cuenta o enviar el correo.");
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.excepcion.contrasena"));
 			} catch (InvalidHeightException ex) {
-				JOptionPane.showMessageDialog(null, "Error al crear la cuenta o enviar el correo.");
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.excepcion.altura"));
 			} catch (InvalidDoubleException ex) {
-				JOptionPane.showMessageDialog(null, "Error al crear la cuenta o enviar el correo.");
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.excepcion.double"));
 			} catch (MessagingException ex) {
-				JOptionPane.showMessageDialog(null, "Error al crear la cuenta o enviar el correo.");
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.excepcion.mensaje.correo"));
 			} catch (InvalidDateException ex) {
-				JOptionPane.showMessageDialog(null, "Error al crear la cuenta o enviar el correo.");
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.excepcion.fecha"));
 			}
 			break;
 		}
@@ -862,17 +860,17 @@ public class Controller implements ActionListener {
 				// Generar y enviar código al correo ingresado
 				String codigo = EmailService.generarCodigo();
 				EmailService.enviarCodigo(correo, codigo);
-				JOptionPane.showMessageDialog(null, "Se ha enviado un código de verificación a tu correo electrónico.");
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.codigo.crear"));
 
 				// Solicitar el código
 				String codigoIngresado = JOptionPane.showInputDialog(null,
-						"Ingresa el código de verificación que se envió a tu correo:", "Verificación de correo",
+						prop.getProperty("bostinder.controlador.codigo.ingreso"), prop.getProperty("bostinder.controlador.ingreso.verificacion"),
 						JOptionPane.QUESTION_MESSAGE);
 
 				// Validar codigo
 				if (codigoIngresado == null || !codigoIngresado.equals(codigo)) {
 					JOptionPane.showMessageDialog(null,
-							"El código ingresado es incorrecto. No se ha creado la cuenta.");
+							prop.getProperty("bostinder.controlador.codigo.error"));
 					break;
 				}
 
@@ -880,27 +878,27 @@ public class Controller implements ActionListener {
 						esAdministrador, estaDisponible, alias, urlFoto, esIncognito, numLikes, estatura, esDivorciada);
 
 				mf.getMujerDAO().create(nueva);
-				JOptionPane.showMessageDialog(null, "¡Cuenta creada exitosamente!");
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.crear.exito"));
 
 				vf.getVenRegistroMujer().setVisible(false);
 				vf.getVenMenu().setVisible(true);
 
 			} catch (InvalidNameException ex) {
-				JOptionPane.showMessageDialog(null, "Error al crear la cuenta o enviar el correo.");
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.excepcion.nombre"));
 			} catch (InvalidSurNameException ex) {
-				JOptionPane.showMessageDialog(null, "Error al crear la cuenta o enviar el correo.");
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.excepcion.apellido"));
 			} catch (InvalidEmailException ex) {
-				JOptionPane.showMessageDialog(null, "Error al crear la cuenta o enviar el correo.");
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.excepcion.correo"));
 			} catch (InvalidPasswordException ex) {
-				JOptionPane.showMessageDialog(null, "Error al crear la cuenta o enviar el correo.");
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.excepcion.contrasena"));
 			} catch (InvalidHeightException ex) {
-				JOptionPane.showMessageDialog(null, "Error al crear la cuenta o enviar el correo.");
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.excepcion.altura"));
 			} catch (InvalidDoubleException ex) {
-				JOptionPane.showMessageDialog(null, "Error al crear la cuenta o enviar el correo.");
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.excepcion.double"));
 			} catch (MessagingException ex) {
-				JOptionPane.showMessageDialog(null, "Error al crear la cuenta o enviar el correo.");
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.excepcion.mensaje.correo"));
 			} catch (InvalidDateException ex) {
-				JOptionPane.showMessageDialog(null, "Error al crear la cuenta o enviar el correo.");
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.excepcion.fecha"));
 			}
 			break;
 		}
@@ -915,7 +913,7 @@ public class Controller implements ActionListener {
 				// Validación básica
 				if (nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || contrasena.isEmpty()
 						|| fechaNacimiento == null) {
-					JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos antes de continuar.");
+					JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.crear.administrador.vacio"));
 					break;
 				}
 
@@ -925,7 +923,7 @@ public class Controller implements ActionListener {
 
 				// Pedir código al usuario
 				String ingresado = JOptionPane.showInputDialog(null,
-						"Ingrese el código de verificación enviado a su correo:");
+						prop.getProperty("bostinder.controlador.codigo.ingreso"));
 
 				if (ingresado != null && ingresado.equals(codigo)) {
 					// Crear DTO
@@ -935,16 +933,16 @@ public class Controller implements ActionListener {
 					// Guardar
 					mf.getAdminDAO().create(nuevo);
 
-					JOptionPane.showMessageDialog(null, "Cuenta de administrador creada correctamente.");
+					JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.crear.administrador.exito"));
 					vf.getVenRegistroAdmin().setVisible(false);
 					vf.getVenMenu().setVisible(true);
 				} else {
-					JOptionPane.showMessageDialog(null, "Código de verificación incorrecto. Intenta de nuevo.");
+					JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.codigo.error"));
 				}
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Error al crear cuenta: " + ex.getMessage());
+				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.excepcion.cuenta ") + ex.getMessage());
 			}
 			break;
 		}
@@ -1102,7 +1100,15 @@ public class Controller implements ActionListener {
 	    modelo.setRowCount(0);
 
 	    if (actual instanceof Hombre) {
-	        String[] columnas = { "Foto", "Nombre", "Alias", "Correo", "Edad", "Estatura (cm)", "Divorciada", "Likes" };
+	        String[] columnas = { prop.getProperty("bostinder.controlador.atributo.foto"),
+	        		prop.getProperty("bostinder.controlador.atributo.nombre"), 
+	        		prop.getProperty("bostinder.controlador.atributo.alias"), 
+	        		prop.getProperty("bostinder.controlador.atributo.correo"), 
+	        		prop.getProperty("bostinder.controlador.atributo.edad"), 
+	        		prop.getProperty("bostinder.controlador.atributo.estatura"), 
+	        		prop.getProperty("bostinder.controlador.atributo.divorciada"), 
+	        		prop.getProperty("bostinder.controlador.atributo.like")
+	        		};
 	        modelo.setColumnIdentifiers(columnas);
 
 	        for (Mujer mu : mf.getMujerDAO().getListaMujeres()) {
@@ -1129,7 +1135,15 @@ public class Controller implements ActionListener {
 	            });
 	        }
 	    } else if (actual instanceof Mujer) {
-	        String[] columnas = { "Foto", "Nombre", "Alias", "Correo", "Edad", "Estatura (cm)", "Ingresos", "Likes" };
+	        String[] columnas = {  prop.getProperty("bostinder.controlador.atributo.foto"),
+	        		prop.getProperty("bostinder.controlador.atributo.nombre"), 
+	        		prop.getProperty("bostinder.controlador.atributo.alias"), 
+	        		prop.getProperty("bostinder.controlador.atributo.correo"), 
+	        		prop.getProperty("bostinder.controlador.atributo.edad"), 
+	        		prop.getProperty("bostinder.controlador.atributo.estatura"), 
+	        		prop.getProperty("bostinder.controlador.atributo.ingreso"), 
+	        		prop.getProperty("bostinder.controlador.atributo.like")
+	        		 };
 	        modelo.setColumnIdentifiers(columnas);
 
 	        for (Hombre ho : mf.getHombreDAO().getListaHombres()) {
