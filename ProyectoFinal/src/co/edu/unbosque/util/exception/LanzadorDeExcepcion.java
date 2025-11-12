@@ -40,25 +40,27 @@ public class LanzadorDeExcepcion {
         }
     }
 
-    /**
-     * Verifica si un número de teléfono es válido.
-     *
-     * @param telefono número de teléfono a validar
-     * @throws InvalidPhoneException si el teléfono no cumple con el formato
-     */
-    public static void verificarTelefono(String telefono) throws InvalidPhoneException {
-        String telTrim = telefono.trim();
-
-        if ((telefono.length() < 10) && !telefono.matches("^[0-9]")) {
-            throw new InvalidPhoneException();
-        }
-    }
+   
     
-    //holi
+
     public static void verificarPalabra(String palabra) throws InvalidWordException {
     	 if (!palabra.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
     	        throw new InvalidWordException();
     	    }
     }
+    
+    public static void verificarAltura(double altura) throws InvalidHeightException {
+    	if(altura < 0) {
+    		throw new InvalidHeightException();
+    	}
+    	
+    }
+    
+    public static void verificarDouble(double valor) throws InvalidDoubleException {
+        if (Double.isNaN(valor) || Double.isInfinite(valor)) {
+            throw new InvalidDoubleException();
+        }
+    }
+
     
 }

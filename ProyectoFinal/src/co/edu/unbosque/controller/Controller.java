@@ -8,7 +8,6 @@ import java.util.Properties;
 import javax.swing.JOptionPane;
 
 
-import co.edu.unbosque.model.Administrador;
 import co.edu.unbosque.model.AdministradorDTO;
 import co.edu.unbosque.model.Hombre;
 import co.edu.unbosque.model.HombreDTO;
@@ -17,8 +16,13 @@ import co.edu.unbosque.model.Mujer;
 import co.edu.unbosque.model.MujerDTO;
 import co.edu.unbosque.model.persistence.FileHandler;
 import co.edu.unbosque.util.EmailService;
+import co.edu.unbosque.util.exception.InvalidDoubleException;
+import co.edu.unbosque.util.exception.InvalidEmailException;
+import co.edu.unbosque.util.exception.InvalidHeightException;
+import co.edu.unbosque.util.exception.InvalidPasswordException;
+import co.edu.unbosque.util.exception.InvalidWordException;
+import co.edu.unbosque.util.exception.LanzadorDeExcepcion;
 import co.edu.unbosque.view.ViewFacade;
-import jakarta.mail.search.IntegerComparisonTerm;
 
 public class Controller implements ActionListener {
 
@@ -252,25 +256,7 @@ public class Controller implements ActionListener {
 			break;
 		}
 		
-		case "CREAR_CUENTA":{
-			try {
-				String nombre = vf.getVenRegistroHombre().getTextNombre().getText();
-			
-				String apellido = vf.getVenRegistroHombre().getTextApellido().getText();
-				String email = vf.getVenRegistroHombre().getTextCorreo().getText();
-				String alias = vf.getVenRegistroHombre().getTextAlias().getText();
-				String contrasena = vf.getVenRegistroHombre().getTextContrasenia().getText();
-				double estatura = Double.parseDouble(vf.getVenRegistroHombre().getTextEstatura().getText());
-				int promedioIngMensual = Integer.parseInt(vf.getVenRegistroHombre().getTextIngreso().getText());
-				
-				HombreDTO hombreDTO = new HombreDTO( nombre,  apellido,  email,  contrasena,  LocalDate.now(),  "", false,  false,  alias,  "",  false, 0,  promedioIngMensual,  estatura);
-			
-			} catch (Exception e1) {
-				// TODO: handle exception
-			}
-			
-			break;
-		}
+		
 		
 		case "REGISTRAR_ADMIN_DESDE_HOMBRE": {
 			vf.getVenRegistroAdmin().setVisible(true);
@@ -319,12 +305,17 @@ public class Controller implements ActionListener {
 		    try {
 		        
 		        String nombre = vf.getVenRegistroHombre().getTextNombre().getText();
+				LanzadorDeExcepcion.verificarPalabra(nombre);
 		        String apellido = vf.getVenRegistroHombre().getTextApellido().getText();
+				LanzadorDeExcepcion.verificarPalabra(apellido);
 		        String alias = vf.getVenRegistroHombre().getTextAlias().getText();
 		        String correo = vf.getVenRegistroHombre().getTextCorreo().getText();
+		        LanzadorDeExcepcion.verificarEmail(correo);
 		        String contrasena = vf.getVenRegistroHombre().getTextContrasenia().getText();
+				LanzadorDeExcepcion.verificarTamanoContrasena(contrasena);
 		        LocalDate fechaNacimiento = vf.getVenRegistroHombre().getFechaSeleccionada();
 		        String genero = "Hombre";
+		        LanzadorDeExcepcion.verificarPalabra(genero);
 		        boolean esAdministrador = false;
 		        boolean estaDisponible = true;
 		        String urlFoto = vf.getVenRegistroHombre().getRutaFotoPerfil();
@@ -332,6 +323,8 @@ public class Controller implements ActionListener {
 		        int numLikes = 0;
 		        int ingresos = Integer.parseInt(vf.getVenRegistroHombre().getTextIngreso().getText());
 		        double estatura = Double.parseDouble(vf.getVenRegistroHombre().getTextEstatura().getText());
+		        LanzadorDeExcepcion.verificarAltura(estatura);
+		        LanzadorDeExcepcion.verificarDouble(estatura);
 
 		        //Generar y enviar el código de verificación al correo ingresado
 		        String codigo = EmailService.generarCodigo();
@@ -362,9 +355,18 @@ public class Controller implements ActionListener {
 		        vf.getVenRegistroHombre().setVisible(false);
 		        vf.getVenMenu().setVisible(true);
 
-		    } catch (Exception ex) {
-		        ex.printStackTrace();
-		        JOptionPane.showMessageDialog(null, "Error al crear la cuenta o enviar el correo.");
+		    } catch (InvalidWordException e1) {
+				JOptionPane.showMessageDialog(null, "Error al crear comprador", "Error", JOptionPane.ERROR_MESSAGE);
+			}catch(InvalidEmailException e1) {
+				JOptionPane.showMessageDialog(null, "Error al crear comprador", "Error", JOptionPane.ERROR_MESSAGE);
+			}catch (InvalidPasswordException e1) {
+				JOptionPane.showMessageDialog(null, "Error al crear comprador", "Error", JOptionPane.ERROR_MESSAGE);
+			}catch (InvalidHeightException e1) {
+				JOptionPane.showMessageDialog(null, "Error al crear comprador", "Error", JOptionPane.ERROR_MESSAGE);
+			}catch (InvalidDoubleException e1) {
+				JOptionPane.showMessageDialog(null, "Error al crear comprador", "Error", JOptionPane.ERROR_MESSAGE);
+		    }catch (Exception e1) {
+				JOptionPane.showMessageDialog(null, "Error al crear comprador", "Error", JOptionPane.ERROR_MESSAGE);
 		    }
 		    break;
 		}
@@ -372,10 +374,14 @@ public class Controller implements ActionListener {
 		    try {
 		      
 		        String nombre = vf.getVenRegistroMujer().getTextNombre().getText();
+		        LanzadorDeExcepcion.verificarPalabra(nombre);
 		        String apellido = vf.getVenRegistroMujer().getTextApellido().getText();
+		        LanzadorDeExcepcion.verificarPalabra(apellido);
 		        String alias = vf.getVenRegistroMujer().getTextAlias().getText();
 		        String correo = vf.getVenRegistroMujer().getTextCorreo().getText();
+				LanzadorDeExcepcion.verificarEmail(correo);
 		        String contrasena = vf.getVenRegistroMujer().getTextContrasenia().getText();
+		        LanzadorDeExcepcion.verificarTamanoContrasena(contrasena);
 		        LocalDate fechaNacimiento = vf.getVenRegistroMujer().getFechaSeleccionada();
 		        String genero = "Mujer";
 		        boolean esAdministrador = false;
@@ -384,6 +390,8 @@ public class Controller implements ActionListener {
 		        boolean esIncognito = false;
 		        int numLikes = 0;
 		        double estatura = Double.parseDouble(vf.getVenRegistroMujer().getTextEstatura().getText());
+		        LanzadorDeExcepcion.verificarAltura(estatura);
+		        LanzadorDeExcepcion.verificarDouble(estatura);
 		        boolean esDivorciada = vf.getVenRegistroMujer().getCbDivorcio().getSelectedItem().equals("Sí");
 
 		        //Generar y enviar código al correo ingresado
@@ -415,10 +423,19 @@ public class Controller implements ActionListener {
 		        vf.getVenRegistroMujer().setVisible(false);
 		        vf.getVenMenu().setVisible(true);
 
-		    } catch (Exception ex) {
-		        ex.printStackTrace();
-		        JOptionPane.showMessageDialog(null, "Error al crear la cuenta o enviar el correo.");
-		    }
+		    } catch (InvalidWordException e1) {
+				JOptionPane.showMessageDialog(null, "Error al crear comprador", "Error", JOptionPane.ERROR_MESSAGE);
+			}catch(InvalidEmailException e1) {
+				JOptionPane.showMessageDialog(null, "Error al crear comprador", "Error", JOptionPane.ERROR_MESSAGE);
+			}catch (InvalidPasswordException e1) {
+				JOptionPane.showMessageDialog(null, "Error al crear comprador", "Error", JOptionPane.ERROR_MESSAGE);
+			}catch (InvalidHeightException e1) {
+				JOptionPane.showMessageDialog(null, "Error al crear comprador", "Error", JOptionPane.ERROR_MESSAGE);
+			}catch (InvalidDoubleException e1) {
+				JOptionPane.showMessageDialog(null, "Error al crear comprador", "Error", JOptionPane.ERROR_MESSAGE);
+		    }catch (Exception e1) {
+				JOptionPane.showMessageDialog(null, "Error al crear comprador", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 		    break;
 		}
 		case "CREAR_CUENTA_ADMINISTRADOR": {
