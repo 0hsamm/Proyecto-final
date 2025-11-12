@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class VentanaInicioSesionAdmin extends JFrame {
@@ -29,7 +30,7 @@ public class VentanaInicioSesionAdmin extends JFrame {
 	private JLabel lblRegistro;
 
 	private JTextField textCorreo;
-	private JTextField textContrasenia;
+	private JPasswordField textContrasenia;
 
 	private Properties prop;
 
@@ -38,12 +39,12 @@ public class VentanaInicioSesionAdmin extends JFrame {
 	}
 
 	public void inicializarComponentes() {
-		this.setTitle("Menu Principal");
+		this.setTitle("Inicio sesion admin");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 
-		fondo = new ImageIcon("src/co/edu/unbosque/view/VentanaMenuOscuro.PNG");
+		fondo = new ImageIcon("src/co/edu/unbosque/view/VentanaInicioSesionAdmin.PNG");
 		escalar = fondo.getImage().getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
 		fondoMenu = new JLabel(new ImageIcon(escalar));
 		fondoMenu.setLayout(null);
@@ -81,7 +82,7 @@ public class VentanaInicioSesionAdmin extends JFrame {
 		lblContrasenia.setBounds(810, 320, 1200, 70);
 		fondoMenu.add(lblContrasenia);
 
-		textContrasenia = new JTextField();
+		textContrasenia = new JPasswordField();
 		textContrasenia.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
 		textContrasenia.setBounds(813, 374, 214, 40);
 		textContrasenia.setBorder(null);
@@ -104,20 +105,6 @@ public class VentanaInicioSesionAdmin extends JFrame {
 		btnSalir.setFocusPainted(false);
 		btnSalir.setBorder(null);
 		fondoMenu.add(btnSalir);
-
-		lblRegistro = new JLabel(prop.getProperty("bostinder.ventanamenu.lblRegistro"));
-		lblRegistro.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 15));
-		lblRegistro.setBounds(845, 570, 250, 30);
-		fondoMenu.add(lblRegistro);
-
-		btnRegistro = new JButton(prop.getProperty("bostinder.ventanamenu.btnRegistro"));
-		btnRegistro.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 13));
-		btnRegistro.setBounds(846, 616, 110, 25);
-		btnRegistro.setBackground(new Color(255, 184, 184));
-		btnRegistro.setForeground(Color.WHITE);
-		btnRegistro.setFocusPainted(false);
-		btnRegistro.setBorder(null);
-		fondoMenu.add(btnRegistro);
 
 	}
 
@@ -201,11 +188,13 @@ public class VentanaInicioSesionAdmin extends JFrame {
 		this.lblRegistro = lblRegistro;
 	}
 
-	public JTextField getTextContrasenia() {
+	
+
+	public JPasswordField getTextContrasenia() {
 		return textContrasenia;
 	}
 
-	public void setTextContrasenia(JTextField textContrasenia) {
+	public void setTextContrasenia(JPasswordField textContrasenia) {
 		this.textContrasenia = textContrasenia;
 	}
 

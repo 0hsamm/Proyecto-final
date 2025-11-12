@@ -1,24 +1,29 @@
 package co.edu.unbosque.view;
 
 public class ViewFacade {
-	
+
 	private VentanaMenuPrincipal venMenu;
 	private VentanaRegistroHombre venRegistroHombre;
 	private VentanaRegistroMujer venRegistroMujer;
 	private VentanaPrincipal venPrincipal;
-	private VentanaCRUD venCRUD;
+	private VentanaFuncionesAdmin venCRUD;
 	private VentanaEscogerGenero venGenero;
-	private VentanaRegistroAdministrador venRegistroAdmin;	
+	private VentanaRegistroAdministrador venRegistroAdmin;
+	private VentanaInicioSesionAdmin venInicioSesionAdmin;
+	private VentanaPerfil venPerfil;
+
 	public ViewFacade() {
-		
+
 		venMenu = new VentanaMenuPrincipal();
 		venRegistroHombre = new VentanaRegistroHombre();
 		venRegistroMujer = new VentanaRegistroMujer();
 		venPrincipal = new VentanaPrincipal();
-		venCRUD = new VentanaCRUD();
+		venCRUD = new VentanaFuncionesAdmin();
 		venGenero = new VentanaEscogerGenero();
 		venRegistroAdmin = new VentanaRegistroAdministrador();
-		
+		venInicioSesionAdmin = new VentanaInicioSesionAdmin();
+		venPerfil = new VentanaPerfil();
+
 	}
 
 	public VentanaMenuPrincipal getVenMenu() {
@@ -53,11 +58,11 @@ public class ViewFacade {
 		this.venPrincipal = venPrincipal;
 	}
 
-	public VentanaCRUD getVenCRUD() {
+	public VentanaFuncionesAdmin getVenCRUD() {
 		return venCRUD;
 	}
 
-	public void setVenCRUD(VentanaCRUD venCRUD) {
+	public void setVenCRUD(VentanaFuncionesAdmin venCRUD) {
 		this.venCRUD = venCRUD;
 	}
 
@@ -76,4 +81,22 @@ public class ViewFacade {
 	public void setVenRegistroAdmin(VentanaRegistroAdministrador venRegistroAdmin) {
 		this.venRegistroAdmin = venRegistroAdmin;
 	}
+
+	public VentanaInicioSesionAdmin getVenInicioSesionAdmin() {
+		return venInicioSesionAdmin;
+	}
+
+	public void setVenInicioSesionAdmin(VentanaInicioSesionAdmin venInicioSesionAdmin) {
+		this.venInicioSesionAdmin = venInicioSesionAdmin;
+	}
+
+	public VentanaPerfil getVenPerfil() {
+		return venPerfil;
+	}
+
+	public void setVenPerfil(VentanaPerfil venPerfil) {
+		this.venPerfil = venPerfil;
+	}
+	
+	
 }

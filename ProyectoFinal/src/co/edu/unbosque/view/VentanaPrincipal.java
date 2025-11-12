@@ -1,6 +1,8 @@
 package co.edu.unbosque.view;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Image;
 import java.util.Properties;
@@ -11,6 +13,10 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 public class VentanaPrincipal extends JFrame {
 
@@ -33,6 +39,9 @@ public class VentanaPrincipal extends JFrame {
 
 	// Botones y cb
 	private JButton btnVolver;
+	private JButton btnPerfil;
+	private JButton btnLike;
+	private JButton btnDislike;
 
 	private JComboBox<String> cbGenero;
 	private JComboBox<String> cbEdad;
@@ -42,6 +51,10 @@ public class VentanaPrincipal extends JFrame {
 	private JComboBox<String> cbIngreso;
 	private JComboBox<String> cbDivorcio;
 	
+	//tabla
+	private JTable tablaUsuarios;
+	private DefaultTableModel modeloTabla;
+	private JScrollPane scrollTabla;
 	
 
 	private Properties prop;
@@ -52,7 +65,7 @@ public class VentanaPrincipal extends JFrame {
 
 	public void inicializarComponentes() {
 
-		this.setTitle("Crear cuenta");
+		this.setTitle("Ventana Principal");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
@@ -193,6 +206,85 @@ public class VentanaPrincipal extends JFrame {
 		btnVolver.setBorderPainted(false);
 		btnVolver.setOpaque(false);
 		this.add(btnVolver);
+		
+		//Boton Like
+		btnLike = new JButton(prop.getProperty("bostinder.ventanaprinicipal.btnLike"));
+		btnLike.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
+		btnLike.setBounds(640, 640, 150, 25); 
+		btnLike.setBackground(new Color(0, 153, 51));
+		btnLike.setForeground(Color.WHITE);
+		btnLike.setFocusPainted(false);
+		btnLike.setBorder(BorderFactory.createEmptyBorder());
+		btnLike.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		this.add(btnLike);
+
+		//Boton Dislike
+		btnDislike = new JButton(prop.getProperty("bostinder.ventanaprinicipal.btnDislike"));
+		btnDislike.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
+		btnDislike.setBounds(830, 640, 150, 25); 
+		btnDislike.setBackground(new Color(204, 0, 0));
+		btnDislike.setForeground(Color.WHITE);
+		btnDislike.setFocusPainted(false);
+		btnDislike.setBorder(BorderFactory.createEmptyBorder());
+		btnDislike.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		this.add(btnDislike);
+		
+		
+		//tabla de usuarios
+		String[] columnas = {"Foto", "Nombre", "Alias", "Correo", "Edad", "Estatura (cm)", "Ingresos / Divorcio", "Likes"};
+		modeloTabla = new DefaultTableModel(columnas, 0) {
+		    @Override
+		    public Class<?> getColumnClass(int columnIndex) {
+		        if (columnIndex == 0) return ImageIcon.class; // Primera columna: imagen
+		        return Object.class;
+		    }
+
+		    @Override
+		    public boolean isCellEditable(int row, int column) {
+		        return false; // No editable
+		    }
+		};
+
+		tablaUsuarios = new JTable(modeloTabla);
+		tablaUsuarios.setFillsViewportHeight(true);
+		tablaUsuarios.setBackground(Color.DARK_GRAY);
+		tablaUsuarios.setForeground(Color.WHITE);
+		tablaUsuarios.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 13));
+		tablaUsuarios.setRowHeight(80); // más alto para la foto
+		tablaUsuarios.getTableHeader().setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 14));
+		tablaUsuarios.getTableHeader().setBackground(Color.BLACK);
+		tablaUsuarios.getTableHeader().setForeground(Color.WHITE);
+
+		// Renderer personalizado para mostrar imágenes centradas
+		tablaUsuarios.setDefaultRenderer(ImageIcon.class, new DefaultTableCellRenderer() {
+		   
+		    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+		        JLabel lbl = new JLabel();
+		        lbl.setHorizontalAlignment(JLabel.CENTER);
+		        if (value instanceof ImageIcon) {
+		            lbl.setIcon((ImageIcon) value);
+		        }
+		        return lbl;
+		    }
+		});
+
+		// Scroll y bordes
+		scrollTabla = new JScrollPane(tablaUsuarios);
+		scrollTabla.setBounds(503, 180, 662, 455);
+		scrollTabla.setBorder(BorderFactory.createDashedBorder(Color.WHITE));
+		scrollTabla.getViewport().setBackground(Color.BLACK);
+
+		this.add(scrollTabla);
+		
+		btnPerfil = new JButton("");
+		btnPerfil.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+		btnPerfil.setBounds(955, 20, 88, 90);
+		btnPerfil.setForeground(Color.BLACK);
+		btnPerfil.setFocusPainted(true);
+		btnPerfil.setContentAreaFilled(false);
+		btnPerfil.setBorderPainted(false);
+		btnPerfil.setOpaque(false);
+		this.add(btnPerfil);
 
 	}
 
@@ -405,6 +497,52 @@ public class VentanaPrincipal extends JFrame {
 		this.cbIngreso = cbIngreso;
 	}
 
-	
+	public DefaultTableModel getModeloTabla() {
+	    return modeloTabla;
+	}
+
+	public JTable getTablaUsuarios() {
+	    return tablaUsuarios;
+	}
+
+	public JButton getBtnPerfil() {
+		return btnPerfil;
+	}
+
+	public void setBtnPerfil(JButton btnPerfil) {
+		this.btnPerfil = btnPerfil;
+	}
+
+	public JButton getBtnLike() {
+		return btnLike;
+	}
+
+	public void setBtnLike(JButton btnLike) {
+		this.btnLike = btnLike;
+	}
+
+	public JButton getBtnDislike() {
+		return btnDislike;
+	}
+
+	public void setBtnDislike(JButton btnDislike) {
+		this.btnDislike = btnDislike;
+	}
+
+	public JScrollPane getScrollTabla() {
+		return scrollTabla;
+	}
+
+	public void setScrollTabla(JScrollPane scrollTabla) {
+		this.scrollTabla = scrollTabla;
+	}
+
+	public void setTablaUsuarios(JTable tablaUsuarios) {
+		this.tablaUsuarios = tablaUsuarios;
+	}
+
+	public void setModeloTabla(DefaultTableModel modeloTabla) {
+		this.modeloTabla = modeloTabla;
+	}
 
 }
