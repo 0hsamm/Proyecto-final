@@ -15,8 +15,8 @@ public class AdministradorDAO implements DAO<AdministradorDTO> {
 
 	public AdministradorDAO() {
 		listaAdministradores = new ArrayList<Administrador>();
-		leerDesdeArchivoDeTexto(FILE_NAME);
-		cargarDesdeArchivoSerializado();
+		//leerDesdeArchivoDeTexto(FILE_NAME);
+		//cargarDesdeArchivoSerializado();
 	}
 
 	@Override
