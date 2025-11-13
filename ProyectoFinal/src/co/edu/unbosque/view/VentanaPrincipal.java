@@ -39,7 +39,7 @@ public class VentanaPrincipal extends JFrame {
 	private JButton btnVolver;
 	private JButton btnPerfil;
 	private JButton btnLike;
-	private JButton btnDislike;
+
 	
 	private JButton btnClaro;
 	private JButton btnOscuro;
@@ -210,17 +210,6 @@ public class VentanaPrincipal extends JFrame {
 		btnLike.setActionCommand("DAR_LIKE");
 		this.add(btnLike);
 
-		//Boton Dislike
-		btnDislike = new JButton(prop.getProperty("bostinder.ventanaprinicipal.btnDislike"));
-		btnDislike.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
-		btnDislike.setBounds(830, 640, 150, 25); 
-		btnDislike.setBackground(new Color(204, 0, 0));
-		btnDislike.setForeground(Color.WHITE);
-		btnDislike.setFocusPainted(false);
-		btnDislike.setBorder(BorderFactory.createEmptyBorder());
-		btnDislike.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		btnDislike.setActionCommand("DAR_DISLIKE");
-		this.add(btnDislike);
 		
 		
 		//tabla de usuarios
@@ -492,13 +481,6 @@ public class VentanaPrincipal extends JFrame {
 		this.btnLike = btnLike;
 	}
 
-	public JButton getBtnDislike() {
-		return btnDislike;
-	}
-
-	public void setBtnDislike(JButton btnDislike) {
-		this.btnDislike = btnDislike;
-	}
 
 	public JScrollPane getScrollTabla() {
 		return scrollTabla;

@@ -236,8 +236,7 @@ public class Controller implements ActionListener {
 		vf.getVenPrincipal().getBtnOscuro().setActionCommand("OSCURO_PRINCIPAL");
 		
 		vf.getVenPrincipal().getBtnLike().addActionListener(this);
-		vf.getVenPrincipal().getBtnDislike().addActionListener(this);
-
+		
 		// VENTANA PERFIL 1
 		vf.getVenPerfil().getBtnMatch().addActionListener(this);
 		vf.getVenPerfil().getBtnMatch().setActionCommand("MATCHES");
@@ -375,125 +374,52 @@ public class Controller implements ActionListener {
 		    try {
 		        Usuario usuarioActual = mf.getUsuarioActual();
 		        if (usuarioActual == null) {
-		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.like.inicio.sesion"));
+		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.debe.iniciar.sesion"));
 		            break;
 		        }
 
 		        int fila = vf.getVenPrincipal().getTablaUsuarios().getSelectedRow();
 		        if (fila == -1) {
-		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.like.seleccion"));
+		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.debe.seleccionar.persona"));
 		            break;
 		        }
 
-		        // Columna 2 = Alias (según tu tabla)
-		        String aliasSeleccionado = (String) vf.getVenPrincipal()
-		                .getTablaUsuarios().getValueAt(fila, 2);
+		        String aliasSeleccionado = (String) vf.getVenPrincipal().getTablaUsuarios().getValueAt(fila, 2);
 
-		        // Evitar auto-like
-		        if (usuarioActual.getAlias() != null &&
-		            usuarioActual.getAlias().equalsIgnoreCase(aliasSeleccionado)) {
-		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.like.yo"));
+		        if (usuarioActual.getAlias() != null && usuarioActual.getAlias().equalsIgnoreCase(aliasSeleccionado)) {
+		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.no.like.mismo.usuario"));
 		            break;
 		        }
 
 		        Usuario receptor = buscarUsuarioPorAlias(aliasSeleccionado);
 		        if (receptor == null) {
-		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.like.seleccion.vacia"));
+		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.usuario.no.encontrado"));
 		            break;
 		        }
 
-		        // Evitar likes repetidos (con equals/hashCode por alias ya funciona bien)
-		        if (usuarioActual.getLikesDados() != null && usuarioActual.getLikesDados().contains(receptor)) {
-		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.like.repetido")+" " + receptor.getNombre());
+		        boolean agregado = usuarioActual.darLike(receptor);
+		        if (!agregado) {
+		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.like.ya.dado") + " " + receptor.getNombre());
 		            break;
 		        }
 
-		        // LÓGICA: delega en Usuario (ahora devuelve true si hay MATCH)
-		        boolean huboMatch = usuarioActual.darLike(receptor);
-
-		        // Persistir emisor y receptor (pueden estar en DAOs distintos)
 		        persistirUsuario(usuarioActual);
 		        persistirUsuario(receptor);
 
-		        if (huboMatch) {
-		            JOptionPane.showMessageDialog(null, "¡" +  prop.getProperty("bostinder.controlador.like.match") + receptor.getAlias() + "! ");
-		            // TODO: opcional abrir chat o marcar badge de match
-		        } else {
-		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.like") + receptor.getNombre());
-		        }
+		        JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.like.dado") + " " + receptor.getNombre());
 
-		        // Refrescar columna de likes (última columna)
 		        DefaultTableModel modelo = (DefaultTableModel) vf.getVenPrincipal().getTablaUsuarios().getModel();
 		        modelo.setValueAt(receptor.getNumLikes(), fila, modelo.getColumnCount() - 1);
 		        modelo.fireTableDataChanged();
 
-		        // Opcional: refrescarFeed(); // para ocultar ya-likeados o matches
-
 		    } catch (Exception e1) {
-		        e1.printStackTrace();
-		        JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.like.error") + e1.getMessage());
+		        JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.error.dar.like") + e1.getMessage());
 		    }
 		    break;
 		}
 
-		case "DAR_DISLIKE": {
-		    try {
-		        Usuario usuarioActual = mf.getUsuarioActual();
-		        if (usuarioActual == null) {
-		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.dislike.inicio.sesion"));
-		            break;
-		        }
 
-		        int fila = vf.getVenPrincipal().getTablaUsuarios().getSelectedRow();
-		        if (fila == -1) {
-		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.dislike.seleccion"));
-		            break;
-		        }
 
-		        String aliasSeleccionado = (String) vf.getVenPrincipal()
-		                .getTablaUsuarios().getValueAt(fila, 2);
-
-		        // Evitar auto-dislike
-		        if (usuarioActual.getAlias() != null &&
-		            usuarioActual.getAlias().equalsIgnoreCase(aliasSeleccionado)) {
-		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.dislike.yo"));
-		            break;
-		        }
-
-		        Usuario receptor = buscarUsuarioPorAlias(aliasSeleccionado);
-		        if (receptor == null) {
-		            JOptionPane.showMessageDialog(null,prop.getProperty("bostinder.controlador.dislike.seleccion.vacia"));
-		            break;
-		        }
-
-		        // Si no le habías dado like, no hay nada que quitar
-		        if (usuarioActual.getLikesDados() == null || !usuarioActual.getLikesDados().contains(receptor)) {
-		            JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.dislike.like.nulo") + receptor.getNombre());
-		            break;
-		        }
-
-		        // LÓGICA: dislike (quita like y rompe match si existía)
-		        usuarioActual.darDislike(receptor);
-
-		        // Persistir ambos
-		        persistirUsuario(usuarioActual);
-		        persistirUsuario(receptor);
-
-		        JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.dislike") + receptor.getNombre());
-
-		        // Actualizar columna de likes
-		        DefaultTableModel modelo = (DefaultTableModel) vf.getVenPrincipal().getTablaUsuarios().getModel();
-		        modelo.setValueAt(receptor.getNumLikes(), fila, modelo.getColumnCount() - 1);
-		        modelo.fireTableDataChanged();
-
-		        // Opcional UX: remover fila del feed si no quieres volverlo a ver
-		        // ((DefaultTableModel) vf.getVenPrincipal().getTablaUsuarios().getModel()).removeRow(fila);
-
-		    } catch (Exception e1) {
-		        JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.controlador.dislike.error") + e1.getMessage());
-		    }
-		    break;
-		}
 
 		case "REGISTRATE_AQUI": {
 			vf.getVenMenu().setVisible(false);
@@ -1024,10 +950,10 @@ public class Controller implements ActionListener {
 	private Usuario buscarUsuarioPorAlias(String alias) {
 	    if (alias == null) return null;
 	    for (Hombre h : mf.getHombreDAO().getListaHombres()) {
-	        if (h.getAlias() != null && h.getAlias().equalsIgnoreCase(alias)) return h;
+	        if (h != null && h.getAlias() != null && h.getAlias().equalsIgnoreCase(alias)) return h;
 	    }
 	    for (Mujer m : mf.getMujerDAO().getListaMujeres()) {
-	        if (m.getAlias() != null && m.getAlias().equalsIgnoreCase(alias)) return m;
+	        if (m != null && m.getAlias() != null && m.getAlias().equalsIgnoreCase(alias)) return m;
 	    }
 	    return null;
 	}
@@ -1041,7 +967,8 @@ public class Controller implements ActionListener {
 	            HombreDTO dto = DataMapper.convertirHombreAHombreDTO(h);
 	            mf.getHombreDAO().update(idx, dto);
 	        }
-	        mf.getHombreDAO().escribirEnArchivoSerializado(); // SOLO BIN
+	        mf.getHombreDAO().escribirEnArchivoDeTexto();
+	        mf.getHombreDAO().escribirEnArchivoSerializado();
 	    } else if (u instanceof Mujer) {
 	        Mujer m = (Mujer) u;
 	        int idx = mf.getMujerDAO().getListaMujeres().indexOf(m);
@@ -1049,55 +976,25 @@ public class Controller implements ActionListener {
 	            MujerDTO dto = DataMapper.convertirMujerAMujerDTO(m);
 	            mf.getMujerDAO().update(idx, dto);
 	        }
-	        mf.getMujerDAO().escribirEnArchivoSerializado();  // SOLO BIN
+	        mf.getMujerDAO().escribirEnArchivoDeTexto();
+	        mf.getMujerDAO().escribirEnArchivoSerializado();
 	    }
 	}
+
+
 
 	
-	private boolean resetearContrasena(String aliasOEmail, String nuevaClave) {
-	    if (aliasOEmail == null || nuevaClave == null || nuevaClave.trim().length() < 6) return false;
-	    String key = aliasOEmail.trim();
-
-	    // Buscar en Hombres
-	    for (Hombre h : mf.getHombreDAO().getListaHombres()) {
-	        if ((h.getAlias() != null && h.getAlias().equalsIgnoreCase(key)) ||
-	            (h.getEmail() != null && h.getEmail().equalsIgnoreCase(key))) {
-	            h.setContrasena(nuevaClave.trim());
-	            int idx = mf.getHombreDAO().getListaHombres().indexOf(h);
-	            if (idx >= 0) {
-	                HombreDTO dto = DataMapper.convertirHombreAHombreDTO(h);
-	                mf.getHombreDAO().update(idx, dto);
-	            }
-	            mf.getHombreDAO().escribirEnArchivoSerializado();
-	            return true;
-	        }
-	    }
-	    // Buscar en Mujeres
-	    for (Mujer m : mf.getMujerDAO().getListaMujeres()) {
-	        if ((m.getAlias() != null && m.getAlias().equalsIgnoreCase(key)) ||
-	            (m.getEmail() != null && m.getEmail().equalsIgnoreCase(key))) {
-	            m.setContrasena(nuevaClave.trim());
-	            int idx = mf.getMujerDAO().getListaMujeres().indexOf(m);
-	            if (idx >= 0) {
-	                MujerDTO dto = DataMapper.convertirMujerAMujerDTO(m);
-	                mf.getMujerDAO().update(idx, dto);
-	            }
-	            mf.getMujerDAO().escribirEnArchivoSerializado();
-	            return true;
-	        }
-	    }
-	    return false;
-	}
+	
 	
 	private boolean debeMostrarseEnFeed(Usuario actual, Usuario candidato) {
 	    if (candidato == null) return false;
 	    if (candidato.getAlias() == null) return false;
+
 	    if (actual.getAlias() != null && candidato.getAlias().equalsIgnoreCase(actual.getAlias())) return false;
 	    if (candidato.isEsIncognito()) return false;
 	    if (!candidato.isEstaDisponible()) return false;
 
 	    if (actual.getLikesDados().contains(candidato)) return false;
-	    if (actual.getMatches().contains(candidato)) return false;
 
 	    return true;
 	}
@@ -1106,78 +1003,69 @@ public class Controller implements ActionListener {
 	private void cargarFeedPara(Usuario actual) {
 	    javax.swing.JTable tabla = vf.getVenPrincipal().getTablaUsuarios();
 	    javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tabla.getModel();
+
+	    String[] columnas = { "Foto", "Nombre", "Alias", "Correo", "Edad", "Género", "Estatura (cm)", "Extra", "Likes" };
+	    modelo.setColumnIdentifiers(columnas);
 	    modelo.setRowCount(0);
 
-	    if (actual instanceof Hombre) {
-	        String[] columnas = { prop.getProperty("bostinder.controlador.atributo.foto"),
-	        		prop.getProperty("bostinder.controlador.atributo.nombre"), 
-	        		prop.getProperty("bostinder.controlador.atributo.alias"), 
-	        		prop.getProperty("bostinder.controlador.atributo.correo"), 
-	        		prop.getProperty("bostinder.controlador.atributo.edad"), 
-	        		prop.getProperty("bostinder.controlador.atributo.estatura"), 
-	        		prop.getProperty("bostinder.controlador.atributo.divorciada"), 
-	        		prop.getProperty("bostinder.controlador.atributo.like")
-	        		};
-	        modelo.setColumnIdentifiers(columnas);
+	    // Primero todos los hombres
+	    for (Hombre ho : mf.getHombreDAO().getListaHombres()) {
+	        if (!debeMostrarseEnFeed(actual, ho)) continue;
 
-	        for (Mujer mu : mf.getMujerDAO().getListaMujeres()) {
-	            if (!debeMostrarseEnFeed(actual, mu)) continue;
-
-	            javax.swing.ImageIcon icon;
-	            try {
-	                java.awt.Image img = new javax.swing.ImageIcon(mu.getURLfoto())
-	                        .getImage().getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH);
-	                icon = new javax.swing.ImageIcon(img);
-	            } catch (Exception e1) {
-	                icon = new javax.swing.ImageIcon(new java.awt.image.BufferedImage(60, 60, java.awt.image.BufferedImage.TYPE_INT_ARGB));
-	            }
-
-	            modelo.addRow(new Object[] {
-	                icon,
-	                mu.getNombre() + " " + mu.getApellido(),
-	                mu.getAlias(),
-	                mu.getEmail(),
-	                java.time.Period.between(mu.getFechaNacimiento(), java.time.LocalDate.now()).getYears(),
-	                mu.getEstatura(),
-	                mu.isEsDivorciada() ? "Sí" : "No",
-	                mu.getNumLikes()
-	            });
+	        javax.swing.ImageIcon icon;
+	        try {
+	            java.awt.Image img = new javax.swing.ImageIcon(ho.getURLfoto())
+	                    .getImage().getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH);
+	            icon = new javax.swing.ImageIcon(img);
+	        } catch (Exception e1) {
+	            icon = new javax.swing.ImageIcon(
+	                    new java.awt.image.BufferedImage(60, 60, java.awt.image.BufferedImage.TYPE_INT_ARGB));
 	        }
-	    } else if (actual instanceof Mujer) {
-	        String[] columnas = {  prop.getProperty("bostinder.controlador.atributo.foto"),
-	        		prop.getProperty("bostinder.controlador.atributo.nombre"), 
-	        		prop.getProperty("bostinder.controlador.atributo.alias"), 
-	        		prop.getProperty("bostinder.controlador.atributo.correo"), 
-	        		prop.getProperty("bostinder.controlador.atributo.edad"), 
-	        		prop.getProperty("bostinder.controlador.atributo.estatura"), 
-	        		prop.getProperty("bostinder.controlador.atributo.ingreso"), 
-	        		prop.getProperty("bostinder.controlador.atributo.like")
-	        		 };
-	        modelo.setColumnIdentifiers(columnas);
 
-	        for (Hombre ho : mf.getHombreDAO().getListaHombres()) {
-	            if (!debeMostrarseEnFeed(actual, ho)) continue;
+	        int edad = java.time.Period.between(ho.getFechaNacimiento(), java.time.LocalDate.now()).getYears();
+	        String extra = String.valueOf(ho.getPromedioIngMensual()); // para hombres: ingresos
 
-	            javax.swing.ImageIcon icon;
-	            try {
-	                java.awt.Image img = new javax.swing.ImageIcon(ho.getURLfoto())
-	                        .getImage().getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH);
-	                icon = new javax.swing.ImageIcon(img);
-	            } catch (Exception e1) {
-	                icon = new javax.swing.ImageIcon(new java.awt.image.BufferedImage(60, 60, java.awt.image.BufferedImage.TYPE_INT_ARGB));
-	            }
-
-	            modelo.addRow(new Object[] {
+	        modelo.addRow(new Object[] {
 	                icon,
 	                ho.getNombre() + " " + ho.getApellido(),
 	                ho.getAlias(),
 	                ho.getEmail(),
-	                java.time.Period.between(ho.getFechaNacimiento(), java.time.LocalDate.now()).getYears(),
+	                edad,
+	                ho.getGenero(),          // "Hombre"
 	                ho.getEstatura(),
-	                ho.getPromedioIngMensual(),
+	                extra,                   // Ingresos
 	                ho.getNumLikes()
-	            });
+	        });
+	    }
+
+	    // Luego todas las mujeres
+	    for (Mujer mu : mf.getMujerDAO().getListaMujeres()) {
+	        if (!debeMostrarseEnFeed(actual, mu)) continue;
+
+	        javax.swing.ImageIcon icon;
+	        try {
+	            java.awt.Image img = new javax.swing.ImageIcon(mu.getURLfoto())
+	                    .getImage().getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH);
+	            icon = new javax.swing.ImageIcon(img);
+	        } catch (Exception e1) {
+	            icon = new javax.swing.ImageIcon(
+	                    new java.awt.image.BufferedImage(60, 60, java.awt.image.BufferedImage.TYPE_INT_ARGB));
 	        }
+
+	        int edad = java.time.Period.between(mu.getFechaNacimiento(), java.time.LocalDate.now()).getYears();
+	        String extra = mu.isEsDivorciada() ? "Divorciada" : "No divorciada"; // para mujeres: estado civil
+
+	        modelo.addRow(new Object[] {
+	                icon,
+	                mu.getNombre() + " " + mu.getApellido(),
+	                mu.getAlias(),
+	                mu.getEmail(),
+	                edad,
+	                mu.getGenero(),          // "Mujer"
+	                mu.getEstatura(),
+	                extra,                   // Divorciada / No
+	                mu.getNumLikes()
+	        });
 	    }
 
 	    tabla.setRowHeight(60);
@@ -1191,11 +1079,8 @@ public class Controller implements ActionListener {
 	                super.setValue(value);
 	            }
 	        }
-	        
 	    });
-	    
-	
-	    
 	}
+
 	
 }
