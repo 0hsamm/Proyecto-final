@@ -68,23 +68,23 @@ public class Controller implements ActionListener {
 
 			switch (opcion) {
 			case "1": { // Español
-				prop = FileHandler.cargarArchivoDePropiedades("espa.properties");
+				prop = FileHandler.cargarArchivoDePropiedades("spa.properties");
 				break;
 			}
 			case "2": { // Portugés
-				prop = FileHandler.cargarArchivoDePropiedades("ptg.properties");
+				prop = FileHandler.cargarArchivoDePropiedades("por.properties");
 				break;
 			}
 			case "3": { // Ruso
-				prop = FileHandler.cargarArchivoDePropiedades("ruso.properties");
+				prop = FileHandler.cargarArchivoDePropiedades("rus.properties");
 				break;
 			}
 			case "4": { // Chino
-				prop = FileHandler.cargarArchivoDePropiedades("chino.properties");
+				prop = FileHandler.cargarArchivoDePropiedades("chi.properties");
 				break;
 			}
 			case "5": { // Hebreo
-				prop = FileHandler.cargarArchivoDePropiedades("hebreo.properties");
+				prop = FileHandler.cargarArchivoDePropiedades("heb.properties");
 				break;
 			}
 			default:
