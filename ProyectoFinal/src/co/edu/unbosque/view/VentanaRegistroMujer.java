@@ -88,7 +88,7 @@ public class VentanaRegistroMujer extends JFrame {
 	 * registro de mujer, incluyendo campos de texto, calendario, combo box y botones.
 	 */
 	public void inicializarComponentes() {
-		this.setTitle("Crear cuenta mujer");
+		this.setTitle("Crearr cuenta mujer");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
