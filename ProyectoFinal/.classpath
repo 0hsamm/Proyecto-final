@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-22">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="lib/jakarta.mail-2.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta.activation-2.0.1.jar"/>
+	<classpathentry kind="lib" path="D:/IDES/Eclipse Java Standard 2024-06 JDK 22/eclipse/EclipseWorkspace/ULTIMO PROYECTO 3/Proyecto-final/ProyectoFinal/lib/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="D:/IDES/Eclipse Java Standard 2024-06 JDK 22/eclipse/EclipseWorkspace/ULTIMO PROYECTO 3/Proyecto-final/ProyectoFinal/lib/junit-4.13.2.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
