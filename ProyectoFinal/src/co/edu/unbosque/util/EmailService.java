@@ -12,20 +12,33 @@ import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 
+/*
+ * Clase que permite generar códigos de verificación
+ * y enviarlos por correo electrónico mediante SMTP.
+ */
 public class EmailService {
 
     private static final String EMISOR = "bossstinder@gmail.com";
-    private static final String CONTRASENA = "wnxf soxh htpo hqzc"; // Contraseña de aplicación
+    private static final String CONTRASENA = "wnxf soxh htpo hqzc";
     private static final String ASUNTO = "Código de verificación - Bostinder";
 
-    // Genera un código de 6 dígitos
+    /*
+     * Genera un código aleatorio de 6 dígitos.
+     * 
+     * @return cadena que contiene el código generado
+     */
     public static String generarCodigo() {
         Random random = new Random();
         int codigo = 100000 + random.nextInt(900000);
         return String.valueOf(codigo);
     }
 
-    // Envía el correo con el código
+    /*
+     * Envía un correo electrónico con un código de verificación al destinatario.
+     * 
+     * @param destinatario correo al que se enviará el código
+     * @param codigo código de verificación que se desea enviar
+     */
     public static void enviarCodigo(String destinatario, String codigo) throws MessagingException {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");

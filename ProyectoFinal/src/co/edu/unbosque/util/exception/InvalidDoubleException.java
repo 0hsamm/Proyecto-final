@@ -1,9 +1,14 @@
 package co.edu.unbosque.util.exception;
 
-public class InvalidDoubleException extends Exception{
+/*
+ * Excepción que se lanza cuando un valor double no es válido.
+ */
+public class InvalidDoubleException extends Exception {
 
-	public InvalidDoubleException() {
-		super("");
-	}
-	
+    /*
+     * Constructor que crea la excepción con un mensaje vacío.
+     */
+    public InvalidDoubleException() {
+        super("");
+    }
 }

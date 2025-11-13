@@ -1,9 +1,14 @@
 package co.edu.unbosque.util.exception;
 
-public class InvalidHeightException extends Exception{
+/*
+ * Excepción que se lanza cuando la altura ingresada no es válida.
+ */
+public class InvalidHeightException extends Exception {
 
-	public InvalidHeightException() {
-		super("");
-	}
-	
+    /*
+     * Constructor que crea la excepción con un mensaje vacío.
+     */
+    public InvalidHeightException() {
+        super("");
+    }
 }

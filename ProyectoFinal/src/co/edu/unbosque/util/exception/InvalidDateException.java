@@ -1,9 +1,14 @@
 package co.edu.unbosque.util.exception;
 
-public class InvalidDateException extends Exception{
+/*
+ * Excepción que se lanza cuando una fecha ingresada no es válida.
+ */
+public class InvalidDateException extends Exception {
 
-	public InvalidDateException() {
-		super("");
-	}
-	
+    /*
+     * Constructor que crea la excepción con un mensaje vacío.
+     */
+    public InvalidDateException() {
+        super("");
+    }
 }

@@ -11,6 +11,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/*
+ * Ventana que permite gestionar el perfil del usuario.
+ * Ofrece opciones para hacer la cuenta invisible, actualizarla, eliminarla y acceder a la sección de matches.
+ */
 public class VentanaPerfil extends JFrame {
 
 	private JLabel fondoCRUD;
@@ -18,8 +22,6 @@ public class VentanaPerfil extends JFrame {
 	private Image escalar;
 
 	private JLabel lblTitulo;
-
-	// Botones
 
 	private JButton btnVolver;
 
@@ -33,10 +35,17 @@ public class VentanaPerfil extends JFrame {
 
 	private Properties prop;
 
+	/*
+	 * Constructor por defecto de la ventana de perfil del usuario.
+	 */
 	public VentanaPerfil() {
 
 	}
 
+	/*
+	 * Inicializa y configura todos los componentes gráficos de la ventana de perfil.
+	 * Define el fondo, el título, los botones de acciones sobre la cuenta y los botones de cambio de tema.
+	 */
 	public void inicializarComponentes() {
 
 		this.setTitle("Ventana perfil usuario");
@@ -137,6 +146,11 @@ public class VentanaPerfil extends JFrame {
 		this.add(btnVolver);
 	}
 
+	/*
+	 * Cambia la imagen de fondo de la ventana de perfil.
+	 * 
+	 * @param url ruta de la imagen que se usará como nuevo fondo
+	 */
 	public void cambiarFondo(String url) {
 		ImageIcon cambio = new ImageIcon(url);
 		Image escalar = cambio.getImage().getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
@@ -146,99 +160,220 @@ public class VentanaPerfil extends JFrame {
 		fondoCRUD.revalidate();
 	}
 
+	/*
+	 * Retorna la etiqueta que contiene la imagen de fondo del perfil.
+	 * 
+	 * @return etiqueta de fondo del CRUD
+	 */
 	public JLabel getFondoCRUD() {
 		return fondoCRUD;
 	}
 
+	/*
+	 * Asigna la etiqueta que contiene la imagen de fondo del perfil.
+	 * 
+	 * @param fondoCRUD etiqueta de fondo del CRUD
+	 */
 	public void setFondoCRUD(JLabel fondoCRUD) {
 		this.fondoCRUD = fondoCRUD;
 	}
 
+	/*
+	 * Retorna la imagen de fondo original de la ventana de perfil.
+	 * 
+	 * @return imagen de fondo
+	 */
 	public ImageIcon getFondo() {
 		return fondo;
 	}
 
+	/*
+	 * Asigna la imagen de fondo original de la ventana de perfil.
+	 * 
+	 * @param fondo imagen de fondo
+	 */
 	public void setFondo(ImageIcon fondo) {
 		this.fondo = fondo;
 	}
 
+	/*
+	 * Retorna la imagen escalada usada como fondo.
+	 * 
+	 * @return imagen escalada
+	 */
 	public Image getEscalar() {
 		return escalar;
 	}
 
+	/*
+	 * Asigna la imagen escalada usada como fondo.
+	 * 
+	 * @param escalar imagen escalada
+	 */
 	public void setEscalar(Image escalar) {
 		this.escalar = escalar;
 	}
 
+	/*
+	 * Retorna la etiqueta del título de la ventana de perfil.
+	 * 
+	 * @return etiqueta del título
+	 */
 	public JLabel getLblTitulo() {
 		return lblTitulo;
 	}
 
+	/*
+	 * Asigna la etiqueta del título de la ventana de perfil.
+	 * 
+	 * @param lblTitulo etiqueta del título
+	 */
 	public void setLblTitulo(JLabel lblTitulo) {
 		this.lblTitulo = lblTitulo;
 	}
 
+	/*
+	 * Retorna el botón para volver a la ventana anterior.
+	 * 
+	 * @return botón volver
+	 */
 	public JButton getBtnVolver() {
 		return btnVolver;
 	}
 
+	/*
+	 * Asigna el botón para volver a la ventana anterior.
+	 * 
+	 * @param btnVolver botón volver
+	 */
 	public void setBtnVolver(JButton btnVolver) {
 		this.btnVolver = btnVolver;
 	}
 
+	/*
+	 * Retorna el botón para eliminar la cuenta del usuario.
+	 * 
+	 * @return botón eliminar cuenta
+	 */
 	public JButton getBtnEliminar() {
 		return btnEliminar;
 	}
 
+	/*
+	 * Asigna el botón para eliminar la cuenta del usuario.
+	 * 
+	 * @param btnEliminar botón eliminar cuenta
+	 */
 	public void setBtnEliminar(JButton btnEliminar) {
 		this.btnEliminar = btnEliminar;
 	}
 
+	/*
+	 * Retorna el botón para actualizar los datos del perfil.
+	 * 
+	 * @return botón actualizar perfil
+	 */
 	public JButton getBtnActualizar() {
 		return btnActualizar;
 	}
 
+	/*
+	 * Asigna el botón para actualizar los datos del perfil.
+	 * 
+	 * @param btnActualizar botón actualizar perfil
+	 */
 	public void setBtnActualizar(JButton btnActualizar) {
 		this.btnActualizar = btnActualizar;
 	}
 
+	/*
+	 * Retorna las propiedades de texto asociadas a la ventana.
+	 * 
+	 * @return propiedades de la interfaz
+	 */
 	public Properties getProp() {
 		return prop;
 	}
 
+	/*
+	 * Asigna las propiedades de texto de la interfaz
+	 * e inicializa los componentes de la ventana de perfil.
+	 * 
+	 * @param prop propiedades que contienen los textos de la interfaz
+	 */
 	public void setProp(Properties prop) {
 		this.prop = prop;
 		inicializarComponentes();
 	}
 
+	/*
+	 * Retorna el botón que permite marcar la cuenta como invisible.
+	 * 
+	 * @return botón cuenta invisible
+	 */
 	public JButton getBtnCuentaInvisible() {
 		return btnCuentaInvisible;
 	}
 
+	/*
+	 * Asigna el botón que permite marcar la cuenta como invisible.
+	 * 
+	 * @param btnCuentaInvisible botón cuenta invisible
+	 */
 	public void setBtnCuentaInvisible(JButton btnCuentaInvisible) {
 		this.btnCuentaInvisible = btnCuentaInvisible;
 	}
 
+	/*
+	 * Retorna el botón que lleva a la sección de matches del usuario.
+	 * 
+	 * @return botón matches
+	 */
 	public JButton getBtnMatch() {
 		return btnMatch;
 	}
 
+	/*
+	 * Asigna el botón que lleva a la sección de matches del usuario.
+	 * 
+	 * @param btnMatch botón matches
+	 */
 	public void setBtnMatch(JButton btnMatch) {
 		this.btnMatch = btnMatch;
 	}
 
+	/*
+	 * Retorna el botón para activar el tema oscuro.
+	 * 
+	 * @return botón tema oscuro
+	 */
 	public JButton getBtnOscuro() {
 		return btnOscuro;
 	}
 
+	/*
+	 * Asigna el botón para activar el tema oscuro.
+	 * 
+	 * @param btnOscuro botón tema oscuro
+	 */
 	public void setBtnOscuro(JButton btnOscuro) {
 		this.btnOscuro = btnOscuro;
 	}
 
+	/*
+	 * Retorna el botón para activar el tema claro.
+	 * 
+	 * @return botón tema claro
+	 */
 	public JButton getBtnClaro() {
 		return btnClaro;
 	}
 
+	/*
+	 * Asigna el botón para activar el tema claro.
+	 * 
+	 * @param btnClaro botón tema claro
+	 */
 	public void setBtnClaro(JButton btnClaro) {
 		this.btnClaro = btnClaro;
 	}

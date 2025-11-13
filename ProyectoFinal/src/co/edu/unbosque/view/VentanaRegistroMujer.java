@@ -26,6 +26,10 @@ import javax.swing.JTextField;
 
 import com.toedter.calendar.JCalendar;
 
+/*
+ * Ventana que permite registrar una usuaria mujer.
+ * Solicita datos personales, alias, estado de divorcio, estatura y una foto de perfil.
+ */
 public class VentanaRegistroMujer extends JFrame {
 
 	private JButton btnVolver;
@@ -54,18 +58,15 @@ public class VentanaRegistroMujer extends JFrame {
 
 	private JTextField textAlias;
 
-	// Mujer
 	private JLabel lblDivorcio;
 	private JLabel lblEstatura;
 
 	private JComboBox<String> cbDivorcio;
 	private JTextField textEstatura;
 
-	// Admin
 	private JLabel lblRegistro;
 	private JButton btnRegistro;
 
-	// Otros
 	private JButton btnSubirImagen;
 	private JCalendar calendario;
 
@@ -75,10 +76,17 @@ public class VentanaRegistroMujer extends JFrame {
 	private JButton btnClaro;
 	private JButton btnOscuro;
 
+	/*
+	 * Constructor por defecto de la ventana de registro de mujer.
+	 */
 	public VentanaRegistroMujer() {
 
 	}
 
+	/*
+	 * Inicializa y configura todos los componentes gráficos de la ventana de
+	 * registro de mujer, incluyendo campos de texto, calendario, combo box y botones.
+	 */
 	public void inicializarComponentes() {
 		this.setTitle("Crear cuenta mujer");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -152,8 +160,6 @@ public class VentanaRegistroMujer extends JFrame {
 		textCorreo.setBorder(null);
 		this.add(textCorreo);
 
-		// Fecha nacimiento
-
 		lblNacimiento = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblnacimiento"));
 		lblNacimiento.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
 		lblNacimiento.setBounds(90, 443, 1200, 70);
@@ -178,8 +184,6 @@ public class VentanaRegistroMujer extends JFrame {
 		textContrasenia.setOpaque(true);
 		textContrasenia.setBorder(null);
 		this.add(textContrasenia);
-
-		// DERECHA
 
 		lblApellido = new JLabel(prop.getProperty("bostinder.ventanaregistro.lblApellido"));
 		lblApellido.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));
@@ -241,8 +245,6 @@ public class VentanaRegistroMujer extends JFrame {
 		textEstatura.setBorder(null);
 		this.add(textEstatura);
 
-		// Botones
-
 		btnCrearCuenta = new JButton(prop.getProperty("bostinder.ventanaregistro.btnCrearCuenta"));
 		btnCrearCuenta.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 30));
 		btnCrearCuenta.setBounds(920, 605, 240, 30);
@@ -294,6 +296,11 @@ public class VentanaRegistroMujer extends JFrame {
 		btnSubirImagen.addActionListener(e -> subirFotoPerfil());
 	}
 
+	/*
+	 * Cambia la imagen de fondo de la ventana de registro de mujer.
+	 * 
+	 * @param url ruta de la imagen que se usará como nuevo fondo
+	 */
 	public void cambiarFondo(String url) {
 		ImageIcon cambio = new ImageIcon(url);
 		Image escalar = cambio.getImage().getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
@@ -303,6 +310,10 @@ public class VentanaRegistroMujer extends JFrame {
 		fondoRegistro.revalidate();
 	}
 
+	/*
+	 * Abre un selector de archivos para elegir una imagen de perfil,
+	 * copia la imagen a la carpeta de perfiles del proyecto y guarda su ruta.
+	 */
 	public void subirFotoPerfil() {
 		JFileChooser fileChooser = new JFileChooser();
 		int resultado = fileChooser.showOpenDialog(this);
@@ -311,17 +322,15 @@ public class VentanaRegistroMujer extends JFrame {
 			File archivoOrigen = fileChooser.getSelectedFile();
 
 			try {
-				// Crear carpeta interna "perfiles" si no existe
 				File carpetaDestino = new File("src/co/edu/unbosque/resources/perfiles/");
 				if (!carpetaDestino.exists()) {
 					carpetaDestino.mkdirs();
 				}
 
-				// Copiar imagen al proyecto con el mismo nombre
 				File archivoDestino = new File(carpetaDestino, archivoOrigen.getName());
 				Files.copy(archivoOrigen.toPath(), archivoDestino.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-				rutaFotoPerfil = archivoDestino.getPath(); // Guardar la ruta
+				rutaFotoPerfil = archivoDestino.getPath();
 				System.out.println("Imagen copiada en: " + rutaFotoPerfil);
 				JOptionPane.showMessageDialog(this, "Imagen subida correctamente.");
 
@@ -332,183 +341,409 @@ public class VentanaRegistroMujer extends JFrame {
 		}
 	}
 
+	/*
+	 * Retorna las propiedades de texto asociadas a la ventana.
+	 * 
+	 * @return propiedades de la interfaz
+	 */
 	public Properties getProp() {
 		return prop;
 	}
 
+	/*
+	 * Asigna las propiedades de texto de la interfaz
+	 * e inicializa los componentes de la ventana.
+	 * 
+	 * @param prop propiedades que contienen los textos de la interfaz
+	 */
 	public void setProp(Properties prop) {
 		this.prop = prop;
 		inicializarComponentes();
 	}
 
+	/*
+	 * Retorna el botón para volver a la ventana anterior.
+	 * 
+	 * @return botón volver
+	 */
 	public JButton getBtnVolver() {
 		return btnVolver;
 	}
 
+	/*
+	 * Asigna el botón para volver a la ventana anterior.
+	 * 
+	 * @param btnVolver botón volver
+	 */
 	public void setBtnVolver(JButton btnVolver) {
 		this.btnVolver = btnVolver;
 	}
 
+	/*
+	 * Retorna el botón para crear la cuenta de la usuaria.
+	 * 
+	 * @return botón crear cuenta
+	 */
 	public JButton getBtnCrearCuenta() {
 		return btnCrearCuenta;
 	}
 
+	/*
+	 * Asigna el botón para crear la cuenta de la usuaria.
+	 * 
+	 * @param btnCrearCuenta botón crear cuenta
+	 */
 	public void setBtnCrearCuenta(JButton btnCrearCuenta) {
 		this.btnCrearCuenta = btnCrearCuenta;
 	}
 
+	/*
+	 * Retorna la etiqueta que contiene la imagen de fondo.
+	 * 
+	 * @return etiqueta fondo de registro
+	 */
 	public JLabel getFondoRegistro() {
 		return fondoRegistro;
 	}
 
+	/*
+	 * Asigna la etiqueta que contiene la imagen de fondo.
+	 * 
+	 * @param fondoRegistro etiqueta fondo de registro
+	 */
 	public void setFondoRegistro(JLabel fondoRegistro) {
 		this.fondoRegistro = fondoRegistro;
 	}
 
+	/*
+	 * Retorna la imagen de fondo original.
+	 * 
+	 * @return imagen de fondo
+	 */
 	public ImageIcon getFondo() {
 		return fondo;
 	}
 
+	/*
+	 * Asigna la imagen de fondo original.
+	 * 
+	 * @param fondo imagen de fondo
+	 */
 	public void setFondo(ImageIcon fondo) {
 		this.fondo = fondo;
 	}
 
+	/*
+	 * Retorna la imagen escalada usada como fondo.
+	 * 
+	 * @return imagen escalada
+	 */
 	public Image getEscalar() {
 		return escalar;
 	}
 
+	/*
+	 * Asigna la imagen escalada usada como fondo.
+	 * 
+	 * @param escalar imagen escalada
+	 */
 	public void setEscalar(Image escalar) {
 		this.escalar = escalar;
 	}
 
+	/*
+	 * Retorna la etiqueta del título principal.
+	 * 
+	 * @return etiqueta del título
+	 */
 	public JLabel getTitulo() {
 		return titulo;
 	}
 
+	/*
+	 * Asigna la etiqueta del título principal.
+	 * 
+	 * @param titulo etiqueta del título
+	 */
 	public void setTitulo(JLabel titulo) {
 		this.titulo = titulo;
 	}
 
+	/*
+	 * Retorna la etiqueta del texto de nombre.
+	 * 
+	 * @return etiqueta nombre
+	 */
 	public JLabel getLblNombre() {
 		return lblNombre;
 	}
 
+	/*
+	 * Asigna la etiqueta del texto de nombre.
+	 * 
+	 * @param lblNombre etiqueta nombre
+	 */
 	public void setLblNombre(JLabel lblNombre) {
 		this.lblNombre = lblNombre;
 	}
 
+	/*
+	 * Retorna la etiqueta del texto de correo.
+	 * 
+	 * @return etiqueta correo
+	 */
 	public JLabel getLblCorreo() {
 		return lblCorreo;
 	}
 
+	/*
+	 * Asigna la etiqueta del texto de correo.
+	 * 
+	 * @param lblCorreo etiqueta correo
+	 */
 	public void setLblCorreo(JLabel lblCorreo) {
 		this.lblCorreo = lblCorreo;
 	}
 
+	/*
+	 * Retorna la etiqueta del texto de fecha de nacimiento.
+	 * 
+	 * @return etiqueta nacimiento
+	 */
 	public JLabel getLblNacimiento() {
 		return lblNacimiento;
 	}
 
+	/*
+	 * Asigna la etiqueta del texto de fecha de nacimiento.
+	 * 
+	 * @param lblNacimiento etiqueta nacimiento
+	 */
 	public void setLblNacimiento(JLabel lblNacimiento) {
 		this.lblNacimiento = lblNacimiento;
 	}
 
+	/*
+	 * Retorna la etiqueta del texto de contraseña.
+	 * 
+	 * @return etiqueta contraseña
+	 */
 	public JLabel getLblContrasenia() {
 		return lblContrasenia;
 	}
 
+	/*
+	 * Asigna la etiqueta del texto de contraseña.
+	 * 
+	 * @param lblContrasenia etiqueta contraseña
+	 */
 	public void setLblContrasenia(JLabel lblContrasenia) {
 		this.lblContrasenia = lblContrasenia;
 	}
 
+	/*
+	 * Retorna la etiqueta del texto de alias.
+	 * 
+	 * @return etiqueta alias
+	 */
 	public JLabel getLblAlias() {
 		return lblAlias;
 	}
 
+	/*
+	 * Asigna la etiqueta del texto de alias.
+	 * 
+	 * @param lblAlias etiqueta alias
+	 */
 	public void setLblAlias(JLabel lblAlias) {
 		this.lblAlias = lblAlias;
 	}
 
+	/*
+	 * Retorna el campo de texto para el nombre.
+	 * 
+	 * @return campo nombre
+	 */
 	public JTextField getTextNombre() {
 		return textNombre;
 	}
 
+	/*
+	 * Asigna el campo de texto para el nombre.
+	 * 
+	 * @param textNombre campo nombre
+	 */
 	public void setTextNombre(JTextField textNombre) {
 		this.textNombre = textNombre;
 	}
 
+	/*
+	 * Retorna el campo de texto para el correo.
+	 * 
+	 * @return campo correo
+	 */
 	public JTextField getTextCorreo() {
 		return textCorreo;
 	}
 
+	/*
+	 * Asigna el campo de texto para el correo.
+	 * 
+	 * @param textCorreo campo correo
+	 */
 	public void setTextCorreo(JTextField textCorreo) {
 		this.textCorreo = textCorreo;
 	}
 
+	/*
+	 * Retorna el campo de contraseña.
+	 * 
+	 * @return campo contraseña
+	 */
 	public JPasswordField getTextContrasenia() {
 		return textContrasenia;
 	}
 
+	/*
+	 * Asigna el campo de contraseña.
+	 * 
+	 * @param textContrasenia campo contraseña
+	 */
 	public void setTextContrasenia(JPasswordField textContrasenia) {
 		this.textContrasenia = textContrasenia;
 	}
 
+	/*
+	 * Retorna el campo de texto para el alias.
+	 * 
+	 * @return campo alias
+	 */
 	public JTextField getTextAlias() {
 		return textAlias;
 	}
 
+	/*
+	 * Asigna el campo de texto para el alias.
+	 * 
+	 * @param textAlias campo alias
+	 */
 	public void setTextAlias(JTextField textAlias) {
 		this.textAlias = textAlias;
 	}
 
+	/*
+	 * Retorna la etiqueta del texto de estatura.
+	 * 
+	 * @return etiqueta estatura
+	 */
 	public JLabel getLblEstatura() {
 		return lblEstatura;
 	}
 
+	/*
+	 * Asigna la etiqueta del texto de estatura.
+	 * 
+	 * @param lblEstatura etiqueta estatura
+	 */
 	public void setLblEstatura(JLabel lblEstatura) {
 		this.lblEstatura = lblEstatura;
 	}
 
+	/*
+	 * Retorna el campo de texto para la estatura.
+	 * 
+	 * @return campo estatura
+	 */
 	public JTextField getTextEstatura() {
 		return textEstatura;
 	}
 
+	/*
+	 * Asigna el campo de texto para la estatura.
+	 * 
+	 * @param textEstatura campo estatura
+	 */
 	public void setTextEstatura(JTextField textEstatura) {
 		this.textEstatura = textEstatura;
 	}
 
+	/*
+	 * Retorna el botón para subir imagen de perfil.
+	 * 
+	 * @return botón subir imagen
+	 */
 	public JButton getBtnSubirImagen() {
 		return btnSubirImagen;
 	}
 
+	/*
+	 * Asigna el botón para subir imagen de perfil.
+	 * 
+	 * @param btnSubirImagen botón subir imagen
+	 */
 	public void setBtnSubirImagen(JButton btnSubirImagen) {
 		this.btnSubirImagen = btnSubirImagen;
 	}
 
+	/*
+	 * Retorna el componente de calendario usado para seleccionar la fecha.
+	 * 
+	 * @return calendario de la ventana
+	 */
 	public JCalendar getCalendario() {
 		return calendario;
 	}
 
+	/*
+	 * Asigna el componente de calendario usado para seleccionar la fecha.
+	 * 
+	 * @param calendario componente calendario
+	 */
 	public void setCalendario(JCalendar calendario) {
 		this.calendario = calendario;
 	}
 
+	/*
+	 * Retorna la etiqueta del texto de divorcio.
+	 * 
+	 * @return etiqueta divorcio
+	 */
 	public JLabel getLblDivorcio() {
 		return lblDivorcio;
 	}
 
+	/*
+	 * Asigna la etiqueta del texto de divorcio.
+	 * 
+	 * @param lblDivorcio etiqueta divorcio
+	 */
 	public void setLblDivorcio(JLabel lblDivorcio) {
 		this.lblDivorcio = lblDivorcio;
 	}
 
+	/*
+	 * Retorna el combo box que indica si la usuaria está divorciada.
+	 * 
+	 * @return combo box de divorcio
+	 */
 	public JComboBox<String> getCbDivorcio() {
 		return cbDivorcio;
 	}
 
+	/*
+	 * Asigna el combo box que indica si la usuaria está divorciada.
+	 * 
+	 * @param cbDivorcio combo box de divorcio
+	 */
 	public void setCbDivorcio(JComboBox<String> cbDivorcio) {
 		this.cbDivorcio = cbDivorcio;
 	}
 
+	/*
+	 * Obtiene la fecha seleccionada en el calendario.
+	 * 
+	 * @return fecha seleccionada como LocalDate, o null si no hay fecha seleccionada
+	 */
 	public LocalDate getFechaSeleccionada() {
 		Date date = calendario.getDate();
 		if (date == null) {
@@ -517,58 +752,128 @@ public class VentanaRegistroMujer extends JFrame {
 		return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 	}
 
+	/*
+	 * Retorna la etiqueta asociada al texto de registro de administrador.
+	 * 
+	 * @return etiqueta registro admin
+	 */
 	public JLabel getLblRegistro() {
 		return lblRegistro;
 	}
 
+	/*
+	 * Asigna la etiqueta asociada al texto de registro de administrador.
+	 * 
+	 * @param lblRegistro etiqueta registro admin
+	 */
 	public void setLblRegistro(JLabel lblRegistro) {
 		this.lblRegistro = lblRegistro;
 	}
 
+	/*
+	 * Retorna el botón para ir al registro de administrador.
+	 * 
+	 * @return botón registro admin
+	 */
 	public JButton getBtnRegistro() {
 		return btnRegistro;
 	}
 
+	/*
+	 * Asigna el botón para ir al registro de administrador.
+	 * 
+	 * @param btnRegistro botón registro admin
+	 */
 	public void setBtnRegistro(JButton btnRegistro) {
 		this.btnRegistro = btnRegistro;
 	}
 
+	/*
+	 * Retorna la etiqueta del texto de apellido.
+	 * 
+	 * @return etiqueta apellido
+	 */
 	public JLabel getLblApellido() {
 		return lblApellido;
 	}
 
+	/*
+	 * Asigna la etiqueta del texto de apellido.
+	 * 
+	 * @param lblApellido etiqueta apellido
+	 */
 	public void setLblApellido(JLabel lblApellido) {
 		this.lblApellido = lblApellido;
 	}
 
+	/*
+	 * Retorna el campo de texto para el apellido.
+	 * 
+	 * @return campo apellido
+	 */
 	public JTextField getTextApellido() {
 		return textApellido;
 	}
 
+	/*
+	 * Asigna el campo de texto para el apellido.
+	 * 
+	 * @param textApellido campo apellido
+	 */
 	public void setTextApellido(JTextField textApellido) {
 		this.textApellido = textApellido;
 	}
 
+	/*
+	 * Retorna la ruta de la foto de perfil seleccionada.
+	 * 
+	 * @return ruta de la foto de perfil
+	 */
 	public String getRutaFotoPerfil() {
 		return rutaFotoPerfil;
 	}
 
+	/*
+	 * Asigna la ruta de la foto de perfil seleccionada.
+	 * 
+	 * @param rutaFotoPerfil ruta de la foto de perfil
+	 */
 	public void setRutaFotoPerfil(String rutaFotoPerfil) {
 		this.rutaFotoPerfil = rutaFotoPerfil;
 	}
 
+	/*
+	 * Retorna el botón para activar el tema claro.
+	 * 
+	 * @return botón tema claro
+	 */
 	public JButton getBtnClaro() {
 		return btnClaro;
 	}
 
+	/*
+	 * Asigna el botón para activar el tema claro.
+	 * 
+	 * @param btnClaro botón tema claro
+	 */
 	public void setBtnClaro(JButton btnClaro) {
 		this.btnClaro = btnClaro;
 	}
 
+	/*
+	 * Retorna el botón para activar el tema oscuro.
+	 * 
+	 * @return botón tema oscuro
+	 */
 	public JButton getBtnOscuro() {
 		return btnOscuro;
 	}
 
+	/*
+	 * Asigna el botón para activar el tema oscuro.
+	 * 
+	 * @param btnOscuro botón tema oscuro
+	 */
 	public void setBtnOscuro(JButton btnOscuro) {
 		this.btnOscuro = btnOscuro;
 	}

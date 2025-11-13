@@ -1,10 +1,14 @@
 package co.edu.unbosque.util.exception;
 
-public class InvalidNameException extends Exception{
+/*
+ * Excepción que se lanza cuando un nombre ingresado no es válido.
+ */
+public class InvalidNameException extends Exception {
 
-	public InvalidNameException() {
-		super("");
-	}
-
-
+    /*
+     * Constructor que crea la excepción con un mensaje vacío.
+     */
+    public InvalidNameException() {
+        super("");
+    }
 }
