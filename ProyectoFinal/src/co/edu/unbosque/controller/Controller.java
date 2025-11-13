@@ -52,7 +52,7 @@ public class Controller implements ActionListener {
 		vf = new ViewFacade();
 		mf = new ModelFacade();
 		prop = new Properties();
-	safd
+
 	}
 
 
