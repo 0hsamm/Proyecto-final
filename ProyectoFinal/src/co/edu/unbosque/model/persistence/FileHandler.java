@@ -70,10 +70,9 @@ public class FileHandler {
             }
 
             StringBuilder contenido = new StringBuilder();
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(archivo), StandardCharsets.UTF_8))) {
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(archivo), StandardCharsets.ISO_8859_1))) {
                 String linea;
                 while ((linea = br.readLine()) != null) {
-                    // 🔹 Limpieza de caracteres invisibles y BOM
                     linea = linea.replace("\uFEFF", "").replace("\r", "").trim();
                     if (!linea.isEmpty()) {
                         contenido.append(linea).append("\n");

@@ -827,7 +827,7 @@ public class Controller implements ActionListener {
 				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.excepcion.correo"));
 			} catch (InvalidPasswordException ex) {
 				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.excepcion.contrasena"));
-			} catch (InvalidHeightException ex) {
+			}catch (InvalidHeightException ex) {
 				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.excepcion.altura"));
 			} catch (InvalidDoubleException ex) {
 				JOptionPane.showMessageDialog(null, prop.getProperty("bostinder.excepcion.double"));
